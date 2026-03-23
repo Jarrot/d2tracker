@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D2R Stash Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0806;
+    --bg2: #120e0a;
+    --bg3: #1a1410;
+    --bg4: #221c16;
+    --border: #3a2e22;
+    --border2: #52402e;
+    --gold: #c8a96e;
+    --gold2: #e8c97e;
+    --gold3: #f5dfa0;
+    --set: #4aad52;
+    --set-bg: #0d1f0f;
+    --set-border: #2a5c2e;
+    --unique: #a87c3a;
+    --unique-bg: #1f160a;
+    --unique-border: #5c3e1a;
+    --sock: #4a7cad;
+    --sock-bg: #0a0f1f;
+    --sock-border: #1a3a5c;
+    --stored: #666;
+    --equipped: #4aad52;
+    --seeking: #c8a96e;
+    --complete: #a87cad;
+    --complete-bg: #1a0f1f;
+    --danger: #ad4a4a;
+    --text: #d4c4a8;
+    --text2: #8a7a64;
+    --text3: #5a4e3e;
+    --radius: 4px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 16px;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(120,60,20,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(80,40,10,0.06) 0%, transparent 50%);
+  }
+
+  /* Header */
+  header {
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #1a1008 0%, var(--bg) 100%);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .logo {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: .08em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-rune {
+    width: 28px; height: 28px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: var(--gold);
+    opacity: .8;
+  }
+
+  nav { display: flex; gap: 4px; }
+
+  .nav-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: .06em;
+    padding: 6px 14px;
+    background: transparent;
+    color: var(--text2);
+    border: 0.5px solid transparent;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .nav-btn:hover { color: var(--gold); border-color: var(--border); }
+  .nav-btn.active { color: var(--gold); border-color: var(--border2); background: var(--bg3); }
+
+  /* Layout */
+  main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.5rem; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Stats bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-card {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+  }
+  .stat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: .08em;
+    color: var(--text3);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .stat-val { font-size: 22px; color: var(--gold2); font-weight: 600; }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  input[type="text"], select {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: 'Crimson Text', serif;
+    font-size: 15px;
+    padding: 7px 12px;
+    height: 36px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  input[type="text"]:focus, select:focus { border-color: var(--border2); }
+  input[type="text"]::placeholder { color: var(--text3); }
+  select option { background: var(--bg3); }
+
+  #search { flex: 1; min-width: 180px; }
+
+  .btn {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: .06em;
+    padding: 0 16px;
+    height: 36px;
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border2);
+    background: transparent;
+    color: var(--text2);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s;
+  }
+  .btn:hover { color: var(--gold); border-color: var(--gold); }
+  .btn.gold {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(200,169,110,.07);
+  }
+  .btn.gold:hover { background: rgba(200,169,110,.14); }
+  .btn.danger { border-color: var(--danger); color: var(--danger); }
+  .btn.danger:hover { background: rgba(173,74,74,.1); }
+
+  /* Table */
+  .col-head {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1.2fr 100px 30px;
+    gap: 8px;
+    padding: 0 12px 6px;
+    border-bottom: 0.5px solid var(--border);
+    margin-bottom: 6px;
+  }
+  .col-head span {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: .08em;
+    color: var(--text3);
+    text-transform: uppercase;
+  }
+
+  .items-list { display: flex; flex-direction: column; gap: 4px; }
+
+  .item-row {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1.2fr 100px 30px;
+    gap: 8px;
+    align-items: center;
+    padding: 9px 12px;
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color .1s, background .1s;
+    cursor: default;
+  }
+  .item-row:hover { border-color: var(--border2); background: var(--bg3); }
+
+  .item-name {
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color .1s;
+  }
+  .item-name:hover { color: var(--gold2); }
+  .item-name.set { color: var(--set); }
+  .item-name.unique { color: var(--unique); }
+  .item-name.socketed { color: var(--sock); }
+
+  .item-sub {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 1px;
+    font-style: italic;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: .05em;
+    padding: 3px 8px;
+    border-radius: 2px;
+    border: 0.5px solid;
+    text-transform: uppercase;
+  }
+  .tag.set { color: var(--set); background: var(--set-bg); border-color: var(--set-border); }
+  .tag.unique { color: var(--unique); background: var(--unique-bg); border-color: var(--unique-border); }
+  .tag.socketed { color: var(--sock); background: var(--sock-bg); border-color: var(--sock-border); }
+
+  .char-name { font-size: 13px; color: var(--text2); }
+
+  .status-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: .04em;
+    padding: 4px 8px;
+    border-radius: 2px;
+    border: 0.5px solid;
+    cursor: pointer;
+    background: transparent;
+    white-space: nowrap;
+    width: 100px;
+    text-align: center;
+    transition: all .1s;
+  }
+  .status-btn.stored { color: var(--stored); border-color: #444; }
+  .status-btn.stored:hover { border-color: var(--stored); }
+  .status-btn.equipped { color: var(--equipped); border-color: var(--set-border); background: var(--set-bg); }
+  .status-btn.seeking { color: var(--seeking); border-color: var(--unique-border); background: var(--unique-bg); }
+  .status-btn.complete { color: var(--complete); border-color: #3a2a5c; background: var(--complete-bg); }
+
+  .del-btn {
+    background: none; border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0;
+    transition: color .1s;
+  }
+  .del-btn:hover { color: var(--danger); }
+
+  .empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text3);
+    font-style: italic;
+    font-size: 15px;
+    border: 0.5px dashed var(--border);
+    border-radius: var(--radius);
+  }
+
+  /* Modal */
+  .overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.75);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .overlay.open { display: flex; }
+
+  .modal {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    width: min(460px, 92vw);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+    letter-spacing: .06em;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .form-row { margin-bottom: 14px; }
+  .form-row label {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 5px;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%;
+    font-size: 15px;
+    height: auto;
+    padding: 8px 12px;
+  }
+  .form-row textarea {
+    height: 72px;
+    resize: vertical;
+    font-family: 'Crimson Text', serif;
+  }
+
+  .modal-actions {
+    display: flex; gap: 8px;
+    justify-content: flex-end;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  /* Settings page */
+  .settings-section {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .settings-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: .06em;
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .char-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .char-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .char-item label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+  .char-item input {
+    width: 100%;
+    font-size: 14px;
+    padding: 6px 10px;
+    height: 32px;
+  }
+  .char-item.active-slot input { border-color: var(--unique-border); }
+  .char-item.bank-slot input { border-color: var(--border); }
+
+  .type-badge {
+    font-size: 9px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    margin-left: 4px;
+    color: var(--text3);
+  }
+
+  /* Set progress */
+  .set-group-header {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--text3);
+    padding: 8px 12px 4px;
+    margin-top: 6px;
+  }
+
+  /* Divider */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 1.25rem 0 1rem;
+    color: var(--text3);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  /* Notification toast */
+  .toast {
+    position: fixed;
+    bottom: 1.5rem; right: 1.5rem;
+    background: var(--bg3);
+    border: 0.5px solid var(--set-border);
+    color: var(--set);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: .05em;
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    z-index: 300;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all .2s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-rune">⚔</div>
+    D2R Stash Tracker
+  </div>
+  <nav>
+    <button class="nav-btn active" onclick="showPage('items', this)">Stash</button>
+    <button class="nav-btn" onclick="showPage('sets', this)">Set-progress</button>
+    <button class="nav-btn" onclick="showPage('settings', this)">Inställningar</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ITEMS PAGE -->
+  <div class="page active" id="page-items">
+    <div class="stats-bar" id="stats"></div>
+
+    <div class="controls">
+      <input type="text" id="search" placeholder="Sök item, set-namn, karaktär..." oninput="renderItems()">
+      <select id="filter-cat" onchange="renderItems()">
+        <option value="">Alla kategorier</option>
+        <option value="Set">Set-delar</option>
+        <option value="Unique">Unika items</option>
+        <option value="Socketed">Socketed items</option>
+      </select>
+      <select id="filter-char" onchange="renderItems()">
+        <option value="">Alla karaktärer</option>
+      </select>
+      <select id="filter-status" onchange="renderItems()">
+        <option value="">Alla statusar</option>
+        <option value="stored">Sparad</option>
+        <option value="equipped">Utrustad</option>
+        <option value="seeking">Sökes</option>
+        <option value="complete">Komplett</option>
+      </select>
+      <button class="btn gold" onclick="openAdd()">+ Lägg till item</button>
+    </div>
+
+    <div class="col-head">
+      <span>Item</span>
+      <span>Kategori</span>
+      <span>Karaktär</span>
+      <span>Status</span>
+      <span></span>
+    </div>
+    <div class="items-list" id="list"></div>
+  </div>
+
+  <!-- SETS PAGE -->
+  <div class="page" id="page-sets">
+    <div class="section-divider">Set-progress</div>
+    <div id="sets-content"></div>
+  </div>
+
+  <!-- SETTINGS PAGE -->
+  <div class="page" id="page-settings">
+    <div class="settings-section">
+      <div class="settings-title">Karaktärer &amp; bank-slots</div>
+      <p style="font-size:14px;color:var(--text2);margin-bottom:1rem;font-style:italic">
+        Döp om slots fritt. Aktiva karaktärer (1–5) visas med guldkant, bank-slots (6–25) med standard-kant.
+      </p>
+      <div class="char-grid" id="char-grid"></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn gold" onclick="saveChars()">Spara karaktärer</button>
+        <button class="btn" onclick="resetChars()">Återställ standard</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-title">Data</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" onclick="exportData()">Exportera JSON</button>
+        <label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">
+          Importera JSON
+          <input type="file" accept=".json" onchange="importData(event)" style="display:none">
+        </label>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ADD/EDIT MODAL -->
+<div class="overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title" id="modal-title">Lägg till item</div>
+    <div class="form-row">
+      <label>Itemnamn</label>
+      <input type="text" id="f-name" placeholder="t.ex. Shako, Mara's Kaleidoscope...">
+    </div>
+    <div class="form-row">
+      <label>Kategori</label>
+      <select id="f-cat" onchange="toggleSetName()">
+        <option value="Set">Set-del</option>
+        <option value="Unique">Unikt item</option>
+        <option value="Socketed">Socketed item</option>
+      </select>
+    </div>
+    <div class="form-row" id="f-setname-row">
+      <label>Set-namn (t.ex. Tal Rasha's Wrappings)</label>
+      <input type="text" id="f-setname" placeholder="Set-namn...">
+    </div>
+    <div class="form-row">
+      <label>Karaktär / bank-slot</label>
+      <select id="f-char"></select>
+    </div>
+    <div class="form-row">
+      <label>Status</label>
+      <select id="f-status">
+        <option value="stored">Sparad</option>
+        <option value="equipped">Utrustad</option>
+        <option value="seeking">Sökes</option>
+        <option value="complete">Komplett set</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Anteckningar (valfritt)</label>
+      <textarea id="f-notes" placeholder="Socklar, +skills, rolls, etc..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Avbryt</button>
+      <button class="btn gold" onclick="saveItem()">Spara</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let items = [];
+let chars = [];
+let editId = null;
+
+const STATUS_LABEL = { stored:'Sparad', equipped:'Utrustad', seeking:'Sökes', complete:'Komplett' };
+const STATUS_ORDER = ['stored','equipped','seeking','complete'];
+
+async function api(method, path, body) {
+  const r = await fetch(path, {
+    method,
+    headers: body ? { 'Content-Type': 'application/json' } : {},
+    body: body ? JSON.stringify(body) : undefined
+  });
+  return r.json();
+}
+
+async function loadAll() {
+  [items, chars] = await Promise.all([api('GET','/api/items'), api('GET','/api/characters')]);
+  populateCharSelects();
+  renderStats();
+  renderItems();
+  renderSets();
+  renderCharGrid();
+}
+
+function charName(charId) {
+  const c = chars.find(c => c.id == charId || c.name === charId);
+  return c ? c.name : charId;
+}
+
+function populateCharSelects() {
+  const filterSel = document.getElementById('filter-char');
+  const fSel = document.getElementById('f-char');
+  const cur = filterSel.value;
+  filterSel.innerHTML = '<option value="">Alla karaktärer</option>';
+  fSel.innerHTML = '';
+  chars.forEach(c => {
+    const o1 = new Option(c.name, c.name); filterSel.appendChild(o1);
+    const o2 = new Option(c.name, c.name); fSel.appendChild(o2);
+  });
+  filterSel.value = cur || '';
+  if (!fSel.value) fSel.value = chars[0]?.name || '';
+}
+
+function renderStats() {
+  const total = items.length;
+  const sets = items.filter(i => i.cat === 'Set').length;
+  const uniq = items.filter(i => i.cat === 'Unique').length;
+  const sock = items.filter(i => i.cat === 'Socketed').length;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-card"><div class="stat-label">Totalt</div><div class="stat-val">${total}</div></div>
+    <div class="stat-card"><div class="stat-label">Set-delar</div><div class="stat-val">${sets}</div></div>
+    <div class="stat-card"><div class="stat-label">Unika items</div><div class="stat-val">${uniq}</div></div>
+    <div class="stat-card"><div class="stat-label">Socketed</div><div class="stat-val">${sock}</div></div>
+  `;
+}
+
+function renderItems() {
+  const q = (document.getElementById('search').value || '').toLowerCase();
+  const cat = document.getElementById('filter-cat').value;
+  const char = document.getElementById('filter-char').value;
+  const status = document.getElementById('filter-status').value;
+
+  let filtered = items.filter(i => {
+    if (cat && i.cat !== cat) return false;
+    if (char && i.char !== char) return false;
+    if (status && i.status !== status) return false;
+    if (q && !(
+      i.name.toLowerCase().includes(q) ||
+      (i.setname||'').toLowerCase().includes(q) ||
+      (i.char||'').toLowerCase().includes(q) ||
+      (i.notes||'').toLowerCase().includes(q)
+    )) return false;
+    return true;
+  });
+
+  const list = document.getElementById('list');
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty">Inga items matchar sökningen</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(i => {
+    const tagCls = i.cat === 'Set' ? 'set' : i.cat === 'Unique' ? 'unique' : 'socketed';
+    const tagLbl = i.cat === 'Set' ? 'Set' : i.cat === 'Unique' ? 'Unikt' : 'Socketed';
+    const sub = i.cat === 'Set' && i.setname ? `<div class="item-sub">${i.setname}</div>` : '';
+    const notes = i.notes ? `<div class="item-sub">${i.notes}</div>` : '';
+    return `<div class="item-row">
+      <div>
+        <span class="item-name ${tagCls}" onclick="openEdit('${i.id}')">${i.name}</span>
+        ${sub}${notes}
+      </div>
+      <div><span class="tag ${tagCls}">${tagLbl}</span></div>
+      <div class="char-name">${i.char || '—'}</div>
+      <div>
+        <button class="status-btn ${i.status}" onclick="cycleStatus('${i.id}')">
+          ${STATUS_LABEL[i.status] || i.status}
+        </button>
+      </div>
+      <button class="del-btn" onclick="deleteItem('${i.id}')">×</button>
+    </div>`;
+  }).join('');
+}
+
+function renderSets() {
+  const setItems = items.filter(i => i.cat === 'Set' && i.setname);
+  const groups = {};
+  setItems.forEach(i => {
+    if (!groups[i.setname]) groups[i.setname] = [];
+    groups[i.setname].push(i);
+  });
+
+  const content = document.getElementById('sets-content');
+  if (!Object.keys(groups).length) {
+    content.innerHTML = '<div class="empty">Inga set-delar registrerade än</div>';
+    return;
+  }
+
+  content.innerHTML = Object.entries(groups).map(([setname, parts]) => {
+    const complete = parts.filter(p => p.status === 'complete').length;
+    const hasAll = parts.every(p => p.status !== 'seeking');
+    return `<div style="background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:10px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span style="font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--set)">${setname}</span>
+        <span style="font-size:12px;color:var(--text3);font-family:'Cinzel',serif;letter-spacing:.04em">${parts.length} delar ${hasAll ? '· Komplett!' : ''}</span>
+      </div>
+      ${parts.map(p => `
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-top:0.5px solid var(--border)">
+          <span style="font-size:14px">${p.name}</span>
+          <div style="display:flex;gap:10px;align-items:center">
+            <span style="font-size:12px;color:var(--text3)">${p.char}</span>
+            <button class="status-btn ${p.status}" onclick="cycleStatus('${p.id}')" style="width:80px">${STATUS_LABEL[p.status]}</button>
+          </div>
+        </div>`).join('')}
+    </div>`;
+  }).join('');
+}
+
+function renderCharGrid() {
+  const grid = document.getElementById('char-grid');
+  grid.innerHTML = chars.map(c => `
+    <div class="char-item ${c.type === 'active' ? 'active-slot' : 'bank-slot'}">
+      <label>Slot ${c.id}<span class="type-badge">${c.type === 'active' ? '· aktiv' : '· bank'}</span></label>
+      <input type="text" value="${c.name}" data-char-id="${c.id}">
+    </div>
+  `).join('');
+}
+
+async function cycleStatus(id) {
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+  const idx = STATUS_ORDER.indexOf(item.status);
+  item.status = STATUS_ORDER[(idx + 1) % STATUS_ORDER.length];
+  await api('PUT', `/api/items/${id}`, item);
+  renderItems();
+  renderSets();
+  toast('Status uppdaterad');
+}
+
+function openAdd() {
+  editId = null;
+  document.getElementById('modal-title').textContent = 'Lägg till item';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-cat').value = 'Set';
+  document.getElementById('f-setname').value = '';
+  document.getElementById('f-notes').value = '';
+  document.getElementById('f-status').value = 'stored';
+  document.getElementById('f-char').value = chars[0]?.name || '';
+  toggleSetName();
+  document.getElementById('modal').classList.add('open');
+  setTimeout(() => document.getElementById('f-name').focus(), 50);
+}
+
+function openEdit(id) {
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+  editId = id;
+  document.getElementById('modal-title').textContent = 'Redigera item';
+  document.getElementById('f-name').value = item.name;
+  document.getElementById('f-cat').value = item.cat;
+  document.getElementById('f-setname').value = item.setname || '';
+  document.getElementById('f-notes').value = item.notes || '';
+  document.getElementById('f-status').value = item.status;
+  document.getElementById('f-char').value = item.char;
+  toggleSetName();
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function toggleSetName() {
+  document.getElementById('f-setname-row').style.display =
+    document.getElementById('f-cat').value === 'Set' ? 'block' : 'none';
+}
+
+async function saveItem() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) { document.getElementById('f-name').focus(); return; }
+  const payload = {
+    name,
+    cat: document.getElementById('f-cat').value,
+    setname: document.getElementById('f-setname').value.trim(),
+    char: document.getElementById('f-char').value,
+    status: document.getElementById('f-status').value,
+    notes: document.getElementById('f-notes').value.trim()
+  };
+  if (editId) {
+    const updated = await api('PUT', `/api/items/${editId}`, payload);
+    const idx = items.findIndex(i => i.id === editId);
+    items[idx] = updated;
+  } else {
+    const created = await api('POST', '/api/items', payload);
+    items.unshift(created);
+  }
+  closeModal();
+  renderStats();
+  renderItems();
+  renderSets();
+  toast(editId ? 'Item uppdaterat' : 'Item tillagt');
+}
+
+async function deleteItem(id) {
+  if (!confirm('Ta bort item?')) return;
+  await api('DELETE', `/api/items/${id}`);
+  items = items.filter(i => i.id !== id);
+  renderStats();
+  renderItems();
+  renderSets();
+  toast('Item borttaget');
+}
+
+async function saveChars() {
+  const inputs = document.querySelectorAll('#char-grid input[data-char-id]');
+  const updated = chars.map(c => {
+    const input = Array.from(inputs).find(i => i.dataset.charId == c.id);
+    return { ...c, name: input ? input.value.trim() || c.name : c.name };
+  });
+  await api('PUT', '/api/characters', updated);
+  chars = updated;
+  populateCharSelects();
+  renderItems();
+  toast('Karaktärer sparade');
+}
+
+async function resetChars() {
+  if (!confirm('Återställ alla karaktärsnamn till standard?')) return;
+  await api('PUT', '/api/characters', null);
+  await loadAll();
+  toast('Återställt');
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify({ items, chars }, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `d2r-stash-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.items) { for (const item of data.items) await api('POST', '/api/items', item); }
+      if (data.chars) { await api('PUT', '/api/characters', data.chars); }
+      await loadAll();
+      toast('Import klar');
+    } catch { toast('Fel vid import'); }
+  };
+  reader.readAsText(file);
+}
+
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+loadAll();
+</script>
+</body>
+</html>
