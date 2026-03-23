@@ -464,7 +464,7 @@ function handleUniSearch(){
       const cls=first.cat==='Set'?'set':first.cat==='Unique'?'unique':first.cat==='Runeword'?'runeword':'socketed';
       const sub=first.setname?`<div class="ac-item-sub">${first.setname}</div>`:'';
       const slug=first.img||itemSlug(first.name);
-      const imgTag=`<img class="ac-img" src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy">`;
+      const imgTag=`<img class="ac-img" src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy" decoding="async">`;
       const charInfo=itemList.map(i=>`<span class="ac-stash">${i.char||'—'}</span>`).join(' ');
       const isSet=first.cat==='Set'&&first.setname;
       const action=isSet?'viewset':'edit';
@@ -482,7 +482,7 @@ function handleUniSearch(){
       const cls=db.cat==='Set'?'set':db.cat==='Unique'?'unique':db.cat==='Runeword'?'runeword':'socketed';
       const sub=db.setname?`<div class="ac-item-sub">${db.setname}</div>`:'';
       const slug=db.img||itemSlug(db.name);
-      const imgTag=`<img class="ac-img" src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy">`;
+      const imgTag=`<img class="ac-img" src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy" decoding="async">`;
       let extra='';
       if(db.cat==='Runeword'){
         const runes=(db.runes||[]).join(' + ');
@@ -801,7 +801,7 @@ function renderItems(){
     return `<tr>
       <td class="item-td-name">
         <div class="item-name-cell">
-          <img src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy">
+          <img src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy" decoding="async" width="36" height="36">
           <div>
             <div class="item-name-main ${cls}" onclick="openEdit('${i.id}')">${i.name}</div>
             ${sublabel?`<div class="item-name-sub">${sublabel}</div>`:''}

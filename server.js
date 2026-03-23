@@ -45,22 +45,24 @@ function slugify(name) {
   return name.toLowerCase().replace(/'/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
-function fetchUrl(url) {
+function fetchUrl(url, timeoutMs=3000) {
   return new Promise((resolve, reject) => {
     const mod = url.startsWith('https') ? https : http;
-    mod.get(url, { headers: { 'User-Agent': 'D2R-Tracker/1.0' }, timeout: 8000 }, res => {
+    const req = mod.get(url, { headers: { 'User-Agent': 'D2R-Tracker/1.0' } }, res => {
       if (res.statusCode === 301 || res.statusCode === 302) {
-        return fetchUrl(res.headers.location).then(resolve).catch(reject);
+        req.destroy();
+        return fetchUrl(res.headers.location, timeoutMs).then(resolve).catch(reject);
       }
       const chunks = [];
       res.on('data', c => chunks.push(c));
       res.on('end', () => resolve({ status: res.statusCode, body: Buffer.concat(chunks) }));
       res.on('error', reject);
-    }).on('error', reject).on('timeout', () => reject(new Error('timeout')));
+    });
+    req.on('error', reject);
+    req.setTimeout(timeoutMs, () => { req.destroy(); reject(new Error('timeout')); });
   });
 }
 
-// Image sources to try in order
 const IMG_SOURCES = [
   slug => `https://diablo2.io/items/images/unique/${slug}.png`,
   slug => `https://diablo2.io/items/images/set/${slug}.png`,
@@ -69,30 +71,42 @@ const IMG_SOURCES = [
   slug => `https://d2runewizard.com/images/item-icons/${slug}.png`,
 ];
 
-// Image cache endpoint
+// Track slugs with no image to avoid repeated fetches
+const NO_IMAGE_CACHE = new Set();
+
 app.get('/api/itemimg/:slug', async (req, res) => {
   const slug = req.params.slug.replace(/[^a-z0-9-]/g, '');
   fs.mkdirSync(IMG_CACHE_DIR, { recursive: true });
   const cachePath = path.join(IMG_CACHE_DIR, `${slug}.png`);
 
+  // Serve from disk cache
   if (fs.existsSync(cachePath)) {
     res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
     return res.sendFile(cachePath);
   }
 
+  // Already tried and failed
+  if (NO_IMAGE_CACHE.has(slug)) {
+    return res.status(404).end();
+  }
+
+  // Try sources sequentially with short timeout
   for (const srcFn of IMG_SOURCES) {
     try {
-      const result = await fetchUrl(srcFn(slug));
+      const result = await fetchUrl(srcFn(slug), 2500);
       if (result.status === 200 && result.body.length > 500) {
         fs.writeFileSync(cachePath, result.body);
         res.setHeader('Content-Type', 'image/png');
-        res.setHeader('X-Image-Source', srcFn(slug));
+        res.setHeader('Cache-Control', 'public, max-age=86400');
         return res.send(result.body);
       }
     } catch {}
   }
 
-  res.status(404).json({ error: 'not found', slug });
+  // Cache the miss so we don't try again this session
+  NO_IMAGE_CACHE.add(slug);
+  res.status(404).end();
 });
 
 // Items API
