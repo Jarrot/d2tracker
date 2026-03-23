@@ -1,0 +1,1857 @@
+[
+  {
+    "name": "Angelic Mantle",
+    "cat": "Set",
+    "setname": "Angelic Raiment"
+  },
+  {
+    "name": "Angelic Sickle",
+    "cat": "Set",
+    "setname": "Angelic Raiment"
+  },
+  {
+    "name": "Angelic Wings",
+    "cat": "Set",
+    "setname": "Angelic Raiment"
+  },
+  {
+    "name": "Angelic Halo",
+    "cat": "Set",
+    "setname": "Angelic Raiment"
+  },
+  {
+    "name": "Arcanna's Head",
+    "cat": "Set",
+    "setname": "Arcanna's Tricks"
+  },
+  {
+    "name": "Arcanna's Flesh",
+    "cat": "Set",
+    "setname": "Arcanna's Tricks"
+  },
+  {
+    "name": "Arcanna's Deathwand",
+    "cat": "Set",
+    "setname": "Arcanna's Tricks"
+  },
+  {
+    "name": "Arcanna's Sign",
+    "cat": "Set",
+    "setname": "Arcanna's Tricks"
+  },
+  {
+    "name": "Arctic Binding",
+    "cat": "Set",
+    "setname": "Arctic Gear"
+  },
+  {
+    "name": "Arctic Furs",
+    "cat": "Set",
+    "setname": "Arctic Gear"
+  },
+  {
+    "name": "Arctic Horn",
+    "cat": "Set",
+    "setname": "Arctic Gear"
+  },
+  {
+    "name": "Arctic Mitts",
+    "cat": "Set",
+    "setname": "Arctic Gear"
+  },
+  {
+    "name": "Berserker's Hauberk",
+    "cat": "Set",
+    "setname": "Berserker's Arsenal"
+  },
+  {
+    "name": "Berserker's Headgear",
+    "cat": "Set",
+    "setname": "Berserker's Arsenal"
+  },
+  {
+    "name": "Berserker's Hatchet",
+    "cat": "Set",
+    "setname": "Berserker's Arsenal"
+  },
+  {
+    "name": "Cathan's Mesh",
+    "cat": "Set",
+    "setname": "Cathan's Traps"
+  },
+  {
+    "name": "Cathan's Visage",
+    "cat": "Set",
+    "setname": "Cathan's Traps"
+  },
+  {
+    "name": "Cathan's Rule",
+    "cat": "Set",
+    "setname": "Cathan's Traps"
+  },
+  {
+    "name": "Cathan's Sigil",
+    "cat": "Set",
+    "setname": "Cathan's Traps"
+  },
+  {
+    "name": "Cathan's Seal",
+    "cat": "Set",
+    "setname": "Cathan's Traps"
+  },
+  {
+    "name": "Civerb's Cudgel",
+    "cat": "Set",
+    "setname": "Civerb's Vestments"
+  },
+  {
+    "name": "Civerb's Icon",
+    "cat": "Set",
+    "setname": "Civerb's Vestments"
+  },
+  {
+    "name": "Civerb's Ward",
+    "cat": "Set",
+    "setname": "Civerb's Vestments"
+  },
+  {
+    "name": "Cleglaw's Claw",
+    "cat": "Set",
+    "setname": "Cleglaw's Brace"
+  },
+  {
+    "name": "Cleglaw's Pincers",
+    "cat": "Set",
+    "setname": "Cleglaw's Brace"
+  },
+  {
+    "name": "Cleglaw's Tooth",
+    "cat": "Set",
+    "setname": "Cleglaw's Brace"
+  },
+  {
+    "name": "Death's Guard",
+    "cat": "Set",
+    "setname": "Death's Disguise"
+  },
+  {
+    "name": "Death's Hand",
+    "cat": "Set",
+    "setname": "Death's Disguise"
+  },
+  {
+    "name": "Death's Touch",
+    "cat": "Set",
+    "setname": "Death's Disguise"
+  },
+  {
+    "name": "Hsarus' Iron Fist",
+    "cat": "Set",
+    "setname": "Hsarus' Defense"
+  },
+  {
+    "name": "Hsarus' Iron Heel",
+    "cat": "Set",
+    "setname": "Hsarus' Defense"
+  },
+  {
+    "name": "Hsarus' Iron Stay",
+    "cat": "Set",
+    "setname": "Hsarus' Defense"
+  },
+  {
+    "name": "Infernal Cranium",
+    "cat": "Set",
+    "setname": "Infernal Tools"
+  },
+  {
+    "name": "Infernal Sign",
+    "cat": "Set",
+    "setname": "Infernal Tools"
+  },
+  {
+    "name": "Infernal Torch",
+    "cat": "Set",
+    "setname": "Infernal Tools"
+  },
+  {
+    "name": "Iratha's Coil",
+    "cat": "Set",
+    "setname": "Iratha's Finery"
+  },
+  {
+    "name": "Iratha's Collar",
+    "cat": "Set",
+    "setname": "Iratha's Finery"
+  },
+  {
+    "name": "Iratha's Cord",
+    "cat": "Set",
+    "setname": "Iratha's Finery"
+  },
+  {
+    "name": "Iratha's Cuff",
+    "cat": "Set",
+    "setname": "Iratha's Finery"
+  },
+  {
+    "name": "Isenhart's Case",
+    "cat": "Set",
+    "setname": "Isenhart's Armory"
+  },
+  {
+    "name": "Isenhart's Horns",
+    "cat": "Set",
+    "setname": "Isenhart's Armory"
+  },
+  {
+    "name": "Isenhart's Lightbrand",
+    "cat": "Set",
+    "setname": "Isenhart's Armory"
+  },
+  {
+    "name": "Isenhart's Parry",
+    "cat": "Set",
+    "setname": "Isenhart's Armory"
+  },
+  {
+    "name": "Milabrega's Diadem",
+    "cat": "Set",
+    "setname": "Milabrega's Regalia"
+  },
+  {
+    "name": "Milabrega's Orb",
+    "cat": "Set",
+    "setname": "Milabrega's Regalia"
+  },
+  {
+    "name": "Milabrega's Robe",
+    "cat": "Set",
+    "setname": "Milabrega's Regalia"
+  },
+  {
+    "name": "Milabrega's Rod",
+    "cat": "Set",
+    "setname": "Milabrega's Regalia"
+  },
+  {
+    "name": "Sigon's Gage",
+    "cat": "Set",
+    "setname": "Sigon's Complete Steel"
+  },
+  {
+    "name": "Sigon's Guard",
+    "cat": "Set",
+    "setname": "Sigon's Complete Steel"
+  },
+  {
+    "name": "Sigon's Sabot",
+    "cat": "Set",
+    "setname": "Sigon's Complete Steel"
+  },
+  {
+    "name": "Sigon's Shelter",
+    "cat": "Set",
+    "setname": "Sigon's Complete Steel"
+  },
+  {
+    "name": "Sigon's Visor",
+    "cat": "Set",
+    "setname": "Sigon's Complete Steel"
+  },
+  {
+    "name": "Sigon's Wrap",
+    "cat": "Set",
+    "setname": "Sigon's Complete Steel"
+  },
+  {
+    "name": "Tancred's Crowbill",
+    "cat": "Set",
+    "setname": "Tancred's Battlegear"
+  },
+  {
+    "name": "Tancred's Hobnails",
+    "cat": "Set",
+    "setname": "Tancred's Battlegear"
+  },
+  {
+    "name": "Tancred's Skull",
+    "cat": "Set",
+    "setname": "Tancred's Battlegear"
+  },
+  {
+    "name": "Tancred's Spine",
+    "cat": "Set",
+    "setname": "Tancred's Battlegear"
+  },
+  {
+    "name": "Tancred's Weird",
+    "cat": "Set",
+    "setname": "Tancred's Battlegear"
+  },
+  {
+    "name": "Vidala's Ambush",
+    "cat": "Set",
+    "setname": "Vidala's Rig"
+  },
+  {
+    "name": "Vidala's Barb",
+    "cat": "Set",
+    "setname": "Vidala's Rig"
+  },
+  {
+    "name": "Vidala's Fetlock",
+    "cat": "Set",
+    "setname": "Vidala's Rig"
+  },
+  {
+    "name": "Vidala's Snare",
+    "cat": "Set",
+    "setname": "Vidala's Rig"
+  },
+  {
+    "name": "Aldur's Advance",
+    "cat": "Set",
+    "setname": "Aldur's Watchtower"
+  },
+  {
+    "name": "Aldur's Deception",
+    "cat": "Set",
+    "setname": "Aldur's Watchtower"
+  },
+  {
+    "name": "Aldur's Rhythm",
+    "cat": "Set",
+    "setname": "Aldur's Watchtower"
+  },
+  {
+    "name": "Aldur's Stony Gaze",
+    "cat": "Set",
+    "setname": "Aldur's Watchtower"
+  },
+  {
+    "name": "Bul-Kathos' Sacred Charge",
+    "cat": "Set",
+    "setname": "Bul-Kathos' Children"
+  },
+  {
+    "name": "Bul-Kathos' Tribal Guardian",
+    "cat": "Set",
+    "setname": "Bul-Kathos' Children"
+  },
+  {
+    "name": "Cow King's Hooves",
+    "cat": "Set",
+    "setname": "Cow King's Leathers"
+  },
+  {
+    "name": "Cow King's Hide",
+    "cat": "Set",
+    "setname": "Cow King's Leathers"
+  },
+  {
+    "name": "Cow King's Horns",
+    "cat": "Set",
+    "setname": "Cow King's Leathers"
+  },
+  {
+    "name": "Telling of Beads",
+    "cat": "Set",
+    "setname": "The Disciple"
+  },
+  {
+    "name": "Laying of Hands",
+    "cat": "Set",
+    "setname": "The Disciple"
+  },
+  {
+    "name": "Rite of Passage",
+    "cat": "Set",
+    "setname": "The Disciple"
+  },
+  {
+    "name": "Dark Adherent",
+    "cat": "Set",
+    "setname": "The Disciple"
+  },
+  {
+    "name": "Credendum",
+    "cat": "Set",
+    "setname": "The Disciple"
+  },
+  {
+    "name": "Griswold's Redemption",
+    "cat": "Set",
+    "setname": "Griswold's Legacy"
+  },
+  {
+    "name": "Griswold's Heart",
+    "cat": "Set",
+    "setname": "Griswold's Legacy"
+  },
+  {
+    "name": "Griswold's Valor",
+    "cat": "Set",
+    "setname": "Griswold's Legacy"
+  },
+  {
+    "name": "Griswold's Caduceus",
+    "cat": "Set",
+    "setname": "Griswold's Legacy"
+  },
+  {
+    "name": "Haemosu's Adament",
+    "cat": "Set",
+    "setname": "Heaven's Brethren"
+  },
+  {
+    "name": "Dangoon's Teaching",
+    "cat": "Set",
+    "setname": "Heaven's Brethren"
+  },
+  {
+    "name": "Taebaek's Glory",
+    "cat": "Set",
+    "setname": "Heaven's Brethren"
+  },
+  {
+    "name": "Ondal's Almighty",
+    "cat": "Set",
+    "setname": "Heaven's Brethren"
+  },
+  {
+    "name": "Hwanin's Refuge",
+    "cat": "Set",
+    "setname": "Hwanin's Majesty"
+  },
+  {
+    "name": "Hwanin's Splendor",
+    "cat": "Set",
+    "setname": "Hwanin's Majesty"
+  },
+  {
+    "name": "Hwanin's Blessing",
+    "cat": "Set",
+    "setname": "Hwanin's Majesty"
+  },
+  {
+    "name": "Hwanin's Justice",
+    "cat": "Set",
+    "setname": "Hwanin's Majesty"
+  },
+  {
+    "name": "Immortal King's Will",
+    "cat": "Set",
+    "setname": "Immortal King"
+  },
+  {
+    "name": "Immortal King's Soul Cage",
+    "cat": "Set",
+    "setname": "Immortal King"
+  },
+  {
+    "name": "Immortal King's Detail",
+    "cat": "Set",
+    "setname": "Immortal King"
+  },
+  {
+    "name": "Immortal King's Forge",
+    "cat": "Set",
+    "setname": "Immortal King"
+  },
+  {
+    "name": "Immortal King's Pillar",
+    "cat": "Set",
+    "setname": "Immortal King"
+  },
+  {
+    "name": "Immortal King's Stone Crusher",
+    "cat": "Set",
+    "setname": "Immortal King"
+  },
+  {
+    "name": "M'avina's True Sight",
+    "cat": "Set",
+    "setname": "M'avina's Battle Hymn"
+  },
+  {
+    "name": "M'avina's Embrace",
+    "cat": "Set",
+    "setname": "M'avina's Battle Hymn"
+  },
+  {
+    "name": "M'avina's Caster",
+    "cat": "Set",
+    "setname": "M'avina's Battle Hymn"
+  },
+  {
+    "name": "M'avina's Tenet",
+    "cat": "Set",
+    "setname": "M'avina's Battle Hymn"
+  },
+  {
+    "name": "M'avina's Icy Clutch",
+    "cat": "Set",
+    "setname": "M'avina's Battle Hymn"
+  },
+  {
+    "name": "Natalya's Totem",
+    "cat": "Set",
+    "setname": "Natalya's Odium"
+  },
+  {
+    "name": "Natalya's Shadow",
+    "cat": "Set",
+    "setname": "Natalya's Odium"
+  },
+  {
+    "name": "Natalya's Mark",
+    "cat": "Set",
+    "setname": "Natalya's Odium"
+  },
+  {
+    "name": "Natalya's Soul",
+    "cat": "Set",
+    "setname": "Natalya's Odium"
+  },
+  {
+    "name": "Naj's Circlet",
+    "cat": "Set",
+    "setname": "Naj's Ancient Vestige"
+  },
+  {
+    "name": "Naj's Light Plate",
+    "cat": "Set",
+    "setname": "Naj's Ancient Vestige"
+  },
+  {
+    "name": "Naj's Puzzler",
+    "cat": "Set",
+    "setname": "Naj's Ancient Vestige"
+  },
+  {
+    "name": "Guillaume's Face",
+    "cat": "Set",
+    "setname": "Orphan's Call"
+  },
+  {
+    "name": "Wilhelm's Pride",
+    "cat": "Set",
+    "setname": "Orphan's Call"
+  },
+  {
+    "name": "Whitstan's Guard",
+    "cat": "Set",
+    "setname": "Orphan's Call"
+  },
+  {
+    "name": "Magnus' Skin",
+    "cat": "Set",
+    "setname": "Orphan's Call"
+  },
+  {
+    "name": "Sander's Superstition",
+    "cat": "Set",
+    "setname": "Sander's Folly"
+  },
+  {
+    "name": "Sander's Taboo",
+    "cat": "Set",
+    "setname": "Sander's Folly"
+  },
+  {
+    "name": "Sander's Riprap",
+    "cat": "Set",
+    "setname": "Sander's Folly"
+  },
+  {
+    "name": "Sander's Paragon",
+    "cat": "Set",
+    "setname": "Sander's Folly"
+  },
+  {
+    "name": "Sazabi's Cobalt Redeemer",
+    "cat": "Set",
+    "setname": "Sazabi's Grand Tribute"
+  },
+  {
+    "name": "Sazabi's Ghost Liberator",
+    "cat": "Set",
+    "setname": "Sazabi's Grand Tribute"
+  },
+  {
+    "name": "Sazabi's Mental Sheath",
+    "cat": "Set",
+    "setname": "Sazabi's Grand Tribute"
+  },
+  {
+    "name": "Tal Rasha's Fine-Spun Cloth",
+    "cat": "Set",
+    "setname": "Tal Rasha's Wrappings"
+  },
+  {
+    "name": "Tal Rasha's Adjudication",
+    "cat": "Set",
+    "setname": "Tal Rasha's Wrappings"
+  },
+  {
+    "name": "Tal Rasha's Lidless Eye",
+    "cat": "Set",
+    "setname": "Tal Rasha's Wrappings"
+  },
+  {
+    "name": "Tal Rasha's Guardianship",
+    "cat": "Set",
+    "setname": "Tal Rasha's Wrappings"
+  },
+  {
+    "name": "Tal Rasha's Horadric Crest",
+    "cat": "Set",
+    "setname": "Tal Rasha's Wrappings"
+  },
+  {
+    "name": "Trang-Oul's Guise",
+    "cat": "Set",
+    "setname": "Trang-Oul's Avatar"
+  },
+  {
+    "name": "Trang-Oul's Scales",
+    "cat": "Set",
+    "setname": "Trang-Oul's Avatar"
+  },
+  {
+    "name": "Trang-Oul's Wing",
+    "cat": "Set",
+    "setname": "Trang-Oul's Avatar"
+  },
+  {
+    "name": "Trang-Oul's Claws",
+    "cat": "Set",
+    "setname": "Trang-Oul's Avatar"
+  },
+  {
+    "name": "Trang-Oul's Girth",
+    "cat": "Set",
+    "setname": "Trang-Oul's Avatar"
+  },
+  {
+    "name": "Infector's Claw",
+    "cat": "Set",
+    "setname": "Bane's Garments"
+  },
+  {
+    "name": "Lord De Seis' Blade",
+    "cat": "Set",
+    "setname": "Bane's Garments"
+  },
+  {
+    "name": "Grand Vizier's Blade",
+    "cat": "Set",
+    "setname": "Bane's Garments"
+  },
+  {
+    "name": "Horazon's Hold",
+    "cat": "Set",
+    "setname": "Horazon's Splendor"
+  },
+  {
+    "name": "Horazon's Legacy",
+    "cat": "Set",
+    "setname": "Horazon's Splendor"
+  },
+  {
+    "name": "Horazon's Compass",
+    "cat": "Set",
+    "setname": "Horazon's Splendor"
+  },
+  {
+    "name": "Horazon's Hauberk",
+    "cat": "Set",
+    "setname": "Horazon's Splendor"
+  },
+  {
+    "name": "Harlequin Crest",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Vampire Gaze",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Crown of Ages",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Andariel's Visage",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Griffon's Eye",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Delirium",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Flickering Flame",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Nightwing's Veil",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Lore",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Peasant Crown",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Rockstopper",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Jalal's Mane",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Steelclash",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Ondal's Wisdom",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Tal Rasha's Horadric Crest",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Chains of Honor",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Enigma",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Fortitude",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Bramble",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Stone",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Treachery",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Tyraels Might",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Arkaine's Valor",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "The Gladiator's Bane",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Shaftstop",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Skin of the Vipermagi",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Skin of the Flayed One",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Que-Hegan's Wisdom",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Goldskin",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Hawkmail",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Silks of the Victor",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Skullder's Ire",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Guardian Angel",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Duriel's Shell",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Smoke",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Stealth",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Venom",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Stormshield",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Exile",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Sanctuary",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Herald of Zakarum",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Homo",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Spirit",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Rhyme",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Ancient's Pledge",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Lidless Wall",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Whitstan's Guard",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Lance Guard",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Moser's Blessed Circle",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Spike Thorn",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Gerke's Sanctuary",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "The Ward",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Windforce",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Buriza-Do Kyanon",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Lycander's Aim",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Lycander's Flank",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Kuko Shakaku",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Titan's Revenge",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Thunderstroke",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Arioc's Needle",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Bonehew",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Hyperion",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Tomb Reaver",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Grandfather",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Death's Web",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Arm of King Leoric",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Occulus",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Death's Fathom",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Heart of the Oak",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Call to Arms",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Breath of the Dying",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Last Wish",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Grief",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Infinity",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Insight",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Obedience",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Plague",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Crescent Moon",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Black",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "White",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Pattern",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Plague",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Brand",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Faith",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Harmony",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Ice",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Immolation Arrow",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "The Reaper's Toll",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Boneslayer Blade",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "The Cranium Basher",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Lightsabre",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Doombringer",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "The Atlantean",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Blade of Ali Baba",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Wizardspike",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Blackbog's Sharp",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Ghostflame",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Spectral Shard",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Eschuta's Temper",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Mang Song's Lesson",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Suicide Branch",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Ribcracker",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Chromatic Ire",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Woestave",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "The Iron Jang Bong",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Stormspire",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Astreon's Iron Ward",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Cranebeak",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Nord's Tenderizer",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Spike Thorn",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Steel Driver",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Ondal's Almighty",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Stormlash",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Shadow Killer",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Fleshripper",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Djinn Slayer",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Bloodletter",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Coldsteel Eye",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Sandstorm Trek",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Waterwalk",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Infernostride",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Gore Rider",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "War Traveler",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Aldur's Advance",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Silkweave",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Natalya's Soul",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Shadow Dancer",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Laying of Hands",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Dracul's Grasp",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Steelrend",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Soul Drainer",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Bloodfist",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Magefist",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Frostburn",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Chance Guards",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Cleglaw's Pincers",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Lava Gout",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Arachnid Mesh",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Thundergod's Vigor",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "String of Ears",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Goldwrap",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Verdungo's Hearty Cord",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Razortail",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Wilhelm's Pride",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Nosferatu's Coil",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Gloom's Trap",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Stone of Jordan",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Bul-Kathos' Wedding Band",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Raven Frost",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Dwarf Star",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Wisp Projector",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Nagelring",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Manald Heal",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "The Mahim-Oak Curio",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Nature's Peace",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Mara's Kaleidoscope",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "The Cat's Eye",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Metalgrid",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Highlord's Wrath",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Saracen's Chance",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Atma's Scarab",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Mahim-Oak Curio",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "The Rising Sun",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Seraph's Hymn",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Tal Rasha's Adjudication",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Crescent Moon",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Dark Adherent",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Annihilus",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Hellfire Torch",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Gheed's Fortune",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Small Charm",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Grand Charm",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Large Charm",
+    "cat": "Unique",
+    "setname": ""
+  },
+  {
+    "name": "Crystal Sword",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Broad Sword",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Long Sword",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Short Sword",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Scimitar",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Colossus Sword",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Colossus Blade",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Phase Blade",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Monarch",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Berserker Axe",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Cryptic Sword",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Dimensional Blade",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Ettin Axe",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Champion Sword",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Thresher",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Great Poleaxe",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Giant Thresher",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Colossus Voulge",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Cryptic Axe",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "War Pike",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Balrog Spear",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Ghost Spear",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Winged Harpoon",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Archon Staff",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Elder Staff",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Ogre Axe",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Balrog Blade",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Flail",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Knout",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Scourge",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Legend Sword",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Highland Blade",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Archon Plate",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Dusk Shroud",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Mage Plate",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Wyrmhide",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Scarab Husk",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Wire Fleece",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Great Hauberk",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Balrog Skin",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Shadow Plate",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Sacred Armor",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Quilted Armor",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Leather Armor",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Hard Leather Armor",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Shako",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Giant Skull",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Vampire Bone Helm",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Bone Visage",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Corona",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Diadem",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Spired Helm",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Armet",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Griffon Headress",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Monarch",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Hyperion",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Vortex Shield",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Sacred Rondache",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Kurast Shield",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Zakarum Shield",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Ceremonial Shield",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Sacred Targe",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Aegis",
+    "cat": "Socketed",
+    "setname": ""
+  },
+  {
+    "name": "Ward",
+    "cat": "Socketed",
+    "setname": ""
+  }
+]
