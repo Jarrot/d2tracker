@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>D2R Stash Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Cinzel:wght@600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg0: #0d0d0f;
@@ -42,7 +42,7 @@
 body {
   background: var(--bg0);
   color: var(--text);
-  font-family: 'Crimson Text', Georgia, serif;
+  font-family: 'Rajdhani', sans-serif;
   font-size: 16px;
   min-height: 100vh;
   overflow-x: hidden;
@@ -91,7 +91,7 @@ header {
   border: 1px solid var(--border2);
   border-radius: 6px;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: 'Rajdhani', sans-serif;
   font-size: 15px;
   padding: 7px 14px 7px 36px;
   height: 36px;
@@ -327,16 +327,19 @@ main {
 }
 
 .stat-line {
-  font-family: 'Crimson Text', serif;
+  font-family: 'Rajdhani', sans-serif;
   font-size: 13px; color: var(--stat-blue);
   line-height: 1.55;
 }
 .stat-line.fixed { color: var(--text3); }
 
 .char-badge {
-  font-size: 12px; color: var(--text2);
-  display: flex; align-items: center; gap: 5px; justify-content: flex-end;
+  font-size: 13px; color: var(--text);
+  display: flex; align-items: center; gap: 6px; justify-content: flex-end;
+  flex-wrap: wrap;
 }
+.char-badge-name { color: var(--text); }
+.char-badge-cls { color: var(--text3); font-size: 11px; }
 .cls-tag {
   font-family: 'Cinzel', serif; font-size: 9px;
   letter-spacing: .04em; text-transform: uppercase;
@@ -378,48 +381,55 @@ tr:hover .del-btn { opacity: 1; }
   color: var(--text3); font-style: italic; font-size: 15px;
 }
 
-/* ── HOVER TOOLTIP ───────────────────────────────────────────── */
+/* ── HOVER TOOLTIP — Diablo in-game style ────────────────────── */
 .item-tooltip {
   position: fixed; z-index: 500;
-  background: #0a0a0e;
-  border: 1px solid rgba(200,149,42,.4);
-  border-radius: 4px;
-  padding: 14px 16px;
-  min-width: 220px; max-width: 300px;
+  background: linear-gradient(180deg, #0c0810 0%, #080608 100%);
+  border: 1px solid #4a3520;
+  border-top: 2px solid #8a6530;
+  border-bottom: 2px solid #8a6530;
+  padding: 0;
+  min-width: 240px; max-width: 320px;
   pointer-events: none;
   opacity: 0; transition: opacity .15s;
-  box-shadow: 0 8px 32px rgba(0,0,0,.7);
+  box-shadow: 0 0 0 1px #1a1008, 0 8px 40px rgba(0,0,0,.9), inset 0 0 60px rgba(0,0,0,.5);
+  font-family: 'Rajdhani', sans-serif;
 }
 .item-tooltip.visible { opacity: 1; }
+.tt-inner { padding: 12px 16px; }
 .tt-name {
-  font-family: 'Cinzel', serif; font-size: 14px; font-weight: 600;
-  text-align: center; margin-bottom: 2px;
+  font-family: 'Cinzel', serif;
+  font-size: 15px; font-weight: 700;
+  text-align: center; margin-bottom: 0;
+  letter-spacing: .05em; line-height: 1.3;
+  text-shadow: 0 0 12px currentColor;
 }
-.tt-name.u { color: var(--gold2); }
-.tt-name.s { color: var(--set2); }
-.tt-name.r { color: #b89aee; }
-.tt-name.k { color: #8ab4f0; }
+.tt-name.u { color: #c8952a; }
+.tt-name.s { color: #4db862; }
+.tt-name.r { color: #8060c0; }
+.tt-name.k { color: #808080; }
 .tt-base {
-  font-size: 13px; color: var(--text2);
-  text-align: center; margin-bottom: 8px; font-style: italic;
+  font-size: 13px; color: #808080;
+  text-align: center; margin-bottom: 0;
 }
 .tt-divider {
-  height: 1px; background: rgba(200,149,42,.3);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #6a5030 20%, #8a6830 50%, #6a5030 80%, transparent);
   margin: 8px 0;
 }
-.tt-stat {
-  font-size: 13px; color: var(--stat-blue);
-  text-align: center; line-height: 1.6;
-}
-.tt-stat.fixed { color: var(--text2); }
-.tt-stat.roll { color: var(--gold3); }
-.tt-sockets {
-  font-family: 'Cinzel', serif; font-size: 11px;
-  color: #8ab4f0; text-align: center; margin-top: 6px;
-}
+.tt-prop { font-size: 14px; line-height: 1.5; }
+.tt-prop.blue { color: #6060e0; text-align: left; }
+.tt-prop.white { color: #d0c8b8; text-align: left; }
+.tt-prop.gold { color: #c8952a; text-align: left; }
+.tt-prop.gray { color: #808080; text-align: left; }
+.tt-prop.green { color: #00c000; text-align: left; }
+.tt-prop.center { text-align: center; }
+.tt-prop.roll { color: #c8952a; }
+.tt-sockets { color: #6080c0; font-size: 13px; }
 .tt-location {
-  font-size: 11px; color: var(--text3);
-  text-align: center; margin-top: 8px; font-style: italic;
+  font-size: 12px; color: #606060;
+  text-align: center; margin-top: 6px; border-top: 1px solid #2a2018;
+  padding-top: 6px;
 }
 
 /* ── AUTOCOMPLETE ────────────────────────────────────────────── */
@@ -535,7 +545,7 @@ input[type="text"], input[type="number"], select, textarea {
   border: 1px solid var(--border2);
   border-radius: 5px;
   color: var(--text);
-  font-family: 'Crimson Text', serif;
+  font-family: 'Rajdhani', sans-serif;
   font-size: 15px; padding: 8px 12px;
   outline: none; transition: border-color .15s;
 }
@@ -1181,8 +1191,8 @@ function renderItems(){
       <td class="td-stats">${statLines.join('')||'<span style="color:var(--text3);font-size:12px">—</span>'}</td>
       <td class="td-char">
         <div class="char-badge">
-          ${charClsTag(i.char)}
-          <span>${i.char||'—'}</span>
+          <span class="char-badge-name">${i.char||'—'}</span>
+          ${(()=>{const c=chars.find(x=>x.name===i.char);return c&&c.cls?`<span class="char-badge-cls">${c.cls}</span>`:''})()}
         </div>
       </td>
       <td class="td-status">
@@ -1203,28 +1213,63 @@ function showTooltip(e,id){
   const cls=clsCode(item.cat);
   const tt=document.getElementById('item-tooltip');
 
-  let html=`<div class="tt-name ${cls}">${item.name}</div>`;
-  if(item.setname) html+=`<div class="tt-base">${item.setname}</div>`;
-  else if(dbRef&&dbRef.runes) html+=`<div class="tt-base">${dbRef.runes.join(' + ')}</div>`;
-  html+=`<div class="tt-divider"></div>`;
+  let html='<div class="tt-inner">';
 
-  // Show saved rolls first, then DB stats as fallback
-  if(item.stats&&item.stats.length){
-    item.stats.filter(s=>s.name!=='Sockets').forEach(s=>{
-      const label=(s.name||'').replace('%d',s.value||'').replace('%d%%',(s.value||'')+'%');
-      html+=`<div class="tt-stat roll">${label}${s.value&&!label.includes(s.value)?' '+s.value:''}</div>`;
-    });
-    const sock=item.stats.find(s=>s.name==='Sockets'&&s.value);
-    if(sock) html+=`<div class="tt-sockets">⬡ ${sock.value} Sockets</div>`;
-  } else if(dbRef&&dbRef.stats){
-    dbRef.stats.slice(0,6).forEach(s=>{
-      const label=s.fixed?s.name:(s.name||'').replace('%d',s.min!==undefined?`${s.min}${s.variable&&s.max!==s.min?'-'+s.max:''}`:s.value||'');
-      html+=`<div class="tt-stat ${s.fixed||s.variable===false?'fixed':''}">${label}</div>`;
-    });
+  // Item name — colored by type
+  html+=`<div class="tt-name ${cls}">${item.name}</div>`;
+
+  // Base type or set name
+  if(item.setname) html+=`<div class="tt-base">${item.setname}</div>`;
+  else if(item.cat==='Runeword'&&dbRef&&dbRef.base) html+=`<div class="tt-base">${(dbRef.base||[]).join('/')}</div>`;
+
+  html+='<div class="tt-divider"></div>';
+
+  // Base stats (white) — rlvl, req str, etc from DB
+  if(dbRef&&dbRef.rlvl) html+=`<div class="tt-prop white center">Required Level: ${dbRef.rlvl}</div>`;
+
+  // Runeword recipe
+  if(item.cat==='Runeword'&&dbRef&&dbRef.runes){
+    html+=`<div class="tt-divider"></div>`;
+    html+=`<div class="tt-prop gold center">${dbRef.runes.join(' + ')}</div>`;
+    html+=`<div class="tt-prop gray center">${dbRef.sockets} Sockets</div>`;
+    html+=`<div class="tt-divider"></div>`;
   }
 
-  if(item.notes) html+=`<div class="tt-divider"></div><div class="tt-stat fixed">${item.notes}</div>`;
-  html+=`<div class="tt-location">📍 ${item.char||'Ingen karaktär'}</div>`;
+  // Stats — saved rolls take priority, gold colored
+  // DB stats as fallback, blue colored like D2
+  if(item.stats&&item.stats.length){
+    const sockStat=item.stats.find(s=>s.name==='Sockets'&&s.value);
+    item.stats.filter(s=>s.name!=='Sockets'&&s.value).forEach(s=>{
+      const raw=s.name||'';
+      const val=s.value||'';
+      const label=raw.replace('%d',val).replace('%d%%',val+'%').replace(/X$/,val);
+      const display=label.includes(val)?label:`${label}: ${val}`;
+      html+=`<div class="tt-prop blue">${display}</div>`;
+    });
+    if(sockStat) html+=`<div class="tt-divider"></div><div class="tt-prop sockets gray center">Socketed (${sockStat.value})</div>`;
+  } else if(dbRef&&dbRef.stats){
+    // Show DB stats with D2 coloring
+    dbRef.stats.slice(0,8).forEach(s=>{
+      if(s.fixed){
+        html+=`<div class="tt-prop white">${s.name}</div>`;
+      } else if(s.variable===false){
+        const label=(s.name||'').replace('%d',s.min||'').replace('%d%%',(s.min||'')+'%');
+        html+=`<div class="tt-prop blue">${label}</div>`;
+      } else {
+        // Variable stat — show range in gold
+        const base=(s.name||'').replace(/%d%?%?/g,'').trim();
+        const range=s.min!==undefined&&s.max!==undefined&&s.min!==s.max?`${s.min}–${s.max}`:s.min||s.max||'';
+        html+=`<div class="tt-prop blue">${base} <span style="color:#c8952a">(${range})</span></div>`;
+      }
+    });
+    if(dbRef.sockets) html+=`<div class="tt-divider"></div><div class="tt-prop gray center">Can be socketed (${dbRef.sockets.min}–${dbRef.sockets.max})</div>`;
+  }
+
+  if(item.notes){
+    html+=`<div class="tt-divider"></div><div class="tt-prop gray">${item.notes}</div>`;
+  }
+
+  html+=`</div><div class="tt-location">📍 ${item.char||'Ingen karaktär'}</div>`;
 
   tt.innerHTML=html;
   positionTooltip(e,tt);
