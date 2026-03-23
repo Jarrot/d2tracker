@@ -14,33 +14,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/imgcache', express.static(IMG_CACHE_DIR));
 
-const DEFAULT_CHARS = [
-  { id: 1, name: 'Amazon', type: 'active', order: 1 },
-  { id: 2, name: 'Necromancer', type: 'active', order: 2 },
-  { id: 3, name: 'Paladin', type: 'active', order: 3 },
-  { id: 4, name: 'Sorceress', type: 'active', order: 4 },
-  { id: 5, name: 'Barbarian', type: 'active', order: 5 },
-  { id: 6, name: 'Bank-01', type: 'bank', order: 6 },
-  { id: 7, name: 'Bank-02', type: 'bank', order: 7 },
-  { id: 8, name: 'Bank-03', type: 'bank', order: 8 },
-  { id: 9, name: 'Bank-04', type: 'bank', order: 9 },
-  { id: 10, name: 'Bank-05', type: 'bank', order: 10 },
-  { id: 11, name: 'Bank-06', type: 'bank', order: 11 },
-  { id: 12, name: 'Bank-07', type: 'bank', order: 12 },
-  { id: 13, name: 'Bank-08', type: 'bank', order: 13 },
-  { id: 14, name: 'Bank-09', type: 'bank', order: 14 },
-  { id: 15, name: 'Bank-10', type: 'bank', order: 15 },
-  { id: 16, name: 'Bank-11', type: 'bank', order: 16 },
-  { id: 17, name: 'Bank-12', type: 'bank', order: 17 },
-  { id: 18, name: 'Bank-13', type: 'bank', order: 18 },
-  { id: 19, name: 'Bank-14', type: 'bank', order: 19 },
-  { id: 20, name: 'Bank-15', type: 'bank', order: 20 },
-  { id: 21, name: 'Bank-16', type: 'bank', order: 21 },
-  { id: 22, name: 'Bank-17', type: 'bank', order: 22 },
-  { id: 23, name: 'Bank-18', type: 'bank', order: 23 },
-  { id: 24, name: 'Bank-19', type: 'bank', order: 24 },
-  { id: 25, name: 'Bank-20', type: 'bank', order: 25 },
-];
+const DEFAULT_CHARS = [];
 
 function readData() {
   try {
