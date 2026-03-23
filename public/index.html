@@ -150,6 +150,20 @@
   .section-divider{display:flex;align-items:center;gap:10px;margin:1.25rem 0 1rem;color:var(--text3);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;}
   .section-divider::before,.section-divider::after{content:'';flex:1;height:0.5px;background:var(--border);}
 
+
+  .item-img{width:40px;height:40px;object-fit:contain;image-rendering:pixelated;flex-shrink:0;opacity:.9;}
+  .item-img-lg{width:72px;height:72px;object-fit:contain;image-rendering:pixelated;margin-right:12px;}
+  .item-img-sm{width:24px;height:24px;object-fit:contain;image-rendering:pixelated;flex-shrink:0;margin-right:6px;}
+  .modal-item-header{display:flex;align-items:center;}
+  .drag-handle{cursor:grab;color:var(--text3);font-size:16px;padding:0 6px;user-select:none;}
+  .drag-handle:active{cursor:grabbing;}
+  .char-item.drag-over{border-top:2px solid var(--gold);}
+  .set-part-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-top:0.5px solid var(--border);gap:8px;}
+  .set-part-info{flex:1;min-width:0;}
+  .set-part-name{font-size:14px;font-weight:500;}
+  .set-part-stats{font-size:11px;color:var(--text3);margin-top:2px;}
+  .set-part-char{font-size:12px;color:var(--text2);}
+  .ac-img{width:28px;height:28px;object-fit:contain;image-rendering:pixelated;flex-shrink:0;}
   .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg3);border:0.5px solid var(--set-border);color:var(--set);font-family:'Cinzel',serif;font-size:11px;letter-spacing:.05em;padding:10px 16px;border-radius:var(--radius);z-index:300;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none;}
   .toast.show{opacity:1;transform:translateY(0);}
 </style>
@@ -289,6 +303,18 @@
   </div>
 </div>
 
+
+<!-- SET MODAL -->
+<div class="overlay" id="set-modal">
+  <div class="modal" style="width:min(680px,95vw)">
+    <div class="modal-title" id="set-modal-title">Set</div>
+    <div id="set-modal-body"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeSetModal()">Stäng</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -336,38 +362,50 @@ function handleUniSearch(){
 
   let html='';
 
+  // Group stash matches by name for deduplication display
+  const stashByName={};
+  stashMatches.forEach(item=>{
+    if(!stashByName[item.name]) stashByName[item.name]=[];
+    stashByName[item.name].push(item);
+  });
+
   if(stashMatches.length){
     html+=`<div class="ac-section">I din stash (${stashMatches.length})</div>`;
-    stashMatches.forEach(item=>{
-      const cls=item.cat==='Set'?'set':item.cat==='Unique'?'unique':'socketed';
-      const sub=item.setname?`<div class="ac-item-sub">${item.setname}</div>`:'';
-      const statsPrev=item.stats&&item.stats.length?`<div class="ac-item-sub">${item.stats.slice(0,2).map(s=>`${s.name}: ${s.value}`).join(' · ')}</div>`:'';
-      html+=`<div class="ac-item" data-action="edit" data-id="${item.id}">
-        <div><div class="ac-item-name ${cls}">${item.name}</div>${sub}${statsPrev}</div>
-        <div class="ac-item-right">
-          <span class="ac-stash">${item.char}</span>
-          <span class="ac-action-btn">Redigera</span>
-        </div>
+    Object.entries(stashByName).forEach(([name,itemList])=>{
+      const first=itemList[0];
+      const cls=first.cat==='Set'?'set':first.cat==='Unique'?'unique':first.cat==='Runeword'?'runeword':'socketed';
+      const sub=first.setname?`<div class="ac-item-sub">${first.setname}</div>`:'';
+      const slug=first.img||itemSlug(first.name);
+      const imgTag=`<img class="ac-img" src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy">`;
+      const charInfo=itemList.map(i=>`<span class="ac-stash">${i.char||'—'}</span>`).join(' ');
+      const isSet=first.cat==='Set'&&first.setname;
+      const action=isSet?'viewset':'edit';
+      html+=`<div class="ac-item" data-action="${action}" data-id="${first.id}" data-setname="${first.setname||''}">
+        ${imgTag}
+        <div style="flex:1;min-width:0"><div class="ac-item-name ${cls}">${name}</div>${sub}</div>
+        <div class="ac-item-right">${charInfo}<span class="ac-action-btn">${isSet?'Visa set':'Redigera'}</span></div>
       </div>`;
     });
   }
 
   if(dbNew.length){
-    html+=`<div class="ac-section">Lägg till från databas</div>`;
+    html+=`<div class="ac-section">Lägg till</div>`;
     dbNew.forEach(db=>{
       const cls=db.cat==='Set'?'set':db.cat==='Unique'?'unique':db.cat==='Runeword'?'runeword':'socketed';
       const sub=db.setname?`<div class="ac-item-sub">${db.setname}</div>`:'';
+      const slug=db.img||itemSlug(db.name);
+      const imgTag=`<img class="ac-img" src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy">`;
       let extra='';
       if(db.cat==='Runeword'){
         const runes=(db.runes||[]).join(' + ');
         const bases=(db.base||[]).join(', ');
         extra=`<div class="ac-item-sub rw-recipe">${runes} · ${db.sockets}os · ${bases} · Rlvl ${db.rlvl}</div>`;
-        const topStats=(db.stats||[]).slice(0,2).join(' · ');
-        if(topStats) extra+=`<div class="ac-item-sub" style="color:var(--text3);font-size:11px">${topStats}</div>`;
       }
-      html+=`<div class="ac-item" data-action="adddb" data-name="${encodeURIComponent(db.name)}">
-        <div><div class="ac-item-name ${cls}">${db.name}</div>${sub}${extra}</div>
-        <div class="ac-item-right"><span class="ac-action-btn add">+ Lägg till</span></div>
+      const isSet=db.cat==='Set'&&db.setname;
+      html+=`<div class="ac-item" data-action="${isSet?'addset':'adddb'}" data-name="${encodeURIComponent(db.name)}" data-setname="${db.setname||''}">
+        ${imgTag}
+        <div style="flex:1;min-width:0"><div class="ac-item-name ${cls}">${db.name}</div>${sub}${extra}</div>
+        <div class="ac-item-right"><span class="ac-action-btn add">${isSet?'Lägg till set':'+ Lägg till'}</span></div>
       </div>`;
     });
   }
@@ -384,11 +422,19 @@ function handleUniSearch(){
   ac.querySelectorAll('.ac-item[data-action="edit"]').forEach(el=>{
     el.addEventListener('click',()=>{openEdit(el.dataset.id);closeAC();});
   });
+  ac.querySelectorAll('.ac-item[data-action="viewset"]').forEach(el=>{
+    el.addEventListener('click',()=>{openSetModal(el.dataset.setname);closeAC();});
+  });
   ac.querySelectorAll('.ac-item[data-action="adddb"]').forEach(el=>{
     el.addEventListener('click',()=>{
       const name=decodeURIComponent(el.dataset.name);
       const db=d2db.find(d=>d.name===name);
       if(db){openAddFromDB(db);closeAC();}
+    });
+  });
+  ac.querySelectorAll('.ac-item[data-action="addset"]').forEach(el=>{
+    el.addEventListener('click',()=>{
+      openSetModal(el.dataset.setname,true);closeAC();
     });
   });
   document.getElementById('ac-new-custom')?.addEventListener('click',()=>{
@@ -671,11 +717,34 @@ function renderSets(){
 }
 
 function renderCharGrid(){
-  document.getElementById('char-grid').innerHTML=chars.map(c=>`
-    <div class="char-item ${c.type==='active'?'active-slot':'bank-slot'}">
-      <label>Slot ${c.id}<span class="type-badge">${c.type==='active'?'· aktiv':'· bank'}</span></label>
+  const grid=document.getElementById('char-grid');
+  grid.innerHTML=[...chars].sort((a,b)=>(a.order||0)-(b.order||0)).map((c,idx)=>`
+    <div class="char-item ${c.type==='active'?'active-slot':'bank-slot'}" draggable="true" data-char-id="${c.id}" data-order="${c.order||idx+1}">
+      <label><span class="drag-handle" title="Dra för att ändra ordning">⠿</span>Slot ${c.id}<span class="type-badge">${c.type==='active'?'· aktiv':'· bank'}</span></label>
       <input type="text" value="${c.name}" data-char-id="${c.id}">
     </div>`).join('');
+
+  // Drag-and-drop ordering
+  let dragSrc=null;
+  grid.querySelectorAll('.char-item').forEach(el=>{
+    el.addEventListener('dragstart',e=>{dragSrc=el;e.dataTransfer.effectAllowed='move';el.style.opacity='.4';});
+    el.addEventListener('dragend',e=>{el.style.opacity='1';grid.querySelectorAll('.char-item').forEach(r=>r.classList.remove('drag-over'));});
+    el.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='move';el.classList.add('drag-over');});
+    el.addEventListener('dragleave',()=>el.classList.remove('drag-over'));
+    el.addEventListener('drop',e=>{
+      e.preventDefault();el.classList.remove('drag-over');
+      if(dragSrc===el)return;
+      const allItems=[...grid.querySelectorAll('.char-item')];
+      const srcIdx=allItems.indexOf(dragSrc);
+      const dstIdx=allItems.indexOf(el);
+      if(srcIdx<dstIdx)el.after(dragSrc);else el.before(dragSrc);
+      // Update chars order based on new DOM order
+      const newOrder=[...grid.querySelectorAll('.char-item')].map(r=>r.dataset.charId);
+      chars=[...chars].sort((a,b)=>newOrder.indexOf(String(a.id))-newOrder.indexOf(String(b.id)));
+      chars=chars.map((c,i)=>({...c,order:i+1}));
+      populateCharSelects();
+    });
+  });
 }
 
 async function saveChars(){
@@ -708,6 +777,55 @@ function importData(event){
   reader.readAsText(file);
 }
 
+
+function openSetModal(setname, addMode=false){
+  if(!setname)return;
+  const dbParts=d2db.filter(d=>d.cat==='Set'&&d.setname===setname);
+  const stashParts=items.filter(i=>i.cat==='Set'&&i.setname===setname);
+  document.getElementById('set-modal-title').textContent=setname;
+
+  let html='';
+  if(addMode){
+    html+=`<p style="font-size:13px;color:var(--text2);margin-bottom:1rem;font-style:italic">
+      ${dbParts.length} delar i detta set. Lägg till de delar du har:</p>`;
+  } else {
+    const have=stashParts.length, total=dbParts.length;
+    html+=`<div style="font-family:'Cinzel',serif;font-size:11px;color:var(--text3);margin-bottom:1rem;letter-spacing:.05em">
+      ${have}/${total} DELAR HITTADE</div>`;
+  }
+
+  dbParts.forEach(dbPart=>{
+    const stashItem=stashParts.find(s=>s.name===dbPart.name);
+    const cls='set';
+    const slug=dbPart.img||itemSlug(dbPart.name);
+    const topStats=(dbPart.stats||[]).filter(s=>s.variable||s.fixed).slice(0,3)
+      .map(s=>s.fixed?s.name:(s.name||'').replace('%d',`${s.min}${s.min!==s.max?'-'+s.max:''}`))
+      .join(' · ');
+
+    html+=`<div class="set-part-row">
+      <img class="ac-img" src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy" style="margin-right:10px">
+      <div class="set-part-info">
+        <div class="set-part-name" style="color:var(--set)">${dbPart.name}</div>
+        ${topStats?`<div class="set-part-stats">${topStats}</div>`:''}
+        ${stashItem?`<div class="set-part-char">📍 ${stashItem.char} · <span class="status-btn ${stashItem.status}" style="display:inline;border:none;padding:0;font-size:11px">${STATUS_LABEL[stashItem.status]}</span></div>`:'<div class="set-part-stats" style="color:var(--seeking)">Ej i stash</div>'}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
+        ${stashItem
+          ?`<button class="btn" style="height:28px;font-size:10px" onclick="openEdit('${stashItem.id}');closeSetModal()">Redigera</button>`
+          :`<button class="btn gold" style="height:28px;font-size:10px" onclick="openAddFromDB(d2db.find(d=>d.name==='${dbPart.name.replace(/'/g,"\'")}'));closeSetModal()">+ Lägg till</button>`
+        }
+      </div>
+    </div>`;
+  });
+
+  document.getElementById('set-modal-body').innerHTML=html;
+  document.getElementById('set-modal').classList.add('open');
+}
+
+function closeSetModal(){
+  document.getElementById('set-modal').classList.remove('open');
+}
+
 function showPage(name,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
@@ -721,7 +839,8 @@ function toast(msg){
 }
 
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeModal();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeAC();}});
+document.getElementById('set-modal').addEventListener('click',e=>{if(e.target===document.getElementById('set-modal'))closeSetModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeSetModal();closeAC();}});
 
 loadAll();
 </script>
