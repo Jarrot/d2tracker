@@ -2,6 +2,8 @@
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>D2R Stash Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -382,14 +384,23 @@ async function api(method,path,body){
 }
 
 async function loadAll(){
-  [items,chars,d2db]=await Promise.all([
-    api('GET','/api/items'),
-    api('GET','/api/characters'),
-    fetch('/d2db.json').then(r=>r.json())
-  ]);
-  populateCharSelects();renderStats();renderItems();renderSets();renderCharGrid();
-  // Enter key on new char name input
-  document.getElementById('new-char-name').addEventListener('keydown',e=>{if(e.key==='Enter')addChar();});
+  try {
+    [items,chars,d2db]=await Promise.all([
+      api('GET','/api/items'),
+      api('GET','/api/characters'),
+      fetch('/d2db.json').then(r=>r.json())
+    ]);
+  } catch(e) {
+    console.error('loadAll error',e);
+    items=items||[];chars=chars||[];d2db=d2db||[];
+  }
+  populateCharSelects();
+  renderStats();
+  renderItems();
+  renderSets();
+  renderCharGrid();
+  const ncn=document.getElementById('new-char-name');
+  if(ncn) ncn.addEventListener('keydown',e=>{if(e.key==='Enter')addChar();});
 }
 
 function populateCharSelects(){
@@ -413,6 +424,7 @@ function handleUniSearch(){
   const ac=document.getElementById('autocomplete');
   acFocusIdx=-1;
   if(q.length<2){ac.style.display='none';return;}
+  if(!d2db||!d2db.length){ac.style.display='none';return;}
 
   const stashMatches=items.filter(i=>i.name.toLowerCase().includes(q));
   const dbMatches=d2db.filter(i=>i.name.toLowerCase().includes(q));
