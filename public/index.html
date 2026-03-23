@@ -3,366 +3,989 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>D2R Stash Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:#0a0806;--bg2:#120e0a;--bg3:#1a1410;--bg4:#221c16;
-    --border:#3a2e22;--border2:#52402e;
-    --gold:#c8a96e;--gold2:#e8c97e;--gold3:#f5dfa0;
-    --set:#4aad52;--set-bg:#0d1f0f;--set-border:#2a5c2e;
-    --unique:#c8a96e;--unique-bg:#1f160a;--unique-border:#5c3e1a;
-    --sock:#4a7cad;--sock-bg:#0a0f1f;--sock-border:#1a3a5c;
-    --stored:#666;--equipped:#4aad52;--seeking:#c8a96e;--complete:#a87cad;
-    --complete-bg:#1a0f1f;--danger:#ad4a4a;
-    --text:#d4c4a8;--text2:#8a7a64;--text3:#5a4e3e;
-    --radius:4px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--text);font-family:'Crimson Text',Georgia,serif;font-size:16px;min-height:100vh;}
+:root {
+  --bg0: #0d0d0f;
+  --bg1: #13131a;
+  --bg2: #1a1a24;
+  --bg3: #20202e;
+  --bg4: #272736;
+  --border: rgba(255,255,255,.07);
+  --border2: rgba(255,255,255,.13);
+  --border3: rgba(255,255,255,.22);
+  --accent: #3d8ef0;
+  --accent2: #5aa3f5;
+  --gold: #c8952a;
+  --gold2: #e8b84b;
+  --gold3: #f5d070;
+  --set: #4db862;
+  --set2: #69d47e;
+  --unique: #c8952a;
+  --sock: #5b8fd4;
+  --rune: #9b6fd4;
+  --stat-blue: #7eb0f0;
+  --stat-blue2: #a8ccf8;
+  --text: #e8e0d0;
+  --text2: #9090a8;
+  --text3: #555568;
+  --danger: #e05050;
+  --sidebar-w: 200px;
+  --header-h: 52px;
+}
 
-  header{border-bottom:1px solid var(--border);background:linear-gradient(180deg,#1a1008 0%,var(--bg) 100%);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;}
-  .logo{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:var(--gold);letter-spacing:.08em;display:flex;align-items:center;gap:10px;}
-  .logo-rune{width:28px;height:28px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--gold);opacity:.8;}
-  nav{display:flex;gap:4px;}
-  .nav-btn{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;padding:6px 14px;background:transparent;color:var(--text2);border:0.5px solid transparent;border-radius:var(--radius);cursor:pointer;transition:all .15s;}
-  .nav-btn:hover{color:var(--gold);border-color:var(--border);}
-  .nav-btn.active{color:var(--gold);border-color:var(--border2);background:var(--bg3);}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  main{max-width:1100px;margin:0 auto;padding:1.5rem;}
-  .page{display:none;}
-  .page.active{display:block;}
+body {
+  background: var(--bg0);
+  color: var(--text);
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 16px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-  .universal-search{position:relative;margin-bottom:1.5rem;}
-  .universal-search input{width:100%;font-family:'Crimson Text',serif;font-size:17px;padding:12px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);outline:none;transition:border-color .15s;}
-  .universal-search input:focus{border-color:var(--gold);}
-  .universal-search input::placeholder{color:var(--text3);font-style:italic;}
-  .search-hint{font-size:12px;color:var(--text3);margin-top:6px;font-style:italic;padding-left:2px;}
+/* ── SCROLLBAR ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg1); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border3); }
 
-  .autocomplete{position:absolute;top:100%;left:0;right:0;z-index:100;background:var(--bg3);border:1px solid var(--border2);border-top:none;border-radius:0 0 var(--radius) var(--radius);max-height:340px;overflow-y:auto;}
-  .ac-section{padding:6px 12px 4px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);border-top:0.5px solid var(--border);margin-top:4px;}
-  .ac-section:first-child{border-top:none;margin-top:0;}
-  .ac-item{padding:8px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;transition:background .1s;}
-  .ac-item:hover,.ac-item.focused{background:var(--bg4);}
-  .ac-item-name{font-size:14px;}
-  .ac-item-name.set{color:var(--set);}
-  .ac-item-name.unique{color:var(--unique);}
-  .ac-item-name.socketed{color:var(--sock);}
-  .ac-item-name.runeword{color:#b89050;}
-  .rw-recipe{color:#b89050!important;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.03em;}
-  .ac-item-sub{font-size:12px;color:var(--text3);font-style:italic;}
-  .ac-item-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
-  .ac-stash{font-size:12px;color:var(--gold);font-family:'Cinzel',serif;}
-  .ac-action-btn{font-family:'Cinzel',serif;font-size:10px;padding:3px 10px;border:0.5px solid var(--border2);color:var(--text2);background:transparent;border-radius:2px;cursor:pointer;transition:all .1s;}
-  .ac-action-btn:hover{border-color:var(--gold);color:var(--gold);}
-  .ac-action-btn.add{border-color:var(--set-border);color:var(--set);background:var(--set-bg);}
-  .ac-new{padding:10px 14px;display:flex;align-items:center;gap:10px;border-top:0.5px solid var(--border);cursor:pointer;transition:background .1s;}
-  .ac-new:hover{background:var(--bg4);}
-  .ac-new-label{font-size:14px;color:var(--text2);font-style:italic;}
-  .ac-new-tag{font-family:'Cinzel',serif;font-size:10px;padding:3px 10px;border:0.5px solid var(--border2);color:var(--text2);border-radius:2px;}
+/* ── HEADER ─────────────────────────────────────────────────── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 1.5rem;
+  gap: 1rem;
+}
 
-  .stats-bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.5rem;}
-  .stat-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:12px 16px;}
-  .stat-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;color:var(--text3);margin-bottom:4px;text-transform:uppercase;}
-  .stat-val{font-size:22px;color:var(--gold2);font-weight:600;}
+.logo {
+  font-family: 'Cinzel', serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--gold2);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap;
+}
+.logo-icon {
+  width: 26px; height: 26px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: var(--gold);
+}
 
-  .filters{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;}
-  input[type="text"],select{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Crimson Text',serif;font-size:15px;padding:7px 12px;height:36px;outline:none;transition:border-color .15s;}
-  input[type="text"]:focus,select:focus{border-color:var(--border2);}
-  input[type="text"]::placeholder{color:var(--text3);}
-  select option{background:var(--bg3);}
+.header-search {
+  flex: 1; max-width: 500px; position: relative;
+}
+.header-search input {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'Crimson Text', serif;
+  font-size: 15px;
+  padding: 7px 14px 7px 36px;
+  height: 36px;
+  outline: none;
+  transition: border-color .15s;
+}
+.header-search input:focus { border-color: var(--accent); }
+.header-search input::placeholder { color: var(--text3); }
+.search-icon {
+  position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+  color: var(--text3); font-size: 14px; pointer-events: none;
+}
 
-  .btn{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;padding:0 16px;height:36px;border-radius:var(--radius);border:0.5px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;white-space:nowrap;transition:all .15s;}
-  .btn:hover{color:var(--gold);border-color:var(--gold);}
-  .btn.gold{border-color:var(--gold);color:var(--gold);background:rgba(200,169,110,.07);}
-  .btn.gold:hover{background:rgba(200,169,110,.14);}
-  .btn.danger{border-color:var(--danger);color:var(--danger);}
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.hbtn {
+  font-family: 'Cinzel', serif; font-size: 10px;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 6px 12px; height: 32px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  color: var(--text2); cursor: pointer;
+  transition: all .15s; white-space: nowrap;
+}
+.hbtn:hover { color: var(--text); border-color: var(--border3); }
+.hbtn.primary { border-color: var(--accent); color: var(--accent2); }
+.hbtn.primary:hover { background: rgba(61,142,240,.12); }
 
-  /* Maxroll-style table */
-  .item-table{width:100%;border-collapse:collapse;}
-  .item-table thead tr{border-bottom:1px solid var(--border2);}
-  .item-table thead th{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;color:var(--text3);text-transform:uppercase;padding:6px 10px;text-align:left;font-weight:400;}
-  .item-table thead th.th-stats{text-align:center;}
-  .item-table thead th.th-right{text-align:right;}
-  .item-table tbody tr{border-bottom:0.5px solid var(--border);transition:background .1s;cursor:default;}
-  .item-table tbody tr:hover{background:var(--bg3);}
-  .item-td-name{padding:10px 10px 10px 8px;width:38%;}
-  .item-td-lvl{padding:10px;width:60px;text-align:center;font-size:13px;color:var(--text2);}
-  .item-td-stats{padding:10px 12px;text-align:center;}
-  .item-td-char{padding:10px;width:130px;text-align:right;}
-  .item-td-act{padding:10px 8px 10px 0;width:110px;text-align:right;}
-  .item-name-cell{display:flex;align-items:center;gap:10px;}
-  .item-name-cell img{width:36px;height:36px;object-fit:contain;image-rendering:pixelated;flex-shrink:0;}
-  .item-name-main{font-size:14px;font-weight:600;cursor:pointer;transition:color .1s;line-height:1.3;}
-  .item-name-main:hover{color:var(--gold2);}
-  .item-name-main.set{color:var(--set);}
-  .item-name-main.unique{color:var(--unique);}
-  .item-name-main.runeword{color:#b89050;}
-  .item-name-main.socketed{color:var(--sock);}
-  .item-name-sub{font-size:11px;color:var(--text3);margin-top:1px;}
-  .item-stat-line{font-size:12px;color:#6a7fc1;line-height:1.6;}
-  .item-stat-line.fixed-stat{color:var(--text3);}
-  .item-char-badge{font-size:11px;color:var(--text2);}
-  .class-badge{display:inline-block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.05em;padding:2px 6px;border-radius:2px;border:0.5px solid;text-transform:uppercase;margin-left:4px;}
-  .class-amazon{color:#7aad4a;border-color:#2a5c1a;background:#0d1f08;}
-  .class-necromancer{color:#9a7cad;border-color:#3a2a5c;background:#100a1f;}
-  .class-paladin{color:#adad4a;border-color:#5c5c1a;background:#1f1f08;}
-  .class-sorceress{color:#4aaaad;border-color:#1a5c5c;background:#081f1f;}
-  .class-barbarian{color:#ad4a4a;border-color:#5c1a1a;background:#1f0808;}
-  .class-druid{color:#ad7a4a;border-color:#5c3a1a;background:#1f1008;}
-  .class-assassin{color:#7a7aad;border-color:#2a2a5c;background:#08081f;}
-  .class-warlock{color:#c87aad;border-color:#5c2a4c;background:#1f0818;}
-  .class-bank{color:#666;border-color:#444;background:transparent;}
-  .item-name{font-size:15px;font-weight:600;cursor:pointer;transition:color .1s;}
-  .item-name:hover{color:var(--gold2);}
-  .item-name.set{color:var(--set);}
-  .item-name.unique{color:var(--unique);}
-  .item-name.socketed{color:var(--sock);}
-  .item-sub{font-size:12px;color:var(--text3);margin-top:1px;font-style:italic;}
-  .item-stats-preview{font-size:11px;color:var(--text3);margin-top:2px;}
-  .tag{display:inline-block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:3px 8px;border-radius:2px;border:0.5px solid;text-transform:uppercase;}
-  .tag.set{color:var(--set);background:var(--set-bg);border-color:var(--set-border);}
-  .tag.unique{color:var(--unique);background:var(--unique-bg);border-color:var(--unique-border);}
-  .tag.socketed{color:var(--sock);background:var(--sock-bg);border-color:var(--sock-border);}
-  .char-name{font-size:13px;color:var(--text2);}
-  .status-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.04em;padding:4px 8px;border-radius:2px;border:0.5px solid;cursor:pointer;background:transparent;white-space:nowrap;width:100px;text-align:center;transition:all .1s;}
-  .status-btn.stored{color:var(--stored);border-color:#444;}
-  .status-btn.equipped{color:var(--equipped);border-color:var(--set-border);background:var(--set-bg);}
-  .status-btn.seeking{color:var(--seeking);border-color:var(--unique-border);background:var(--unique-bg);}
-  .status-btn.complete{color:var(--complete);border-color:#3a2a5c;background:var(--complete-bg);}
-  .del-btn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:18px;line-height:1;padding:0;transition:color .1s;}
-  .del-btn:hover{color:var(--danger);}
-  .empty{text-align:center;padding:3rem;color:var(--text3);font-style:italic;font-size:15px;border:0.5px dashed var(--border);border-radius:var(--radius);}
+/* ── LAYOUT ─────────────────────────────────────────────────── */
+.layout {
+  display: flex;
+  padding-top: var(--header-h);
+  min-height: 100vh;
+}
 
-  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;}
-  .overlay.open{display:flex;}
-  .modal{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:1.75rem;width:min(500px,92vw);max-height:90vh;overflow-y:auto;}
-  .modal-title{font-family:'Cinzel',serif;font-size:15px;font-weight:600;color:var(--gold);margin-bottom:1.25rem;letter-spacing:.06em;padding-bottom:10px;border-bottom:0.5px solid var(--border);}
-  .modal-item-header{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:10px 14px;margin-bottom:1rem;}
-  .modal-item-name{font-size:16px;font-weight:600;}
-  .modal-item-name.set{color:var(--set);}
-  .modal-item-name.unique{color:var(--unique);}
-  .modal-item-name.socketed{color:var(--sock);}
-  .modal-item-set{font-size:12px;color:var(--text3);font-style:italic;margin-top:2px;}
-  .form-row{margin-bottom:14px;}
-  .form-row label{display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);margin-bottom:5px;}
-  .form-row input,.form-row select,.form-row textarea{width:100%;font-size:15px;height:auto;padding:8px 12px;}
-  .form-row textarea{height:72px;resize:vertical;font-family:'Crimson Text',serif;}
+/* ── SIDEBAR ─────────────────────────────────────────────────── */
+aside {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--bg1);
+  border-right: 1px solid var(--border);
+  padding: 1.25rem 0;
+  position: fixed;
+  top: var(--header-h);
+  bottom: 0;
+  overflow-y: auto;
+}
 
-  .stats-editor{border:0.5px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:14px;}
-  .stats-editor-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;}
-  .stat-line{display:flex;align-items:baseline;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
-  .stat-fixed{font-size:13px;color:var(--text3);font-style:italic;}
-  .stat-label{font-size:13px;color:var(--text);}
-  .stat-range{font-size:12px;color:var(--text3);}
-  .stat-input{font-size:13px;padding:3px 7px;height:26px;width:64px;text-align:center;}
-  .stat-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
-  .stat-name-input{font-size:13px;padding:5px 8px;height:30px;flex:1;}
-  .stat-val-input{font-size:13px;padding:5px 8px;height:30px;width:90px;}
-  .stat-remove{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:0;line-height:1;}
-  .stat-remove:hover{color:var(--danger);}
-  .add-stat-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:5px 12px;border:0.5px dashed var(--border2);color:var(--text2);background:transparent;border-radius:2px;cursor:pointer;margin-top:8px;width:100%;}
-  .add-stat-btn:hover{border-color:var(--gold);color:var(--gold);}
-  .sockets-line{display:flex;align-items:baseline;gap:6px;margin-bottom:6px;padding-top:6px;border-top:0.5px solid var(--border);}
-  .sockets-label{font-size:13px;color:var(--gold);}
+.sidebar-section { margin-bottom: .25rem; }
 
-  .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem;padding-top:1rem;border-top:0.5px solid var(--border);}
+.sidebar-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text3);
+  padding: 6px 16px 4px;
+  display: flex; align-items: center; gap: 6px;
+}
+.sidebar-label::before {
+  content: '';
+  display: block; width: 3px; height: 10px;
+  border-radius: 2px;
+}
+.sidebar-label.lbl-all::before { background: var(--text3); }
+.sidebar-label.lbl-unique::before { background: var(--unique); }
+.sidebar-label.lbl-set::before { background: var(--set); }
+.sidebar-label.lbl-rune::before { background: var(--rune); }
+.sidebar-label.lbl-sock::before { background: var(--sock); }
+.sidebar-label.lbl-settings::before { background: var(--text3); }
 
-  .settings-section{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;}
-  .settings-title{font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.06em;margin-bottom:1rem;padding-bottom:8px;border-bottom:0.5px solid var(--border);}
-  .char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:1rem;}
-  .char-item{display:flex;flex-direction:column;gap:4px;}
-  .char-item label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);}
-  .char-item input{width:100%;font-size:14px;padding:6px 10px;height:32px;}
-  .char-item.active-slot input{border-color:var(--unique-border);}
-  .type-badge{font-size:9px;font-family:'Cinzel',serif;letter-spacing:.05em;text-transform:uppercase;margin-left:4px;color:var(--text3);}
-  .section-divider{display:flex;align-items:center;gap:10px;margin:1.25rem 0 1rem;color:var(--text3);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;}
-  .section-divider::before,.section-divider::after{content:'';flex:1;height:0.5px;background:var(--border);}
+.sidebar-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 16px 7px 22px;
+  font-size: 13px; color: var(--text2);
+  cursor: pointer; transition: all .12s;
+  border-left: 2px solid transparent;
+  user-select: none;
+}
+.sidebar-item:hover { color: var(--text); background: var(--bg2); }
+.sidebar-item.active {
+  color: var(--text);
+  background: var(--bg2);
+}
+.sidebar-item.active.cat-all { border-color: var(--accent); color: var(--accent2); }
+.sidebar-item.active.cat-unique { border-color: var(--unique); color: var(--gold2); }
+.sidebar-item.active.cat-set { border-color: var(--set); color: var(--set2); }
+.sidebar-item.active.cat-rune { border-color: var(--rune); color: #b89aee; }
+.sidebar-item.active.cat-sock { border-color: var(--sock); color: #8ab4f0; }
+.sidebar-item.active.cat-seeking { border-color: var(--danger); color: #f08080; }
 
+.sidebar-count {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px; color: var(--text3);
+  background: var(--bg3);
+  padding: 1px 6px; border-radius: 10px;
+}
 
-  .item-img{width:40px;height:40px;object-fit:contain;image-rendering:pixelated;flex-shrink:0;opacity:.9;}
-  .item-img-lg{width:72px;height:72px;object-fit:contain;image-rendering:pixelated;margin-right:12px;}
-  .item-img-sm{width:24px;height:24px;object-fit:contain;image-rendering:pixelated;flex-shrink:0;margin-right:6px;}
-  .modal-item-header{display:flex;align-items:center;}
-  .drag-handle{cursor:grab;color:var(--text3);font-size:16px;padding:0 6px;user-select:none;}
-  .drag-handle:active{cursor:grabbing;}
-  .char-item.drag-over{border-top:2px solid var(--gold);}
-  .set-part-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-top:0.5px solid var(--border);gap:8px;}
-  .set-part-info{flex:1;min-width:0;}
-  .set-part-name{font-size:14px;font-weight:500;}
-  .set-part-stats{font-size:11px;color:var(--text3);margin-top:2px;}
-  .set-part-char{font-size:12px;color:var(--text2);}
-  .ac-img{width:28px;height:28px;object-fit:contain;image-rendering:pixelated;flex-shrink:0;}
-  .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg3);border:0.5px solid var(--set-border);color:var(--set);font-family:'Cinzel',serif;font-size:11px;letter-spacing:.05em;padding:10px 16px;border-radius:var(--radius);z-index:300;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none;}
-  .toast.show{opacity:1;transform:translateY(0);}
+.sidebar-divider {
+  height: 1px; background: var(--border);
+  margin: .75rem 16px;
+}
+
+/* ── MAIN CONTENT ────────────────────────────────────────────── */
+main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: 1.5rem;
+  min-width: 0;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── PAGE HEADER ─────────────────────────────────────────────── */
+.page-header {
+  display: flex; align-items: center;
+  gap: 10px; margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 18px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text);
+  display: flex; align-items: center; gap: 10px;
+}
+.page-title::before {
+  content: '';
+  display: block; width: 4px; height: 20px;
+  background: var(--accent); border-radius: 2px;
+}
+
+/* ── STAT CARDS ──────────────────────────────────────────────── */
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px; margin-bottom: 1.5rem;
+}
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  transition: border-color .15s;
+}
+.stat-card:hover { border-color: var(--border2); }
+.stat-card-label {
+  font-family: 'Cinzel', serif;
+  font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 6px;
+}
+.stat-card-val {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 24px; color: var(--text);
+}
+.stat-card-val.c-unique { color: var(--gold2); }
+.stat-card-val.c-set { color: var(--set2); }
+.stat-card-val.c-sock { color: #8ab4f0; }
+
+/* ── ITEM TABLE ──────────────────────────────────────────────── */
+.table-wrap {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.item-table {
+  width: 100%; border-collapse: collapse;
+}
+
+.item-table thead tr {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border2);
+}
+.item-table thead th {
+  font-family: 'Cinzel', serif;
+  font-size: 10px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--text3);
+  padding: 10px 14px; text-align: left;
+  font-weight: 500; white-space: nowrap;
+}
+.item-table thead th.c { text-align: center; }
+.item-table thead th.r { text-align: right; }
+
+.item-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .1s;
+  position: relative;
+}
+.item-table tbody tr:last-child { border-bottom: none; }
+.item-table tbody tr:hover { background: var(--bg2); }
+
+.td-name { padding: 10px 14px; }
+.td-lvl { padding: 10px 14px; text-align: center; width: 60px; }
+.td-stats { padding: 10px 20px; text-align: center; }
+.td-char { padding: 10px 14px; text-align: right; width: 160px; }
+.td-status { padding: 10px 10px; text-align: right; width: 110px; }
+.td-act { padding: 10px 14px 10px 4px; text-align: right; width: 36px; }
+
+.item-name-wrap { display: flex; align-items: center; gap: 10px; }
+.item-icon-placeholder {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: var(--bg3); border-radius: 4px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700;
+}
+.item-icon-placeholder.u { color: var(--gold); border-color: rgba(200,149,42,.3); background: rgba(200,149,42,.06); }
+.item-icon-placeholder.s { color: var(--set); border-color: rgba(77,184,98,.3); background: rgba(77,184,98,.06); }
+.item-icon-placeholder.r { color: var(--rune); border-color: rgba(155,111,212,.3); background: rgba(155,111,212,.06); }
+.item-icon-placeholder.k { color: var(--sock); border-color: rgba(91,143,212,.3); background: rgba(91,143,212,.06); }
+
+.item-name-info { min-width: 0; }
+.item-name-main {
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: color .1s;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: block;
+}
+.item-name-main:hover { color: var(--gold3); }
+.item-name-main.u { color: var(--gold2); }
+.item-name-main.s { color: var(--set2); }
+.item-name-main.r { color: #b89aee; }
+.item-name-main.k { color: #8ab4f0; }
+.item-name-sub { font-size: 11px; color: var(--text3); margin-top: 1px; font-style: italic; }
+
+.rlvl-val {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px; color: var(--text2);
+}
+
+.stat-line {
+  font-family: 'Crimson Text', serif;
+  font-size: 13px; color: var(--stat-blue);
+  line-height: 1.55;
+}
+.stat-line.fixed { color: var(--text3); }
+
+.char-badge {
+  font-size: 12px; color: var(--text2);
+  display: flex; align-items: center; gap: 5px; justify-content: flex-end;
+}
+.cls-tag {
+  font-family: 'Cinzel', serif; font-size: 9px;
+  letter-spacing: .04em; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 3px; border: 1px solid;
+}
+.cls-amazon { color: #7aad4a; border-color: rgba(122,173,74,.3); background: rgba(122,173,74,.08); }
+.cls-barbarian { color: #e07070; border-color: rgba(224,112,112,.3); background: rgba(224,112,112,.08); }
+.cls-paladin { color: #e0d070; border-color: rgba(224,208,112,.3); background: rgba(224,208,112,.08); }
+.cls-sorceress { color: #70c0e0; border-color: rgba(112,192,224,.3); background: rgba(112,192,224,.08); }
+.cls-necromancer { color: #b070e0; border-color: rgba(176,112,224,.3); background: rgba(176,112,224,.08); }
+.cls-druid { color: #e0a070; border-color: rgba(224,160,112,.3); background: rgba(224,160,112,.08); }
+.cls-assassin { color: #9090e0; border-color: rgba(144,144,224,.3); background: rgba(144,144,224,.08); }
+.cls-warlock { color: #e070c0; border-color: rgba(224,112,192,.3); background: rgba(224,112,192,.08); }
+.cls-bank { color: var(--text3); border-color: var(--border); }
+
+.status-pill {
+  font-family: 'Cinzel', serif; font-size: 10px;
+  letter-spacing: .04em; text-transform: uppercase;
+  padding: 4px 8px; border-radius: 3px; border: 1px solid;
+  cursor: pointer; transition: all .12s;
+  white-space: nowrap; display: inline-block;
+}
+.status-pill.stored { color: var(--text3); border-color: var(--border); }
+.status-pill.stored:hover { border-color: var(--border2); color: var(--text2); }
+.status-pill.equipped { color: var(--set2); border-color: rgba(77,184,98,.3); background: rgba(77,184,98,.06); }
+.status-pill.seeking { color: var(--gold2); border-color: rgba(200,149,42,.3); background: rgba(200,149,42,.06); }
+.status-pill.complete { color: #b89aee; border-color: rgba(155,111,212,.3); background: rgba(155,111,212,.06); }
+
+.del-btn {
+  background: none; border: none; color: var(--text3);
+  cursor: pointer; font-size: 16px; line-height: 1;
+  padding: 4px; transition: color .12s; opacity: 0;
+}
+tr:hover .del-btn { opacity: 1; }
+.del-btn:hover { color: var(--danger); }
+
+.empty-state {
+  padding: 4rem; text-align: center;
+  color: var(--text3); font-style: italic; font-size: 15px;
+}
+
+/* ── HOVER TOOLTIP ───────────────────────────────────────────── */
+.item-tooltip {
+  position: fixed; z-index: 500;
+  background: #0a0a0e;
+  border: 1px solid rgba(200,149,42,.4);
+  border-radius: 4px;
+  padding: 14px 16px;
+  min-width: 220px; max-width: 300px;
+  pointer-events: none;
+  opacity: 0; transition: opacity .15s;
+  box-shadow: 0 8px 32px rgba(0,0,0,.7);
+}
+.item-tooltip.visible { opacity: 1; }
+.tt-name {
+  font-family: 'Cinzel', serif; font-size: 14px; font-weight: 600;
+  text-align: center; margin-bottom: 2px;
+}
+.tt-name.u { color: var(--gold2); }
+.tt-name.s { color: var(--set2); }
+.tt-name.r { color: #b89aee; }
+.tt-name.k { color: #8ab4f0; }
+.tt-base {
+  font-size: 13px; color: var(--text2);
+  text-align: center; margin-bottom: 8px; font-style: italic;
+}
+.tt-divider {
+  height: 1px; background: rgba(200,149,42,.3);
+  margin: 8px 0;
+}
+.tt-stat {
+  font-size: 13px; color: var(--stat-blue);
+  text-align: center; line-height: 1.6;
+}
+.tt-stat.fixed { color: var(--text2); }
+.tt-stat.roll { color: var(--gold3); }
+.tt-sockets {
+  font-family: 'Cinzel', serif; font-size: 11px;
+  color: #8ab4f0; text-align: center; margin-top: 6px;
+}
+.tt-location {
+  font-size: 11px; color: var(--text3);
+  text-align: center; margin-top: 8px; font-style: italic;
+}
+
+/* ── AUTOCOMPLETE ────────────────────────────────────────────── */
+.ac-dropdown {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 6px; max-height: 380px; overflow-y: auto;
+  z-index: 200; box-shadow: 0 8px 24px rgba(0,0,0,.5);
+}
+.ac-section-hdr {
+  font-family: 'Cinzel', serif; font-size: 10px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text3); padding: 8px 14px 4px;
+  border-top: 1px solid var(--border);
+}
+.ac-section-hdr:first-child { border-top: none; }
+.ac-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; cursor: pointer;
+  transition: background .1s;
+}
+.ac-row:hover, .ac-row.focused { background: var(--bg3); }
+.ac-name {
+  font-size: 14px; flex: 1; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ac-name.u { color: var(--gold2); }
+.ac-name.s { color: var(--set2); }
+.ac-name.r { color: #b89aee; }
+.ac-name.k { color: #8ab4f0; }
+.ac-sub { font-size: 11px; color: var(--text3); font-style: italic; margin-top: 1px; }
+.ac-sub.rw { color: rgba(200,149,42,.7); font-family: 'Share Tech Mono', monospace; font-size: 10px; font-style: normal; }
+.ac-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.ac-loc { font-size: 11px; color: var(--accent2); }
+.ac-btn {
+  font-family: 'Cinzel', serif; font-size: 9px;
+  letter-spacing: .05em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 3px; border: 1px solid;
+  cursor: pointer; background: transparent; transition: all .12s;
+  white-space: nowrap;
+}
+.ac-btn.edit { color: var(--text2); border-color: var(--border2); }
+.ac-btn.edit:hover { color: var(--text); border-color: var(--border3); }
+.ac-btn.add { color: var(--set2); border-color: rgba(77,184,98,.3); background: rgba(77,184,98,.06); }
+.ac-btn.add:hover { background: rgba(77,184,98,.12); }
+.ac-btn.viewset { color: var(--gold2); border-color: rgba(200,149,42,.3); }
+.ac-new-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px; cursor: pointer;
+  border-top: 1px solid var(--border);
+  transition: background .1s; color: var(--text2); font-size: 13px; font-style: italic;
+}
+.ac-new-row:hover { background: var(--bg3); }
+
+/* ── MODAL ───────────────────────────────────────────────────── */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.8); z-index: 300;
+  align-items: center; justify-content: center;
+}
+.overlay.open { display: flex; }
+
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 1.75rem;
+  width: min(520px, 94vw);
+  max-height: 90vh; overflow-y: auto;
+}
+
+.modal-hdr {
+  font-family: 'Cinzel', serif; font-size: 14px; font-weight: 600;
+  color: var(--gold2); letter-spacing: .07em; text-transform: uppercase;
+  padding-bottom: 12px; margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border2);
+  display: flex; align-items: center; gap: 8px;
+}
+.modal-hdr::before {
+  content: ''; display: block; width: 3px; height: 16px;
+  background: var(--gold); border-radius: 2px;
+}
+
+.modal-item-card {
+  background: #0a0a0e;
+  border: 1px solid rgba(200,149,42,.3);
+  border-radius: 6px; padding: 12px 16px;
+  margin-bottom: 1.25rem;
+}
+.mic-name {
+  font-family: 'Cinzel', serif; font-size: 15px; font-weight: 600;
+  text-align: center; margin-bottom: 2px;
+}
+.mic-name.u { color: var(--gold2); }
+.mic-name.s { color: var(--set2); }
+.mic-name.r { color: #b89aee; }
+.mic-name.k { color: #8ab4f0; }
+.mic-sub {
+  font-size: 12px; color: var(--text3);
+  text-align: center; font-style: italic;
+}
+
+.form-row { margin-bottom: 14px; }
+.form-label {
+  display: block; font-family: 'Cinzel', serif;
+  font-size: 9px; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 6px;
+}
+
+input[type="text"], input[type="number"], select, textarea {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  color: var(--text);
+  font-family: 'Crimson Text', serif;
+  font-size: 15px; padding: 8px 12px;
+  outline: none; transition: border-color .15s;
+}
+input[type="text"]:focus, input[type="number"]:focus,
+select:focus, textarea:focus { border-color: var(--accent); }
+input::placeholder, textarea::placeholder { color: var(--text3); }
+select option { background: var(--bg3); }
+textarea { resize: vertical; height: 70px; }
+
+/* ── STAT PILLS (Traderie style) ─────────────────────────────── */
+.stats-section {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.stats-section-label {
+  font-family: 'Cinzel', serif; font-size: 9px;
+  letter-spacing: .09em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 10px;
+}
+.stat-pill-row {
+  display: flex; align-items: center;
+  gap: 8px; margin-bottom: 8px; flex-wrap: wrap;
+}
+.stat-pill-label {
+  font-size: 13px; color: var(--stat-blue2);
+  flex: 1; min-width: 120px;
+}
+.stat-pill-label.fixed { color: var(--text3); font-style: italic; }
+.stat-range-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px; color: var(--text3);
+  white-space: nowrap;
+}
+.stat-pill-input {
+  width: 72px !important;
+  font-size: 14px !important; font-family: 'Share Tech Mono', monospace !important;
+  padding: 4px 8px !important; height: 30px !important;
+  text-align: center; border-radius: 4px !important;
+}
+.stat-pill-sockets {
+  display: flex; align-items: center; gap: 8px;
+  padding-top: 8px; margin-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.stat-pill-sockets .stat-pill-label { color: #8ab4f0; }
+.stat-pill-input.sock-input { border-color: rgba(91,143,212,.4) !important; }
+
+.custom-stats { margin-top: 8px; }
+.custom-stat-row {
+  display: flex; gap: 6px; align-items: center; margin-bottom: 6px;
+}
+.custom-stat-row input:first-child { flex: 1; }
+.custom-stat-row input:last-of-type { width: 90px !important; }
+.remove-stat {
+  background: none; border: none; color: var(--text3);
+  cursor: pointer; font-size: 16px; padding: 0; line-height: 1;
+  transition: color .1s; flex-shrink: 0;
+}
+.remove-stat:hover { color: var(--danger); }
+.add-custom-stat {
+  font-family: 'Cinzel', serif; font-size: 10px;
+  letter-spacing: .05em; text-transform: uppercase;
+  padding: 5px 12px; border: 1px dashed var(--border2);
+  border-radius: 4px; background: transparent;
+  color: var(--text3); cursor: pointer; margin-top: 6px;
+  width: 100%; transition: all .12s;
+}
+.add-custom-stat:hover { border-color: var(--accent); color: var(--accent2); }
+
+.modal-actions {
+  display: flex; gap: 8px; justify-content: flex-end;
+  padding-top: 1rem; margin-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.btn {
+  font-family: 'Cinzel', serif; font-size: 10px;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 0 16px; height: 36px; border-radius: 4px;
+  border: 1px solid var(--border2); background: transparent;
+  color: var(--text2); cursor: pointer; transition: all .15s;
+}
+.btn:hover { color: var(--text); border-color: var(--border3); }
+.btn.primary { border-color: var(--accent); color: var(--accent2); background: rgba(61,142,240,.08); }
+.btn.primary:hover { background: rgba(61,142,240,.16); }
+.btn.danger { border-color: rgba(224,80,80,.4); color: #f08080; }
+
+/* ── SETTINGS PAGE ───────────────────────────────────────────── */
+.settings-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 1.5rem; margin-bottom: 1.25rem;
+}
+.settings-card-title {
+  font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text2); margin-bottom: 1rem;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border);
+}
+
+.char-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 1rem; }
+.char-list-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 6px; transition: border-color .12s;
+}
+.char-list-item:hover { border-color: var(--border2); }
+.drag-handle {
+  cursor: grab; color: var(--text3); font-size: 14px;
+  user-select: none; flex-shrink: 0;
+}
+.drag-handle:active { cursor: grabbing; }
+.char-list-item.drag-over { border-color: var(--gold); border-style: dashed; }
+.char-name-input {
+  flex: 1; font-size: 14px !important;
+  padding: 4px 8px !important; height: 28px !important;
+}
+.char-cls-select {
+  font-size: 12px !important; padding: 4px 8px !important;
+  height: 28px !important; width: 130px !important;
+}
+
+.add-char-row {
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+}
+.add-char-row input { flex: 1; min-width: 140px; }
+
+/* ── SET MODAL ───────────────────────────────────────────────── */
+.set-modal { width: min(680px, 95vw) !important; }
+.set-part {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-top: 1px solid var(--border);
+}
+.set-part:first-child { border-top: none; }
+.set-part-icon {
+  width: 32px; height: 32px; flex-shrink: 0;
+  background: rgba(77,184,98,.06); border: 1px solid rgba(77,184,98,.2);
+  border-radius: 4px; display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif; font-size: 11px; color: var(--set); font-weight: 700;
+}
+.set-part-info { flex: 1; min-width: 0; }
+.set-part-name { font-size: 14px; color: var(--set2); font-weight: 600; }
+.set-part-stats { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.set-part-loc {
+  font-size: 11px; margin-top: 2px;
+  display: flex; align-items: center; gap: 4px;
+}
+.set-part-loc.found { color: var(--set); }
+.set-part-loc.missing { color: var(--gold2); font-style: italic; }
+
+/* ── SETS PAGE ───────────────────────────────────────────────── */
+.set-group {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; margin-bottom: 10px; overflow: hidden;
+}
+.set-group-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--bg3); border-bottom: 1px solid var(--border);
+}
+.set-group-name {
+  font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600;
+  color: var(--set2); letter-spacing: .05em;
+}
+.set-group-meta { font-size: 12px; color: var(--text3); font-family: 'Share Tech Mono', monospace; }
+.set-group-body { padding: 4px 0; }
+.set-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+.set-row:last-child { border-bottom: none; }
+.set-row-name { font-size: 14px; }
+.set-row-stats { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.set-row-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.set-row-char { font-size: 12px; color: var(--text2); }
+
+/* ── TOAST ───────────────────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  background: var(--bg3); border: 1px solid var(--set);
+  color: var(--set2);
+  font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: .05em;
+  padding: 10px 16px; border-radius: 6px;
+  z-index: 400; opacity: 0; transform: translateY(6px);
+  transition: all .2s; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ── VERSION ─────────────────────────────────────────────────── */
+.version-tag {
+  position: fixed; bottom: 0; right: 0;
+  padding: 5px 10px;
+  font-family: 'Share Tech Mono', monospace; font-size: 10px;
+  color: var(--text3); pointer-events: none; z-index: 50;
+}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
-  <div class="logo"><div class="logo-rune">⚔</div>D2R Stash Tracker</div>
-  <nav>
-    <button class="nav-btn active" onclick="showPage('items',this)">Stash</button>
-    <button class="nav-btn" onclick="showPage('sets',this)">Set-progress</button>
-    <button class="nav-btn" onclick="showPage('settings',this)">Inställningar</button>
-  </nav>
+  <div class="logo">
+    <div class="logo-icon">⚔</div>
+    D2R Stash
+  </div>
+  <div class="header-search">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="unisearch"
+      placeholder="Sök item — hitta var det ligger eller lägg till nytt..."
+      autocomplete="off"
+      oninput="handleUniSearch()"
+      onkeydown="handleUniKey(event)"
+      onfocus="handleUniSearch()">
+    <div class="ac-dropdown" id="autocomplete" style="display:none"></div>
+  </div>
+  <div class="header-right">
+    <button class="hbtn" onclick="showPage('settings')">⚙ Inställningar</button>
+    <button class="hbtn primary" onclick="openAddCustom('')">+ Lägg till</button>
+  </div>
 </header>
 
-<main>
-  <div class="page active" id="page-items">
-    <div class="universal-search">
-      <input type="text" id="unisearch" placeholder="Sök item — hitta var det ligger eller lägg till nytt..." autocomplete="off"
-        oninput="handleUniSearch()" onkeydown="handleUniKey(event)" onfocus="handleUniSearch()">
-      <div class="autocomplete" id="autocomplete" style="display:none"></div>
-      <div class="search-hint">Sök på itemnamn för att se var det finns i stashen, eller lägg till ett nytt</div>
-    </div>
+<!-- LAYOUT -->
+<div class="layout">
 
-    <div class="stats-bar" id="stats"></div>
-
-    <div class="filters">
-      <select id="filter-cat" onchange="renderItems()">
-        <option value="">Alla kategorier</option>
-        <option value="Set">Set-delar</option>
-        <option value="Unique">Unika items</option>
-        <option value="Socketed">Socketed items</option>
-        <option value="Runeword">Runewords</option>
-      </select>
-      <select id="filter-char" onchange="renderItems()">
-        <option value="">Alla karaktärer</option>
-      </select>
-      <select id="filter-status" onchange="renderItems()">
-        <option value="">Alla statusar</option>
-        <option value="stored">Sparad</option>
-        <option value="equipped">Utrustad</option>
-        <option value="seeking">Sökes</option>
-        <option value="complete">Komplett</option>
-      </select>
-    </div>
-
-    <table class="item-table">
-      <thead>
-        <tr>
-          <th>Namn</th>
-          <th class="th-right" style="text-align:center">Rlvl</th>
-          <th class="th-stats">Stats</th>
-          <th class="th-right">Karaktär</th>
-          <th class="th-right">Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="list"></tbody>
-    </table>
-  </div>
-
-  <div class="page" id="page-sets">
-    <div class="section-divider">Set-progress</div>
-    <div id="sets-content"></div>
-  </div>
-
-  <div class="page" id="page-settings">
-    <div class="settings-section">
-      <div class="settings-title">Karaktärer</div>
-      <p style="font-size:14px;color:var(--text2);margin-bottom:1rem;font-style:italic">Dra ⠿ för att ändra ordning. Klicka namn eller klass för att redigera.</p>
-      <div id="char-grid" style="margin-bottom:1rem"></div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <input type="text" id="new-char-name" placeholder="Karaktärsnamn..." style="width:180px">
-        <select id="new-char-cls">
-          <option value="">Klass...</option>
-          <option value="Amazon">Amazon</option>
-          <option value="Barbarian">Barbarian</option>
-          <option value="Druid">Druid</option>
-          <option value="Necromancer">Necromancer</option>
-          <option value="Paladin">Paladin</option>
-          <option value="Sorceress">Sorceress</option>
-          <option value="Assassin">Assassin</option>
-          <option value="Warlock">Warlock</option>
-          <option value="Bank">Bank</option>
-        </select>
-        <button class="btn gold" onclick="addChar()">+ Lägg till</button>
-        <button class="btn" onclick="saveChars()" style="margin-left:auto">Spara ordning</button>
-        <button class="btn" onclick="resetChars()">Återställ</button>
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="sidebar-section">
+      <div class="sidebar-label lbl-all">Stash</div>
+      <div class="sidebar-item active cat-all" onclick="filterCat('',this)" id="sb-all">
+        Alla items <span class="sidebar-count" id="sc-all">0</span>
       </div>
     </div>
-    <div class="settings-section">
-      <div class="settings-title">Data</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn" onclick="exportData()">Exportera JSON</button>
-        <label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">
-          Importera JSON
-          <input type="file" accept=".json" onchange="importData(event)" style="display:none">
-        </label>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label lbl-unique">Unika</div>
+      <div class="sidebar-item cat-unique" onclick="filterCat('Unique',this)" id="sb-unique">
+        Unique Items <span class="sidebar-count" id="sc-unique">0</span>
       </div>
     </div>
-  </div>
-</main>
 
+    <div class="sidebar-section">
+      <div class="sidebar-label lbl-set">Set</div>
+      <div class="sidebar-item cat-set" onclick="filterCat('Set',this)" id="sb-set">
+        Set Items <span class="sidebar-count" id="sc-set">0</span>
+      </div>
+      <div class="sidebar-item cat-set" onclick="showPage('sets')" id="sb-sets-page" style="padding-left:32px;font-size:12px">
+        Set Progress
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label lbl-rune">Runewords</div>
+      <div class="sidebar-item cat-rune" onclick="filterCat('Runeword',this)" id="sb-rune">
+        Runewords <span class="sidebar-count" id="sc-rune">0</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label lbl-sock">Socketed</div>
+      <div class="sidebar-item cat-sock" onclick="filterCat('Socketed',this)" id="sb-sock">
+        Socketed Bases <span class="sidebar-count" id="sc-sock">0</span>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label lbl-settings">Filter</div>
+      <div class="sidebar-item cat-seeking" onclick="filterStatus('seeking',this)" id="sb-seeking">
+        Sökes <span class="sidebar-count" id="sc-seeking">0</span>
+      </div>
+      <div class="sidebar-item" onclick="filterStatus('equipped',this)" id="sb-equipped">
+        Utrustad <span class="sidebar-count" id="sc-equipped">0</span>
+      </div>
+      <div class="sidebar-item" onclick="filterStatus('complete',this)" id="sb-complete">
+        Komplett <span class="sidebar-count" id="sc-complete">0</span>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-item" onclick="showPage('settings')">
+        ⚙ Inställningar
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- STASH PAGE -->
+    <div class="page active" id="page-stash">
+      <div class="page-header">
+        <div class="page-title" id="page-title-text">Alla Items</div>
+        <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+          <select id="filter-char" onchange="renderItems()" style="width:auto;font-size:13px;height:32px;padding:4px 10px">
+            <option value="">Alla karaktärer</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="stat-cards" id="stat-cards"></div>
+
+      <div class="table-wrap">
+        <table class="item-table">
+          <thead>
+            <tr>
+              <th>Namn</th>
+              <th class="c">Rlvl</th>
+              <th class="c">Stats</th>
+              <th class="r">Karaktär</th>
+              <th class="r">Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="item-list"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SETS PAGE -->
+    <div class="page" id="page-sets">
+      <div class="page-header">
+        <div class="page-title">Set Progress</div>
+      </div>
+      <div id="sets-content"></div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div class="page-title">Inställningar</div>
+      </div>
+
+      <div class="settings-card">
+        <div class="settings-card-title">Karaktärer</div>
+        <p style="font-size:13px;color:var(--text3);margin-bottom:1rem;font-style:italic">
+          Dra ⠿ för att ändra ordning. Klicka namn för att redigera direkt.
+        </p>
+        <div class="char-list" id="char-list"></div>
+        <div class="add-char-row">
+          <input type="text" id="new-char-name" placeholder="Karaktärsnamn...">
+          <select id="new-char-cls" style="width:140px">
+            <option value="">Klass...</option>
+            <option value="Amazon">Amazon</option>
+            <option value="Barbarian">Barbarian</option>
+            <option value="Druid">Druid</option>
+            <option value="Necromancer">Necromancer</option>
+            <option value="Paladin">Paladin</option>
+            <option value="Sorceress">Sorceress</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Warlock">Warlock</option>
+            <option value="Bank">Bank</option>
+          </select>
+          <button class="btn primary" onclick="addChar()">+ Lägg till</button>
+          <button class="btn" onclick="saveChars()" style="margin-left:auto">Spara</button>
+          <button class="btn" onclick="resetChars()">Återställ</button>
+        </div>
+      </div>
+
+      <div class="settings-card">
+        <div class="settings-card-title">Data</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" onclick="exportData()">Exportera JSON</button>
+          <label class="btn" style="display:inline-flex;align-items:center;cursor:pointer">
+            Importera JSON
+            <input type="file" accept=".json" onchange="importData(event)" style="display:none">
+          </label>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ITEM TOOLTIP -->
+<div class="item-tooltip" id="item-tooltip"></div>
+
+<!-- ADD/EDIT MODAL -->
 <div class="overlay" id="modal">
   <div class="modal">
-    <div class="modal-title" id="modal-title">Lägg till item</div>
+    <div class="modal-hdr" id="modal-hdr">Lägg till item</div>
 
-    <div class="modal-item-header" id="modal-item-header" style="display:none">
-      <div class="modal-item-name" id="modal-item-name-display"></div>
-      <div class="modal-item-set" id="modal-item-set-display"></div>
+    <div class="modal-item-card" id="modal-item-card" style="display:none">
+      <div class="mic-name" id="mic-name"></div>
+      <div class="mic-sub" id="mic-sub"></div>
     </div>
 
     <div class="form-row" id="f-name-row">
-      <label>Itemnamn</label>
-      <input type="text" id="f-name" placeholder="t.ex. Shako, Mara's Kaleidoscope...">
+      <label class="form-label">Itemnamn</label>
+      <input type="text" id="f-name" placeholder="t.ex. Shako, Enigma...">
     </div>
     <div class="form-row" id="f-cat-row">
-      <label>Kategori</label>
+      <label class="form-label">Kategori</label>
       <select id="f-cat" onchange="toggleSetName()">
         <option value="Set">Set-del</option>
         <option value="Unique">Unikt item</option>
         <option value="Socketed">Socketed item</option>
+        <option value="Runeword">Runeword</option>
       </select>
     </div>
     <div class="form-row" id="f-setname-row">
-      <label>Set-namn</label>
+      <label class="form-label">Set-namn</label>
       <input type="text" id="f-setname" placeholder="t.ex. Tal Rasha's Wrappings">
     </div>
 
-    <div class="form-row">
-      <label>Karaktär / bank-slot</label>
-      <select id="f-char"></select>
-    </div>
-    <div class="form-row">
-      <label>Status</label>
-      <select id="f-status">
-        <option value="stored">Sparad</option>
-        <option value="equipped">Utrustad</option>
-        <option value="seeking">Sökes</option>
-        <option value="complete">Komplett set</option>
-      </select>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+      <div>
+        <label class="form-label">Karaktär / bank-slot</label>
+        <select id="f-char"></select>
+      </div>
+      <div>
+        <label class="form-label">Status</label>
+        <select id="f-status">
+          <option value="stored">Sparad</option>
+          <option value="equipped">Utrustad</option>
+          <option value="seeking">Sökes</option>
+          <option value="complete">Komplett set</option>
+        </select>
+      </div>
     </div>
 
-    <div class="stats-editor" id="stats-editor">
-      <div class="stats-editor-title">Stats &amp; rolls</div>
+    <div class="stats-section" id="stats-section">
+      <div class="stats-section-label">Stats &amp; Rolls</div>
       <div id="stats-rows"></div>
-      <div id="stats-custom"></div>
-      <button class="add-stat-btn" onclick="addCustomStatRow()">+ Lägg till eget</button>
+      <div class="custom-stats" id="stats-custom"></div>
+      <button class="add-custom-stat" onclick="addCustomStatRow()">+ Lägg till eget</button>
     </div>
 
     <div class="form-row">
-      <label>Anteckningar</label>
+      <label class="form-label">Anteckningar</label>
       <textarea id="f-notes" placeholder="Socklar, noter, etc..."></textarea>
     </div>
 
     <div class="modal-actions">
       <button class="btn" onclick="closeModal()">Avbryt</button>
-      <button class="btn gold" onclick="saveItem()">Spara</button>
+      <button class="btn primary" onclick="saveItem()">Spara</button>
     </div>
   </div>
 </div>
 
-
 <!-- SET MODAL -->
 <div class="overlay" id="set-modal">
-  <div class="modal" style="width:min(680px,95vw)">
-    <div class="modal-title" id="set-modal-title">Set</div>
+  <div class="modal set-modal">
+    <div class="modal-hdr" id="set-modal-hdr">Set</div>
     <div id="set-modal-body"></div>
     <div class="modal-actions">
       <button class="btn" onclick="closeSetModal()">Stäng</button>
@@ -371,47 +994,43 @@
 </div>
 
 <div class="toast" id="toast"></div>
-
-<footer style="position:fixed;bottom:0;right:0;padding:6px 12px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;color:var(--text3);pointer-events:none;z-index:50">
-  __VERSION__ · __COMMIT__ · __DATE__
-</footer>
+<div class="version-tag">__VERSION__ · __COMMIT__ · __DATE__</div>
 
 <script>
-// ── Utility functions (must be defined first) ────────────────────────────────
+// ── Utility ──────────────────────────────────────────────────────────────────
 function itemSlug(name){
   if(!name)return '';
   return name.toLowerCase().replace(/'/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 }
-function imgSrc(slug){ return slug?`/api/itemimg/${encodeURIComponent(slug)}`:''; }
 
+// ── State ────────────────────────────────────────────────────────────────────
 let items=[],chars=[],d2db=[];
 let editId=null,acFocusIdx=-1;
+let activeCat='', activeStatus='';
+
 const STATUS_LABEL={stored:'Sparad',equipped:'Utrustad',seeking:'Sökes',complete:'Komplett'};
 const STATUS_ORDER=['stored','equipped','seeking','complete'];
 
-function itemSlug(name){
-  if(!name)return'';
-  return name.toLowerCase().replace(/'/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
-}
-
+// ── API ──────────────────────────────────────────────────────────────────────
 async function api(method,path,body){
   const r=await fetch(path,{method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined});
   return r.json();
 }
 
+// ── Init ─────────────────────────────────────────────────────────────────────
 async function loadAll(){
-  try {
+  try{
     [items,chars,d2db]=await Promise.all([
       api('GET','/api/items'),
       api('GET','/api/characters'),
       fetch('/d2db.json').then(r=>r.json())
     ]);
-  } catch(e) {
+  }catch(e){
     console.error('loadAll error',e);
     items=items||[];chars=chars||[];d2db=d2db||[];
   }
   populateCharSelects();
-  renderStats();
+  updateSidebarCounts();
   renderItems();
   renderSets();
   renderCharGrid();
@@ -419,22 +1038,213 @@ async function loadAll(){
   if(ncn) ncn.addEventListener('keydown',e=>{if(e.key==='Enter')addChar();});
 }
 
+// ── Sidebar ──────────────────────────────────────────────────────────────────
+function filterCat(cat,el){
+  activeCat=cat; activeStatus='';
+  document.querySelectorAll('.sidebar-item').forEach(s=>s.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const titles={'':`Alla Items`,'Unique':'Unique Items','Set':'Set Items','Runeword':'Runewords','Socketed':'Socketed Bases'};
+  document.getElementById('page-title-text').textContent=titles[cat]||'Alla Items';
+  showPage('stash');
+  renderItems();
+}
+
+function filterStatus(status,el){
+  activeCat=''; activeStatus=status;
+  document.querySelectorAll('.sidebar-item').forEach(s=>s.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const titles={seeking:'Sökes',equipped:'Utrustad',complete:'Komplett'};
+  document.getElementById('page-title-text').textContent=titles[status]||status;
+  showPage('stash');
+  renderItems();
+}
+
+function updateSidebarCounts(){
+  const counts={
+    all: items.length,
+    unique: items.filter(i=>i.cat==='Unique').length,
+    set: items.filter(i=>i.cat==='Set').length,
+    rune: items.filter(i=>i.cat==='Runeword').length,
+    sock: items.filter(i=>i.cat==='Socketed').length,
+    seeking: items.filter(i=>i.status==='seeking').length,
+    equipped: items.filter(i=>i.status==='equipped').length,
+    complete: items.filter(i=>i.status==='complete').length,
+  };
+  Object.entries(counts).forEach(([k,v])=>{
+    const el=document.getElementById('sc-'+k);
+    if(el) el.textContent=v;
+  });
+
+  const cards=document.getElementById('stat-cards');
+  if(cards) cards.innerHTML=`
+    <div class="stat-card"><div class="stat-card-label">Totalt</div><div class="stat-card-val">${counts.all}</div></div>
+    <div class="stat-card"><div class="stat-card-label">Unika</div><div class="stat-card-val c-unique">${counts.unique}</div></div>
+    <div class="stat-card"><div class="stat-card-label">Set-delar</div><div class="stat-card-val c-set">${counts.set}</div></div>
+    <div class="stat-card"><div class="stat-card-label">Runewords</div><div class="stat-card-val c-sock">${counts.rune}</div></div>
+  `;
+}
+
+// ── Char selects ─────────────────────────────────────────────────────────────
 function populateCharSelects(){
   const fs=document.getElementById('filter-char'),fc=document.getElementById('f-char');
-  const cur=fs.value;
-  fs.innerHTML='<option value="">Alla karaktärer</option>';
-  fc.innerHTML='';
+  const cur=fs?fs.value:'';
+  if(fs){fs.innerHTML='<option value="">Alla karaktärer</option>';}
+  if(fc) fc.innerHTML='';
   const sorted=[...chars].sort((a,b)=>(a.order||0)-(b.order||0));
   sorted.forEach(c=>{
     const label=c.cls?`${c.name} (${c.cls})`:c.name;
-    fs.appendChild(new Option(label,c.name));
-    fc.appendChild(new Option(label,c.name));
+    if(fs) fs.appendChild(new Option(label,c.name));
+    if(fc) fc.appendChild(new Option(label,c.name));
   });
-  fs.value=cur||'';
-  if(!fc.value&&sorted.length)fc.value=sorted[0].name;
+  if(fs) fs.value=cur||'';
+  if(fc&&!fc.value&&sorted.length) fc.value=sorted[0].name;
 }
 
-// Universal search
+// ── Render items ─────────────────────────────────────────────────────────────
+function clsCode(cat){
+  if(cat==='Unique')return 'u';
+  if(cat==='Set')return 's';
+  if(cat==='Runeword')return 'r';
+  return 'k';
+}
+function clsLabel(cat){
+  if(cat==='Unique')return 'U';
+  if(cat==='Set')return 'S';
+  if(cat==='Runeword')return 'R';
+  return '⬡';
+}
+
+function charClsTag(charName){
+  const c=chars.find(x=>x.name===charName);
+  if(!c||!c.cls)return '';
+  const cn='cls-'+c.cls.toLowerCase();
+  return `<span class="cls-tag ${cn}">${c.cls}</span>`;
+}
+
+function renderItems(){
+  const charFilter=document.getElementById('filter-char')?.value||'';
+  const filtered=items.filter(i=>{
+    if(activeCat&&i.cat!==activeCat)return false;
+    if(activeStatus&&i.status!==activeStatus)return false;
+    if(charFilter&&i.char!==charFilter)return false;
+    return true;
+  });
+
+  updateSidebarCounts();
+
+  const list=document.getElementById('item-list');
+  if(!filtered.length){
+    list.innerHTML=`<tr><td colspan="6"><div class="empty-state">Inga items matchar filtret</div></td></tr>`;
+    return;
+  }
+
+  list.innerHTML=filtered.map(i=>{
+    const cls=clsCode(i.cat);
+    const lbl=clsLabel(i.cat);
+    const dbRef=d2db.find(d=>d.name===i.name&&d.cat===i.cat);
+    const rlvl=dbRef&&dbRef.rlvl?dbRef.rlvl:'—';
+    let sublabel='';
+    if(i.cat==='Set'&&i.setname) sublabel=i.setname;
+    else if(i.cat==='Runeword'&&dbRef&&dbRef.runes) sublabel=(dbRef.runes||[]).join(' + ');
+
+    // Stats to show
+    const statLines=[];
+    if(i.stats&&i.stats.length){
+      i.stats.filter(s=>s.value&&s.name!=='Sockets').slice(0,5).forEach(s=>{
+        const label=(s.name||'').replace('%d',s.value).replace('%d%%',s.value+'%')||`${s.name}: ${s.value}`;
+        statLines.push(`<div class="stat-line">${label}</div>`);
+      });
+    } else if(dbRef&&dbRef.stats){
+      dbRef.stats.filter(s=>s.fixed||(s.variable===false&&s.min)).slice(0,4).forEach(s=>{
+        const label=s.fixed?s.name:(s.name||'').replace('%d',s.min||'').replace('%d%%',(s.min||'')+'%');
+        statLines.push(`<div class="stat-line fixed">${label}</div>`);
+      });
+    }
+
+    const sockStat=i.stats&&i.stats.find(s=>s.name==='Sockets'&&s.value);
+
+    return `<tr data-id="${i.id}">
+      <td class="td-name">
+        <div class="item-name-wrap">
+          <div class="item-icon-placeholder ${cls}">${lbl}</div>
+          <div class="item-name-info">
+            <span class="item-name-main ${cls}"
+              onclick="openEdit('${i.id}')"
+              onmouseenter="showTooltip(event,'${i.id}')"
+              onmouseleave="hideTooltip()">${i.name}</span>
+            ${sublabel?`<div class="item-name-sub">${sublabel}</div>`:''}
+            ${sockStat?`<div class="item-name-sub">🔷 ${sockStat.value} sockets</div>`:''}
+          </div>
+        </div>
+      </td>
+      <td class="td-lvl"><span class="rlvl-val">${rlvl}</span></td>
+      <td class="td-stats">${statLines.join('')||'<span style="color:var(--text3);font-size:12px">—</span>'}</td>
+      <td class="td-char">
+        <div class="char-badge">
+          ${charClsTag(i.char)}
+          <span>${i.char||'—'}</span>
+        </div>
+      </td>
+      <td class="td-status">
+        <button class="status-pill ${i.status}" onclick="cycleStatus('${i.id}')">${STATUS_LABEL[i.status]||i.status}</button>
+      </td>
+      <td class="td-act">
+        <button class="del-btn" onclick="deleteItem('${i.id}')">×</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Tooltip ──────────────────────────────────────────────────────────────────
+function showTooltip(e,id){
+  const item=items.find(i=>i.id===id);
+  if(!item)return;
+  const dbRef=d2db.find(d=>d.name===item.name&&d.cat===item.cat);
+  const cls=clsCode(item.cat);
+  const tt=document.getElementById('item-tooltip');
+
+  let html=`<div class="tt-name ${cls}">${item.name}</div>`;
+  if(item.setname) html+=`<div class="tt-base">${item.setname}</div>`;
+  else if(dbRef&&dbRef.runes) html+=`<div class="tt-base">${dbRef.runes.join(' + ')}</div>`;
+  html+=`<div class="tt-divider"></div>`;
+
+  // Show saved rolls first, then DB stats as fallback
+  if(item.stats&&item.stats.length){
+    item.stats.filter(s=>s.name!=='Sockets').forEach(s=>{
+      const label=(s.name||'').replace('%d',s.value||'').replace('%d%%',(s.value||'')+'%');
+      html+=`<div class="tt-stat roll">${label}${s.value&&!label.includes(s.value)?' '+s.value:''}</div>`;
+    });
+    const sock=item.stats.find(s=>s.name==='Sockets'&&s.value);
+    if(sock) html+=`<div class="tt-sockets">⬡ ${sock.value} Sockets</div>`;
+  } else if(dbRef&&dbRef.stats){
+    dbRef.stats.slice(0,6).forEach(s=>{
+      const label=s.fixed?s.name:(s.name||'').replace('%d',s.min!==undefined?`${s.min}${s.variable&&s.max!==s.min?'-'+s.max:''}`:s.value||'');
+      html+=`<div class="tt-stat ${s.fixed||s.variable===false?'fixed':''}">${label}</div>`;
+    });
+  }
+
+  if(item.notes) html+=`<div class="tt-divider"></div><div class="tt-stat fixed">${item.notes}</div>`;
+  html+=`<div class="tt-location">📍 ${item.char||'Ingen karaktär'}</div>`;
+
+  tt.innerHTML=html;
+  positionTooltip(e,tt);
+  tt.classList.add('visible');
+}
+
+function positionTooltip(e,tt){
+  tt.style.display='block';
+  const x=e.clientX+16, y=e.clientY-10;
+  const tw=tt.offsetWidth, th=tt.offsetHeight;
+  const wx=window.innerWidth, wy=window.innerHeight;
+  tt.style.left=(x+tw>wx?x-tw-32:x)+'px';
+  tt.style.top=(y+th>wy?y-th+20:y)+'px';
+}
+
+function hideTooltip(){
+  document.getElementById('item-tooltip').classList.remove('visible');
+}
+
+// ── Universal Search ──────────────────────────────────────────────────────────
 function handleUniSearch(){
   const q=document.getElementById('unisearch').value.trim().toLowerCase();
   const ac=document.getElementById('autocomplete');
@@ -442,88 +1252,76 @@ function handleUniSearch(){
   if(q.length<2){ac.style.display='none';return;}
   if(!d2db||!d2db.length){ac.style.display='none';return;}
 
-  const stashMatches=items.filter(i=>i.name.toLowerCase().includes(q));
-  const dbMatches=d2db.filter(i=>i.name.toLowerCase().includes(q));
-  const dbNew=dbMatches.filter(d=>!stashMatches.find(s=>s.name===d.name)).slice(0,8);
-
-  if(!stashMatches.length&&!dbNew.length){ac.style.display='none';return;}
+  const stashMatches=items.filter(i=>
+    i.name.toLowerCase().includes(q)||
+    (i.setname||'').toLowerCase().includes(q)||
+    (i.char||'').toLowerCase().includes(q)
+  );
+  const stashNames=new Set(stashMatches.map(i=>i.name));
+  const dbNew=d2db.filter(d=>d.name.toLowerCase().includes(q)&&!stashNames.has(d.name)).slice(0,8);
 
   let html='';
 
-  // Group stash matches by name for deduplication display
-  const stashByName={};
-  stashMatches.forEach(item=>{
-    if(!stashByName[item.name]) stashByName[item.name]=[];
-    stashByName[item.name].push(item);
-  });
-
   if(stashMatches.length){
-    html+=`<div class="ac-section">I din stash (${stashMatches.length})</div>`;
-    Object.entries(stashByName).forEach(([name,itemList])=>{
-      const first=itemList[0];
-      const cls=first.cat==='Set'?'set':first.cat==='Unique'?'unique':first.cat==='Runeword'?'runeword':'socketed';
-      const sub=first.setname?`<div class="ac-item-sub">${first.setname}</div>`:'';
-      const slug=first.img||itemSlug(first.name);
-      const imgTag=`<img class="ac-img" src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy" decoding="async">`;
-      const charInfo=itemList.map(i=>`<span class="ac-stash">${i.char||'—'}</span>`).join(' ');
+    html+=`<div class="ac-section-hdr">I din stash (${stashMatches.length})</div>`;
+    // Group by name for sets
+    const byName={};
+    stashMatches.forEach(i=>{if(!byName[i.name])byName[i.name]=[];byName[i.name].push(i);});
+    Object.entries(byName).forEach(([name,list])=>{
+      const first=list[0];
+      const cls=clsCode(first.cat);
+      const sub=first.setname?`<div class="ac-sub">${first.setname}</div>`:'';
       const isSet=first.cat==='Set'&&first.setname;
-      const action=isSet?'viewset':'edit';
-      html+=`<div class="ac-item" data-action="${action}" data-id="${first.id}" data-setname="${first.setname||''}">
-        ${imgTag}
-        <div style="flex:1;min-width:0"><div class="ac-item-name ${cls}">${name}</div>${sub}</div>
-        <div class="ac-item-right">${charInfo}<span class="ac-action-btn">${isSet?'Visa set':'Redigera'}</span></div>
+      const locs=list.map(i=>`<span class="ac-loc">${i.char||'—'}</span>`).join(' ');
+      html+=`<div class="ac-row" data-action="${isSet?'viewset':'edit'}" data-id="${first.id}" data-setname="${first.setname||''}">
+        <div class="item-icon-placeholder ${cls}" style="width:28px;height:28px;font-size:10px;flex-shrink:0">${clsLabel(first.cat)}</div>
+        <div style="flex:1;min-width:0">
+          <div class="ac-name ${cls}">${name}</div>${sub}
+        </div>
+        <div class="ac-right">${locs}<button class="ac-btn ${isSet?'viewset':'edit'}">${isSet?'Visa set':'Redigera'}</button></div>
       </div>`;
     });
   }
 
   if(dbNew.length){
-    html+=`<div class="ac-section">Lägg till</div>`;
+    html+=`<div class="ac-section-hdr">Lägg till</div>`;
     dbNew.forEach(db=>{
-      const cls=db.cat==='Set'?'set':db.cat==='Unique'?'unique':db.cat==='Runeword'?'runeword':'socketed';
-      const sub=db.setname?`<div class="ac-item-sub">${db.setname}</div>`:'';
-      const slug=db.img||itemSlug(db.name);
-      const imgTag=`<img class="ac-img" src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy" decoding="async">`;
-      let extra='';
-      if(db.cat==='Runeword'){
-        const runes=(db.runes||[]).join(' + ');
-        const bases=(db.base||[]).join(', ');
-        extra=`<div class="ac-item-sub rw-recipe">${runes} · ${db.sockets}os · ${bases} · Rlvl ${db.rlvl}</div>`;
-      }
+      const cls=clsCode(db.cat);
+      const sub=db.setname?`<div class="ac-sub">${db.setname}</div>`:
+        db.cat==='Runeword'&&db.runes?`<div class="ac-sub rw">${db.runes.join(' + ')} · ${db.sockets}os · ${(db.base||[]).join(', ')}</div>`:'';
       const isSet=db.cat==='Set'&&db.setname;
-      html+=`<div class="ac-item" data-action="${isSet?'addset':'adddb'}" data-name="${encodeURIComponent(db.name)}" data-setname="${db.setname||''}">
-        ${imgTag}
-        <div style="flex:1;min-width:0"><div class="ac-item-name ${cls}">${db.name}</div>${sub}${extra}</div>
-        <div class="ac-item-right"><span class="ac-action-btn add">${isSet?'Lägg till set':'+ Lägg till'}</span></div>
+      html+=`<div class="ac-row" data-action="${isSet?'addset':'adddb'}" data-name="${encodeURIComponent(db.name)}" data-setname="${db.setname||''}">
+        <div class="item-icon-placeholder ${cls}" style="width:28px;height:28px;font-size:10px;flex-shrink:0">${clsLabel(db.cat)}</div>
+        <div style="flex:1;min-width:0">
+          <div class="ac-name ${cls}">${db.name}</div>${sub}
+        </div>
+        <div class="ac-right"><button class="ac-btn add">${isSet?'Lägg till set':'+ Lägg till'}</button></div>
       </div>`;
     });
   }
 
   const rawQ=document.getElementById('unisearch').value.trim();
-  html+=`<div class="ac-new" id="ac-new-custom">
-    <div class="ac-new-label">Lägg till "${rawQ}" manuellt</div>
-    <span class="ac-new-tag">Anpassat</span>
+  html+=`<div class="ac-new-row" id="ac-new-custom">
+    <span>Lägg till "<strong>${rawQ}</strong>" manuellt</span>
   </div>`;
 
   ac.innerHTML=html;
   ac.style.display='block';
 
-  ac.querySelectorAll('.ac-item[data-action="edit"]').forEach(el=>{
+  ac.querySelectorAll('.ac-row[data-action="edit"]').forEach(el=>{
     el.addEventListener('click',()=>{openEdit(el.dataset.id);closeAC();});
   });
-  ac.querySelectorAll('.ac-item[data-action="viewset"]').forEach(el=>{
+  ac.querySelectorAll('.ac-row[data-action="viewset"]').forEach(el=>{
     el.addEventListener('click',()=>{openSetModal(el.dataset.setname);closeAC();});
   });
-  ac.querySelectorAll('.ac-item[data-action="adddb"]').forEach(el=>{
+  ac.querySelectorAll('.ac-row[data-action="adddb"]').forEach(el=>{
     el.addEventListener('click',()=>{
-      const name=decodeURIComponent(el.dataset.name);
-      const db=d2db.find(d=>d.name===name);
+      const db=d2db.find(d=>d.name===decodeURIComponent(el.dataset.name));
       if(db){openAddFromDB(db);closeAC();}
     });
   });
-  ac.querySelectorAll('.ac-item[data-action="addset"]').forEach(el=>{
-    el.addEventListener('click',()=>{
-      openSetModal(el.dataset.setname,true);closeAC();
-    });
+  ac.querySelectorAll('.ac-row[data-action="addset"]').forEach(el=>{
+    el.addEventListener('click',()=>{openSetModal(el.dataset.setname,true);closeAC();});
   });
   document.getElementById('ac-new-custom')?.addEventListener('click',()=>{
     openAddCustom(document.getElementById('unisearch').value.trim());closeAC();
@@ -533,7 +1331,7 @@ function handleUniSearch(){
 function handleUniKey(e){
   const ac=document.getElementById('autocomplete');
   if(ac.style.display==='none')return;
-  const rows=ac.querySelectorAll('.ac-item,.ac-new');
+  const rows=ac.querySelectorAll('.ac-row,.ac-new-row');
   if(e.key==='ArrowDown'){acFocusIdx=Math.min(acFocusIdx+1,rows.length-1);updateACFocus(rows);e.preventDefault();}
   else if(e.key==='ArrowUp'){acFocusIdx=Math.max(acFocusIdx-1,0);updateACFocus(rows);e.preventDefault();}
   else if(e.key==='Enter'&&acFocusIdx>=0){rows[acFocusIdx].click();e.preventDefault();}
@@ -545,22 +1343,20 @@ function updateACFocus(rows){
 }
 function closeAC(){document.getElementById('autocomplete').style.display='none';acFocusIdx=-1;}
 document.addEventListener('click',e=>{
-  if(!document.getElementById('unisearch').contains(e.target)&&!document.getElementById('autocomplete').contains(e.target))closeAC();
+  if(!document.getElementById('unisearch').contains(e.target)&&
+     !document.getElementById('autocomplete').contains(e.target))closeAC();
 });
 
-// Modal helpers
+// ── Modal helpers ─────────────────────────────────────────────────────────────
 function showFromDB(dbItem){
-  const cls=dbItem.cat==='Set'?'set':dbItem.cat==='Unique'?'unique':'socketed';
-  document.getElementById('modal-item-name-display').textContent=dbItem.name;
-  document.getElementById('modal-item-name-display').className='modal-item-name '+cls;
-  let subtext=dbItem.setname||'';
-  if(dbItem.cat==='Runeword'&&dbItem.runes){
-    subtext=(dbItem.runes.join(' + '))+' · '+(dbItem.sockets)+'os '+((dbItem.base||[]).join(', '))+' · Rlvl '+(dbItem.rlvl||'?');
-  }
-  document.getElementById('modal-item-set-display').textContent=subtext;
-  if(dbItem.cat==='Runeword') document.getElementById('modal-item-set-display').style.color='#b89050';
-  else document.getElementById('modal-item-set-display').style.color='';
-  document.getElementById('modal-item-header').style.display='block';
+  const cls=clsCode(dbItem.cat);
+  document.getElementById('mic-name').textContent=dbItem.name;
+  document.getElementById('mic-name').className='mic-name '+cls;
+  let sub=dbItem.setname||'';
+  if(dbItem.cat==='Runeword'&&dbItem.runes)
+    sub=(dbItem.runes.join(' + '))+' · '+(dbItem.sockets||'?')+'os · '+((dbItem.base||[]).join(', '))+' · Rlvl '+(dbItem.rlvl||'?');
+  document.getElementById('mic-sub').textContent=sub;
+  document.getElementById('modal-item-card').style.display='block';
   document.getElementById('f-name-row').style.display='none';
   document.getElementById('f-cat-row').style.display='none';
   document.getElementById('f-setname-row').style.display='none';
@@ -570,15 +1366,15 @@ function showFromDB(dbItem){
 }
 
 function showManual(){
-  document.getElementById('modal-item-header').style.display='none';
+  document.getElementById('modal-item-card').style.display='none';
   document.getElementById('f-name-row').style.display='block';
   document.getElementById('f-cat-row').style.display='block';
   toggleSetName();
 }
 
 function openAddFromDB(dbItem){
-  editId=null;clearModal();
-  document.getElementById('modal-title').textContent='Lägg till item';
+  editId=null; clearModal();
+  document.getElementById('modal-hdr').textContent='Lägg till item';
   showFromDB(dbItem);
   document.getElementById('f-char').value=chars[0]?.name||'';
   document.getElementById('f-status').value='stored';
@@ -588,8 +1384,8 @@ function openAddFromDB(dbItem){
 }
 
 function openAddCustom(name){
-  editId=null;clearModal();
-  document.getElementById('modal-title').textContent='Lägg till item';
+  editId=null; clearModal();
+  document.getElementById('modal-hdr').textContent='Lägg till item';
   showManual();
   document.getElementById('f-name').value=name||'';
   document.getElementById('f-cat').value='Unique';
@@ -602,114 +1398,103 @@ function openAddCustom(name){
 
 function openEdit(id){
   const item=items.find(i=>i.id===id);if(!item)return;
-  editId=id;clearModal();
-  document.getElementById('modal-title').textContent='Redigera item';
-  showFromDB({name:item.name,cat:item.cat,setname:item.setname||''});
-  document.getElementById('f-char').value=item.char;
-  document.getElementById('f-status').value=item.status;
-  document.getElementById('f-notes').value=item.notes||'';
-  // Find DB item for structured display
+  editId=id; clearModal();
+  document.getElementById('modal-hdr').textContent='Redigera item';
   const dbRef=d2db.find(d=>d.name===item.name&&d.cat===item.cat);
+  if(dbRef){showFromDB(dbRef);}else{
+    showFromDB({name:item.name,cat:item.cat,setname:item.setname||'',runes:null});
+  }
+  document.getElementById('f-char').value=item.char||'';
+  document.getElementById('f-status').value=item.status||'stored';
+  document.getElementById('f-notes').value=item.notes||'';
   renderStructuredStats(dbRef||null);
-  // Restore saved values
   if(item.stats&&item.stats.length){
     item.stats.forEach(sv=>{
       if(sv.name==='Sockets'){
         const si=document.querySelector('[data-stat="sockets"]');
-        if(si) si.value=sv.value;
-        return;
+        if(si)si.value=sv.value;return;
       }
-      const inp=document.querySelector(`#stats-rows input[data-statname="${sv.name.replace(/"/g,'')}"]`);
-      if(inp){inp.value=sv.value;}
-      else{addCustomStatRow(sv.name,sv.value);}
+      const inp=document.querySelector(`#stats-rows input[data-stat]:not([data-stat="sockets"])[data-statname="${sv.name.replace(/"/g,'')}"]`);
+      if(inp)inp.value=sv.value;
+      else addCustomStatRow(sv.name,sv.value);
     });
   }
   document.getElementById('modal').classList.add('open');
+  hideTooltip();
 }
 
 function closeModal(){document.getElementById('modal').classList.remove('open');}
-function clearModal(){document.getElementById('stats-rows').innerHTML='';document.getElementById('stats-custom').innerHTML='';document.getElementById('f-notes').value='';}
+function clearModal(){
+  document.getElementById('stats-rows').innerHTML='';
+  document.getElementById('stats-custom').innerHTML='';
+  document.getElementById('f-notes').value='';
+}
 function toggleSetName(){
-  document.getElementById('f-setname-row').style.display=document.getElementById('f-cat').value==='Set'?'block':'none';
+  document.getElementById('f-setname-row').style.display=
+    document.getElementById('f-cat').value==='Set'?'block':'none';
 }
 
+// ── Structured stats (Traderie pill style) ────────────────────────────────────
 function renderStructuredStats(dbItem){
   const container=document.getElementById('stats-rows');
   container.innerHTML='';
   if(!dbItem||!dbItem.stats) return;
 
-  // Sockets line
   if(dbItem.sockets){
     const {min,max}=dbItem.sockets;
-    const range=min===max?`${min}os`:`${min}-${max}os`;
-    const line=document.createElement('div');
-    line.className='sockets-line';
-    line.innerHTML=`<span class="sockets-label">Sockets</span><span class="stat-range">(${range})</span><input type="number" class="stat-input" min="${min}" max="${max}" placeholder="" data-stat="sockets" style="width:52px">`;
-    container.appendChild(line);
+    const range=min===max?`${min}`:`${min}–${max}`;
+    const row=document.createElement('div');
+    row.className='stat-pill-sockets';
+    row.innerHTML=`<span class="stat-pill-label">Sockets</span><span class="stat-range-hint">(${range})</span><input type="number" class="stat-pill-input sock-input" min="${min}" max="${max}" placeholder="" data-stat="sockets" style="width:60px">`;
+    container.appendChild(row);
   }
 
   dbItem.stats.forEach((s,i)=>{
-    const line=document.createElement('div');
-    line.className='stat-line';
-    if(s.fixed||(!s.variable&&s.min===undefined)){
-      // Fixed stat — just text
-      line.innerHTML=`<span class="stat-fixed">${s.name||s.display||''}</span>`;
-    } else if(s.variable===false){
-      // Fixed value but shown for info
-      const val=s.min!==undefined?s.min:'';
-      const label=(s.name||'').replace('%d',val).replace('%d%%',val+'%');
-      line.innerHTML=`<span class="stat-fixed">${label}</span>`;
+    const row=document.createElement('div');
+    row.className='stat-pill-row';
+    if(s.fixed||(s.variable===false&&!s.variable)){
+      const label=s.fixed?s.name:(s.name||'').replace('%d',s.min).replace('%d%%',s.min+'%');
+      row.innerHTML=`<span class="stat-pill-label fixed">${label}</span>`;
     } else {
-      // Variable — show label + range + input
-      const label=(s.name||'').replace('%d','').replace('%d%%','').trim().replace(/\s+/,' ');
-      const range=s.min!==undefined&&s.max!==undefined&&s.min!==s.max?`(${s.min}-${s.max})`:`(${s.min||s.max})`;
-      line.innerHTML=`<span class="stat-label">${label}</span><span class="stat-range">${range}</span><input type="text" class="stat-input" placeholder="" data-stat="${i}" data-statname="${(s.name||'').replace(/"/g,'')}" data-min="${s.min||''}" data-max="${s.max||''}">`;
+      const label=(s.name||'').replace(/%d%?%?/g,'').trim().replace(/\s+/g,' ');
+      const range=s.min!==undefined&&s.max!==undefined&&s.min!==s.max?`${s.min}–${s.max}`:`${s.min??s.max??''}`;
+      row.innerHTML=`<span class="stat-pill-label">${label}</span><span class="stat-range-hint">(${range})</span><input type="text" class="stat-pill-input" placeholder="" data-stat="${i}" data-statname="${(s.name||'').replace(/"/g,'')}">`;
     }
-    container.appendChild(line);
+    container.appendChild(row);
   });
 }
 
 function addCustomStatRow(name='',value=''){
-  const container=document.getElementById('stats-custom');
-  const row=document.createElement('div');row.className='stat-row';
-  row.innerHTML=`<input type="text" class="stat-name-input" placeholder="Stat..." value="${name}">
-    <input type="text" class="stat-val-input" placeholder="Värde" value="${value}">
-    <button class="stat-remove" onclick="this.parentElement.remove()">×</button>`;
-  container.appendChild(row);
+  const c=document.getElementById('stats-custom');
+  const row=document.createElement('div');row.className='custom-stat-row';
+  row.innerHTML=`<input type="text" placeholder="Stat..." value="${name}"><input type="text" style="width:90px" placeholder="Värde" value="${value}"><button class="remove-stat" onclick="this.parentElement.remove()">×</button>`;
+  c.appendChild(row);
 }
-
-function addStatRow(name='',value=''){addCustomStatRow(name,value);}
+function addStatRow(n='',v=''){addCustomStatRow(n,v);}
 
 function getStats(){
   const stats=[];
-  // Sockets
-  const sockInput=document.querySelector('[data-stat="sockets"]');
-  if(sockInput&&sockInput.value) stats.push({name:'Sockets',value:sockInput.value});
-  // Structured variable stats
+  const si=document.querySelector('[data-stat="sockets"]');
+  if(si&&si.value)stats.push({name:'Sockets',value:si.value});
   document.querySelectorAll('#stats-rows input[data-stat]:not([data-stat="sockets"])').forEach(inp=>{
-    if(inp.value.trim()){
-      const label=inp.dataset.statname||inp.dataset.stat;
-      stats.push({name:label,value:inp.value.trim(),min:inp.dataset.min,max:inp.dataset.max});
-    }
+    if(inp.value.trim())stats.push({name:inp.dataset.statname||inp.dataset.stat,value:inp.value.trim()});
   });
-  // Custom stats
-  document.querySelectorAll('#stats-custom .stat-row').forEach(row=>{
-    const n=row.querySelector('.stat-name-input').value.trim();
-    const v=row.querySelector('.stat-val-input').value.trim();
-    if(n) stats.push({name:n,value:v});
+  document.querySelectorAll('#stats-custom .custom-stat-row').forEach(row=>{
+    const inputs=row.querySelectorAll('input');
+    const n=inputs[0]?.value.trim(),v=inputs[1]?.value.trim();
+    if(n)stats.push({name:n,value:v});
   });
   return stats;
 }
 
+// ── CRUD ──────────────────────────────────────────────────────────────────────
 async function saveItem(){
-  const name=document.getElementById('f-name-row').style.display!=='none'
-    ?document.getElementById('f-name').value.trim()
-    :document.getElementById('modal-item-name-display').textContent.trim();
+  const fromDB=document.getElementById('modal-item-card').style.display!=='none';
+  const name=fromDB?document.getElementById('mic-name').textContent.trim():document.getElementById('f-name').value.trim();
   if(!name)return;
-  const payload={
-    name,
-    cat:document.getElementById('f-cat').value,
-    setname:document.getElementById('f-setname').value.trim()||document.getElementById('modal-item-set-display').textContent.trim(),
+  const cat=document.getElementById('f-cat').value;
+  const setname=fromDB?document.getElementById('mic-sub').textContent.split('·')[0].trim():document.getElementById('f-setname').value.trim();
+  const payload={name,cat,setname,
     char:document.getElementById('f-char').value,
     status:document.getElementById('f-status').value,
     stats:getStats(),
@@ -719,187 +1504,145 @@ async function saveItem(){
     const updated=await api('PUT',`/api/items/${editId}`,payload);
     items[items.findIndex(i=>i.id===editId)]=updated;
     toast('Item uppdaterat');
-  }else{
+  } else {
     items.unshift(await api('POST','/api/items',payload));
     toast('Item tillagt');
   }
-  closeModal();renderStats();renderItems();renderSets();
+  closeModal();updateSidebarCounts();renderItems();renderSets();
 }
 
 async function deleteItem(id){
   if(!confirm('Ta bort item?'))return;
   await api('DELETE',`/api/items/${id}`);
   items=items.filter(i=>i.id!==id);
-  renderStats();renderItems();renderSets();toast('Item borttaget');
+  updateSidebarCounts();renderItems();renderSets();toast('Borttaget');
 }
 
 async function cycleStatus(id){
   const item=items.find(i=>i.id===id);if(!item)return;
   item.status=STATUS_ORDER[(STATUS_ORDER.indexOf(item.status)+1)%STATUS_ORDER.length];
   await api('PUT',`/api/items/${id}`,item);
-  renderItems();renderSets();toast('Status uppdaterad');
+  renderItems();renderSets();updateSidebarCounts();toast('Status uppdaterad');
 }
 
-function renderStats(){
-  const t=items.length,s=items.filter(i=>i.cat==='Set').length,u=items.filter(i=>i.cat==='Unique').length,k=items.filter(i=>i.cat==='Socketed'||i.cat==='Runeword').length;
-  document.getElementById('stats').innerHTML=`
-    <div class="stat-card"><div class="stat-label">Totalt</div><div class="stat-val">${t}</div></div>
-    <div class="stat-card"><div class="stat-label">Set-delar</div><div class="stat-val">${s}</div></div>
-    <div class="stat-card"><div class="stat-label">Unika items</div><div class="stat-val">${u}</div></div>
-    <div class="stat-card"><div class="stat-label">Socketed</div><div class="stat-val">${k}</div></div>`;
-}
-
-function classBadge(c){
-  if(!c||!c.cls)return '';
-  const cn='class-'+(c.cls||'bank').toLowerCase().replace(/\s+/,'-');
-  return `<span class="class-badge ${cn}">${c.cls}</span>`;
-}
-
-function charDisplay(charName){
-  const c=chars.find(x=>x.name===charName);
-  const badge=c&&c.cls?classBadge(c):'';
-  return `<span class="item-char-badge">${charName||'—'}${badge}</span>`;
-}
-
-function renderItems(){
-  const cat=document.getElementById('filter-cat').value;
-  const char=document.getElementById('filter-char').value;
-  const status=document.getElementById('filter-status').value;
-  const filtered=items.filter(i=>{
-    if(cat&&i.cat!==cat)return false;
-    if(char&&i.char!==char)return false;
-    if(status&&i.status!==status)return false;
-    return true;
-  });
-  const list=document.getElementById('list');
-  if(!filtered.length){
-    list.innerHTML=`<tr><td colspan="6" style="padding:3rem;text-align:center;color:var(--text3);font-style:italic">Inga items matchar filtret</td></tr>`;
-    return;
-  }
-  list.innerHTML=filtered.map(i=>{
-    const cls=i.cat==='Set'?'set':i.cat==='Unique'?'unique':i.cat==='Runeword'?'runeword':'socketed';
-    const dbRef=d2db.find(d=>d.name===i.name&&d.cat===i.cat);
-    const rlvl=dbRef&&dbRef.rlvl?dbRef.rlvl:(i.rlvl||'—');
-    const slug=(dbRef&&dbRef.img)||itemSlug(i.name);
-    // Sub label
-    let sublabel='';
-    if(i.cat==='Set'&&i.setname) sublabel=i.setname;
-    else if(i.cat==='Runeword'&&dbRef&&dbRef.runes) sublabel=(dbRef.base||[]).join(', ');
-    // Stats — show saved rolls or db stats
-    const statLines=[];
-    if(i.stats&&i.stats.length){
-      i.stats.filter(s=>s.value).slice(0,5).forEach(s=>{
-        const label=s.name?s.name.replace('%d',s.value).replace('%d%%',s.value+'%'):'';
-        statLines.push(`<div class="item-stat-line">${label||s.name}: ${s.value}</div>`);
-      });
-    } else if(dbRef&&dbRef.stats){
-      dbRef.stats.filter(s=>s.fixed||(s.variable===false)).slice(0,4).forEach(s=>{
-        const label=s.fixed?s.name:(s.name||'').replace('%d',s.min).replace('%d%%',s.min+'%');
-        statLines.push(`<div class="item-stat-line fixed-stat">${label}</div>`);
-      });
-    }
-    return `<tr>
-      <td class="item-td-name">
-        <div class="item-name-cell">
-          <img src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy" decoding="async" width="36" height="36">
-          <div>
-            <div class="item-name-main ${cls}" onclick="openEdit('${i.id}')">${i.name}</div>
-            ${sublabel?`<div class="item-name-sub">${sublabel}</div>`:''}
-          </div>
-        </div>
-      </td>
-      <td class="item-td-lvl">${rlvl}</td>
-      <td class="item-td-stats">${statLines.join('')||'<span style="color:var(--text3);font-size:12px">—</span>'}</td>
-      <td class="item-td-char">${charDisplay(i.char)}</td>
-      <td class="item-td-act"><button class="status-btn ${i.status}" onclick="cycleStatus('${i.id}')">${STATUS_LABEL[i.status]||i.status}</button></td>
-      <td style="padding:10px 8px 10px 0;text-align:right"><button class="del-btn" onclick="deleteItem('${i.id}')">×</button></td>
-    </tr>`;
-  }).join('');
-}
-
+// ── Sets ──────────────────────────────────────────────────────────────────────
 function renderSets(){
   const setItems=items.filter(i=>i.cat==='Set'&&i.setname);
   const groups={};
   setItems.forEach(i=>{if(!groups[i.setname])groups[i.setname]=[];groups[i.setname].push(i);});
   const content=document.getElementById('sets-content');
-  if(!Object.keys(groups).length){content.innerHTML='<div class="empty">Inga set-delar registrerade än</div>';return;}
+  if(!Object.keys(groups).length){content.innerHTML='<div class="empty-state">Inga set-delar registrerade än</div>';return;}
   content.innerHTML=Object.entries(groups).map(([setname,parts])=>{
     const hasAll=parts.every(p=>p.status!=='seeking');
-    return `<div style="background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:10px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <span style="font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--set)">${setname}</span>
-        <span style="font-size:12px;color:var(--text3);font-family:'Cinzel',serif">${parts.length} delar${hasAll?' · Komplett!':''}</span>
+    return `<div class="set-group">
+      <div class="set-group-header">
+        <span class="set-group-name">${setname}</span>
+        <span class="set-group-meta">${parts.length} delar${hasAll?' · KOMPLETT':''}</span>
       </div>
-      ${parts.map(p=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-top:0.5px solid var(--border)">
-        <div>
-          <span style="font-size:14px">${p.name}</span>
-          ${p.stats&&p.stats.length?`<div class="item-stats-preview">${p.stats.slice(0,2).map(s=>`${s.name}: ${s.value}`).join(' · ')}</div>`:''}
-        </div>
-        <div style="display:flex;gap:10px;align-items:center">
-          <span style="font-size:12px;color:var(--text3)">${p.char}</span>
-          <button class="status-btn ${p.status}" onclick="cycleStatus('${p.id}')" style="width:80px">${STATUS_LABEL[p.status]}</button>
-        </div>
-      </div>`).join('')}
+      <div class="set-group-body">
+        ${parts.map(p=>`<div class="set-row">
+          <div>
+            <div class="set-row-name">${p.name}</div>
+            ${p.stats&&p.stats.length?`<div class="set-row-stats">${p.stats.slice(0,2).map(s=>`${s.name}: ${s.value}`).join(' · ')}</div>`:''}
+          </div>
+          <div class="set-row-right">
+            <span class="set-row-char">${p.char||'—'}</span>
+            <button class="status-pill ${p.status}" onclick="cycleStatus('${p.id}')">${STATUS_LABEL[p.status]}</button>
+          </div>
+        </div>`).join('')}
+      </div>
     </div>`;
   }).join('');
 }
 
+// ── Set modal ─────────────────────────────────────────────────────────────────
+function openSetModal(setname,addMode=false){
+  if(!setname)return;
+  const dbParts=d2db.filter(d=>d.cat==='Set'&&d.setname===setname);
+  const stashParts=items.filter(i=>i.cat==='Set'&&i.setname===setname);
+  document.getElementById('set-modal-hdr').textContent=setname;
+  let html='';
+  if(addMode) html+=`<p style="font-size:13px;color:var(--text3);margin-bottom:1rem;font-style:italic">${dbParts.length} delar i detta set. Lägg till de du har:</p>`;
+  else{
+    const have=stashParts.length,total=dbParts.length;
+    html+=`<p style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text3);margin-bottom:1rem">${have}/${total} DELAR HITTADE</p>`;
+  }
+  dbParts.forEach(db=>{
+    const stash=stashParts.find(s=>s.name===db.name);
+    html+=`<div class="set-part">
+      <div class="set-part-icon">S</div>
+      <div class="set-part-info">
+        <div class="set-part-name">${db.name}</div>
+        ${(db.stats||[]).filter(s=>s.fixed).slice(0,2).map(s=>`<div class="set-part-stats">${s.name}</div>`).join('')}
+        <div class="set-part-loc ${stash?'found':'missing'}">
+          ${stash?`📍 ${stash.char} · ${STATUS_LABEL[stash.status]}`:'⚠ Ej i stash'}
+        </div>
+      </div>
+      <div style="flex-shrink:0">
+        ${stash
+          ?`<button class="btn" onclick="openEdit('${stash.id}');closeSetModal()">Redigera</button>`
+          :`<button class="btn primary" onclick="openAddFromDB(d2db.find(d=>d.name==='${db.name.replace(/'/g,"\\'")}'));closeSetModal()">+ Lägg till</button>`
+        }
+      </div>
+    </div>`;
+  });
+  document.getElementById('set-modal-body').innerHTML=html;
+  document.getElementById('set-modal').classList.add('open');
+}
+function closeSetModal(){document.getElementById('set-modal').classList.remove('open');}
+
+// ── Char management ───────────────────────────────────────────────────────────
 function renderCharGrid(){
-  const grid=document.getElementById('char-grid');
+  const list=document.getElementById('char-list');
   const sorted=[...chars].sort((a,b)=>(a.order||0)-(b.order||0));
-  grid.innerHTML=sorted.map(c=>{
-    const cn='class-'+(c.cls||'bank').toLowerCase().replace(/\s+/g,'-');
-    const badge=c.cls?`<span class="class-badge ${cn}">${c.cls}</span>`:'<span class="class-badge class-bank">Bank</span>';
-    return `<div class="char-item" draggable="true" data-char-id="${c.id}" style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);margin-bottom:4px">
-      <span class="drag-handle" title="Dra för att ändra ordning">⠿</span>
-      <span style="font-size:14px;flex:1">${c.name}</span>
+  list.innerHTML=sorted.map(c=>{
+    const cn=c.cls?'cls-'+c.cls.toLowerCase():'cls-bank';
+    const badge=`<span class="cls-tag ${cn}">${c.cls||'Bank'}</span>`;
+    return `<div class="char-list-item" draggable="true" data-char-id="${c.id}">
+      <span class="drag-handle">⠿</span>
       ${badge}
-      <select class="char-cls-sel" data-char-id="${c.id}" style="font-size:12px;height:26px;padding:2px 6px;width:120px">
+      <input type="text" class="char-name-input" value="${c.name}" data-char-id="${c.id}">
+      <select class="char-cls-select" data-char-id="${c.id}">
         <option value="">Klass...</option>
         ${['Amazon','Barbarian','Druid','Necromancer','Paladin','Sorceress','Assassin','Warlock','Bank'].map(cl=>`<option value="${cl}"${c.cls===cl?' selected':''}>${cl}</option>`).join('')}
       </select>
-      <input type="text" value="${c.name}" data-char-id="${c.id}" style="font-size:13px;height:26px;padding:2px 8px;width:130px">
-      <button class="del-btn" onclick="removeChar(${c.id})" title="Ta bort">×</button>
+      <button class="btn danger" onclick="removeChar(${c.id})" style="height:28px;padding:0 8px;font-size:9px">Ta bort</button>
     </div>`;
   }).join('');
 
-  // Drag ordering
   let dragSrc=null;
-  grid.querySelectorAll('.char-item').forEach(el=>{
+  list.querySelectorAll('.char-list-item').forEach(el=>{
     el.addEventListener('dragstart',e=>{dragSrc=el;e.dataTransfer.effectAllowed='move';el.style.opacity='.4';});
-    el.addEventListener('dragend',()=>{el.style.opacity='1';grid.querySelectorAll('.char-item').forEach(r=>r.classList.remove('drag-over'));});
+    el.addEventListener('dragend',()=>{el.style.opacity='1';list.querySelectorAll('.char-list-item').forEach(r=>r.classList.remove('drag-over'));});
     el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('drag-over');});
     el.addEventListener('dragleave',()=>el.classList.remove('drag-over'));
     el.addEventListener('drop',e=>{
       e.preventDefault();el.classList.remove('drag-over');
       if(dragSrc===el)return;
-      const all=[...grid.querySelectorAll('.char-item')];
+      const all=[...list.querySelectorAll('.char-list-item')];
       if(all.indexOf(dragSrc)<all.indexOf(el))el.after(dragSrc);else el.before(dragSrc);
-      const newOrder=[...grid.querySelectorAll('.char-item')].map(r=>r.dataset.charId);
+      const newOrder=[...list.querySelectorAll('.char-list-item')].map(r=>r.dataset.charId);
       chars=[...chars].sort((a,b)=>newOrder.indexOf(String(a.id))-newOrder.indexOf(String(b.id)));
       chars=chars.map((c,i)=>({...c,order:i+1}));
       populateCharSelects();
     });
   });
 
-  // Live cls change
-  grid.querySelectorAll('.char-cls-sel').forEach(sel=>{
+  list.querySelectorAll('.char-cls-select').forEach(sel=>{
     sel.addEventListener('change',()=>{
       const c=chars.find(x=>x.id==sel.dataset.charId);
-      if(c){c.cls=sel.value;renderItems();}
+      if(c){c.cls=sel.value;renderCharGrid();}
     });
   });
 }
 
 function addChar(){
   const nameEl=document.getElementById('new-char-name');
-  const name=nameEl.value.trim();
-  if(!name)return;
+  const name=nameEl.value.trim();if(!name)return;
   const cls=document.getElementById('new-char-cls').value;
   const newId=Math.max(0,...chars.map(c=>c.id))+1;
   chars.push({id:newId,name,cls,type:cls==='Bank'?'bank':'active',order:chars.length+1});
-  nameEl.value='';
-  document.getElementById('new-char-cls').value='';
+  nameEl.value='';document.getElementById('new-char-cls').value='';
   populateCharSelects();renderCharGrid();
 }
 
@@ -911,15 +1654,13 @@ function removeChar(id){
 }
 
 async function saveChars(){
-  // Read any inline name edits
-  document.querySelectorAll('#char-grid input[data-char-id]').forEach(inp=>{
+  document.querySelectorAll('#char-list input[data-char-id]').forEach(inp=>{
     const c=chars.find(x=>x.id==inp.dataset.charId);
-    if(c&&inp.value.trim()) c.name=inp.value.trim();
+    if(c&&inp.value.trim())c.name=inp.value.trim();
   });
   const ordered=chars.map((c,i)=>({...c,order:i+1}));
   await api('PUT','/api/characters',ordered);
-  chars=ordered;
-  populateCharSelects();renderItems();renderCharGrid();
+  chars=ordered;populateCharSelects();renderItems();renderCharGrid();
   toast('Karaktärer sparade');
 }
 
@@ -928,17 +1669,18 @@ async function resetChars(){
   await api('PUT','/api/characters',null);await loadAll();toast('Återställt');
 }
 
+// ── Data export/import ────────────────────────────────────────────────────────
 function exportData(){
   const a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([JSON.stringify({items,chars},null,2)],{type:'application/json'}));
   a.download=`d2r-stash-${new Date().toISOString().slice(0,10)}.json`;a.click();
 }
-
 function importData(event){
   const file=event.target.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=async e=>{
-    try{const data=JSON.parse(e.target.result);
+    try{
+      const data=JSON.parse(e.target.result);
       if(data.items)for(const item of data.items)await api('POST','/api/items',item);
       if(data.chars)await api('PUT','/api/characters',data.chars);
       await loadAll();toast('Import klar');
@@ -947,70 +1689,25 @@ function importData(event){
   reader.readAsText(file);
 }
 
-
-function openSetModal(setname, addMode=false){
-  if(!setname)return;
-  const dbParts=d2db.filter(d=>d.cat==='Set'&&d.setname===setname);
-  const stashParts=items.filter(i=>i.cat==='Set'&&i.setname===setname);
-  document.getElementById('set-modal-title').textContent=setname;
-
-  let html='';
-  if(addMode){
-    html+=`<p style="font-size:13px;color:var(--text2);margin-bottom:1rem;font-style:italic">
-      ${dbParts.length} delar i detta set. Lägg till de delar du har:</p>`;
-  } else {
-    const have=stashParts.length, total=dbParts.length;
-    html+=`<div style="font-family:'Cinzel',serif;font-size:11px;color:var(--text3);margin-bottom:1rem;letter-spacing:.05em">
-      ${have}/${total} DELAR HITTADE</div>`;
-  }
-
-  dbParts.forEach(dbPart=>{
-    const stashItem=stashParts.find(s=>s.name===dbPart.name);
-    const cls='set';
-    const slug=dbPart.img||itemSlug(dbPart.name);
-    const topStats=(dbPart.stats||[]).filter(s=>s.variable||s.fixed).slice(0,3)
-      .map(s=>s.fixed?s.name:(s.name||'').replace('%d',`${s.min}${s.min!==s.max?'-'+s.max:''}`))
-      .join(' · ');
-
-    html+=`<div class="set-part-row">
-      <img class="ac-img" src="/api/itemimg/${slug}" onerror="this.style.display='none'" loading="lazy" style="margin-right:10px">
-      <div class="set-part-info">
-        <div class="set-part-name" style="color:var(--set)">${dbPart.name}</div>
-        ${topStats?`<div class="set-part-stats">${topStats}</div>`:''}
-        ${stashItem?`<div class="set-part-char">📍 ${stashItem.char} · <span class="status-btn ${stashItem.status}" style="display:inline;border:none;padding:0;font-size:11px">${STATUS_LABEL[stashItem.status]}</span></div>`:'<div class="set-part-stats" style="color:var(--seeking)">Ej i stash</div>'}
-      </div>
-      <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">
-        ${stashItem
-          ?`<button class="btn" style="height:28px;font-size:10px" onclick="openEdit('${stashItem.id}');closeSetModal()">Redigera</button>`
-          :`<button class="btn gold" style="height:28px;font-size:10px" onclick="openAddFromDB(d2db.find(d=>d.name==='${dbPart.name.replace(/'/g,"\'")}'));closeSetModal()">+ Lägg till</button>`
-        }
-      </div>
-    </div>`;
-  });
-
-  document.getElementById('set-modal-body').innerHTML=html;
-  document.getElementById('set-modal').classList.add('open');
-}
-
-function closeSetModal(){
-  document.getElementById('set-modal').classList.remove('open');
-}
-
-function showPage(name,btn){
+// ── Navigation ────────────────────────────────────────────────────────────────
+function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  btn.classList.add('active');
+  const pg=document.getElementById('page-'+name);
+  if(pg) pg.classList.add('active');
+  if(name==='sets') renderSets();
+  if(name==='settings') renderCharGrid();
 }
 
 function toast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;
-  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
 }
 
+// ── Event listeners ───────────────────────────────────────────────────────────
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeModal();});
 document.getElementById('set-modal').addEventListener('click',e=>{if(e.target===document.getElementById('set-modal'))closeSetModal();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeSetModal();closeAC();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeSetModal();closeAC();hideTooltip();}});
 
 loadAll();
 </script>
