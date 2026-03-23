@@ -1853,5 +1853,1508 @@
     "name": "Ward",
     "cat": "Socketed",
     "setname": ""
+  },
+  {
+    "name": "Ancient's Pledge",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Ral",
+      "Ort",
+      "Tal"
+    ],
+    "sockets": 3,
+    "base": [
+      "Shields"
+    ],
+    "rlvl": 21,
+    "stats": [
+      "+50% Enhanced Defense",
+      "Cold Resist +43%",
+      "Fire Resist +48%",
+      "Lightning Resist +48%",
+      "Poison Resist +48%"
+    ]
+  },
+  {
+    "name": "Stealth",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Tal",
+      "Eth"
+    ],
+    "sockets": 2,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 17,
+    "stats": [
+      "25% Faster Run/Walk",
+      "25% Faster Cast Rate",
+      "25% Faster Hit Recovery",
+      "6% Life Stolen Per Hit",
+      "+15 to Dexterity",
+      "Regenerate Mana 15%"
+    ]
+  },
+  {
+    "name": "Lore",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Ort",
+      "Sol"
+    ],
+    "sockets": 2,
+    "base": [
+      "Helms"
+    ],
+    "rlvl": 27,
+    "stats": [
+      "+1 to All Skills",
+      "+10 to Energy",
+      "Lightning Resist +30%",
+      "Damage Reduced by 7",
+      "+2 to Mana After Each Kill"
+    ]
+  },
+  {
+    "name": "Rhyme",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Shael",
+      "Eth"
+    ],
+    "sockets": 2,
+    "base": [
+      "Shields"
+    ],
+    "rlvl": 29,
+    "stats": [
+      "20% Increased Chance of Blocking",
+      "40% Faster Block Rate",
+      "Regenerate Mana 15%",
+      "All Resistances +25",
+      "Cannot Be Frozen",
+      "50% Extra Gold from Monsters",
+      "25% Better Chance of Getting Magic Items"
+    ]
+  },
+  {
+    "name": "Smoke",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Nef",
+      "Lum"
+    ],
+    "sockets": 2,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 37,
+    "stats": [
+      "+75% Enhanced Defense",
+      "+280 Defense vs. Missile",
+      "All Resistances +50",
+      "20% Faster Hit Recovery"
+    ]
+  },
+  {
+    "name": "Spirit",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Tal",
+      "Thul",
+      "Ort",
+      "Amn"
+    ],
+    "sockets": 4,
+    "base": [
+      "Swords",
+      "Shields"
+    ],
+    "rlvl": 25,
+    "stats": [
+      "+2 to All Skills",
+      "+25-35% Faster Cast Rate",
+      "+55% Faster Hit Recovery",
+      "Adds 1-50 Lightning Damage",
+      "+22 to Vitality",
+      "+89-112 to Mana",
+      "Cold Resist +35%",
+      "Lightning Resist +35%",
+      "Poison Resist +35%"
+    ]
+  },
+  {
+    "name": "Insight",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Ral",
+      "Tir",
+      "Tal",
+      "Sol"
+    ],
+    "sockets": 4,
+    "base": [
+      "Polearms",
+      "Staves",
+      "Bows",
+      "Crossbows"
+    ],
+    "rlvl": 27,
+    "stats": [
+      "Level 12-17 Meditation Aura When Equipped",
+      "+35% Faster Cast Rate",
+      "+200-260% Enhanced Damage",
+      "All Resistances +45"
+    ]
+  },
+  {
+    "name": "Enigma",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Jah",
+      "Ith",
+      "Ber"
+    ],
+    "sockets": 3,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 65,
+    "stats": [
+      "+2 to All Skills",
+      "45% Faster Run/Walk",
+      "+1 to Teleport",
+      "750-775 Defense",
+      "+0.75/level to Strength",
+      "Increase Maximum Life 5%",
+      "Damage Reduced by 8%",
+      "15% Damage Goes to Mana"
+    ]
+  },
+  {
+    "name": "Heart of the Oak",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Ko",
+      "Vex",
+      "Pul",
+      "Thul"
+    ],
+    "sockets": 4,
+    "base": [
+      "Staves",
+      "Maces"
+    ],
+    "rlvl": 55,
+    "stats": [
+      "+3 to All Skills",
+      "40% Faster Cast Rate",
+      "+75% Damage to Demons",
+      "Adds 3-14 Cold Damage",
+      "7% Mana Stolen Per Hit",
+      "Lightning Resist +30%",
+      "Fire Resist +30%",
+      "Poison Resist +30%",
+      "Replenish Life +20",
+      "Increase Maximum Mana 15%"
+    ]
+  },
+  {
+    "name": "Call to Arms",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Amn",
+      "Ral",
+      "Mal",
+      "Ist",
+      "Ohm"
+    ],
+    "sockets": 5,
+    "base": [
+      "Weapons"
+    ],
+    "rlvl": 57,
+    "stats": [
+      "+1 to All Skills",
+      "+40% Increased Attack Speed",
+      "+250-290% Enhanced Damage",
+      "+2-6 to Battle Command",
+      "+1-6 to Battle Orders",
+      "+1-4 to Battle Cry",
+      "Prevent Monster Heal",
+      "30% Better Chance of Getting Magic Items"
+    ]
+  },
+  {
+    "name": "Chains of Honor",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Dol",
+      "Um",
+      "Ber",
+      "Ist"
+    ],
+    "sockets": 4,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 63,
+    "stats": [
+      "+2 to All Skills",
+      "70% Damage to Demons",
+      "8% Life Stolen Per Hit",
+      "+70% Enhanced Defense",
+      "+20 to Strength",
+      "All Resistances +65",
+      "Replenish Life +7",
+      "25% Better Chance of Getting Magic Items"
+    ]
+  },
+  {
+    "name": "Enigma",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Jah",
+      "Ith",
+      "Ber"
+    ],
+    "sockets": 3,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 65,
+    "stats": [
+      "+2 to All Skills",
+      "45% Faster Run/Walk",
+      "+1 to Teleport"
+    ]
+  },
+  {
+    "name": "Fortitude",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "El",
+      "Sol",
+      "Dol",
+      "Lo"
+    ],
+    "sockets": 4,
+    "base": [
+      "Weapons",
+      "Body Armor"
+    ],
+    "rlvl": 59,
+    "stats": [
+      "20% Chance to Cast Level 15 Chilling Armor when Struck",
+      "+25% Faster Cast Rate",
+      "+300% Enhanced Damage",
+      "All Resistances +25-30"
+    ]
+  },
+  {
+    "name": "Grief",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Eth",
+      "Tir",
+      "Lo",
+      "Mal",
+      "Ral"
+    ],
+    "sockets": 5,
+    "base": [
+      "Swords",
+      "Axes"
+    ],
+    "rlvl": 59,
+    "stats": [
+      "+30-40% Increased Attack Speed",
+      "Damage +340-400",
+      "Ignore Target's Defense",
+      "Adds 5-30 Fire Damage",
+      "Prevent Monster Heal",
+      "30-33% Better Chance of Getting Magic Items"
+    ]
+  },
+  {
+    "name": "Infinity",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Ber",
+      "Mal",
+      "Ber",
+      "Ist"
+    ],
+    "sockets": 4,
+    "base": [
+      "Polearms",
+      "Staves"
+    ],
+    "rlvl": 63,
+    "stats": [
+      "50% Chance to Cast Level 20 Chain Lightning on Striking",
+      "Level 12 Conviction Aura When Equipped",
+      "+35% Faster Run/Walk",
+      "+255-325% Enhanced Damage",
+      "-45-55% to Enemy Lightning Resistance",
+      "40% Chance of Crushing Blow"
+    ]
+  },
+  {
+    "name": "Last Wish",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Jah",
+      "Mal",
+      "Jah",
+      "Sur",
+      "Jah",
+      "Ber"
+    ],
+    "sockets": 6,
+    "base": [
+      "Axes",
+      "Hammers",
+      "Swords"
+    ],
+    "rlvl": 65,
+    "stats": [
+      "6% Chance to Cast Level 11 Fade When Struck",
+      "Level 17 Might Aura When Equipped",
+      "+330-375% Enhanced Damage",
+      "60-70% Chance of Crushing Blow",
+      "Prevent Monster Heal"
+    ]
+  },
+  {
+    "name": "Phoenix",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Vex",
+      "Vex",
+      "Lo",
+      "Jah"
+    ],
+    "sockets": 4,
+    "base": [
+      "Weapons",
+      "Shields"
+    ],
+    "rlvl": 65,
+    "stats": [
+      "100% Chance to Cast Level 40 Blaze When You Level-Up",
+      "Level 10-15 Redemption Aura When Equipped",
+      "+350-400% Enhanced Damage",
+      "All Resistances +28-48",
+      "Adds 282-333 Fire Damage"
+    ]
+  },
+  {
+    "name": "Beast",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Ber",
+      "Tir",
+      "Um",
+      "Mal",
+      "Lum"
+    ],
+    "sockets": 5,
+    "base": [
+      "Axes",
+      "Hammers",
+      "Scepters"
+    ],
+    "rlvl": 63,
+    "stats": [
+      "Level 9 Fanaticism Aura When Equipped",
+      "40% Increased Attack Speed",
+      "+240-270% Enhanced Damage",
+      "20% Chance of Crushing Blow",
+      "+3 to Werebear",
+      "+3 to Lycanthropy"
+    ]
+  },
+  {
+    "name": "Breath of the Dying",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Vex",
+      "Hel",
+      "El",
+      "Eld",
+      "Zod",
+      "Eth"
+    ],
+    "sockets": 6,
+    "base": [
+      "Weapons"
+    ],
+    "rlvl": 69,
+    "stats": [
+      "50% Chance to Cast Level 20 Poison Nova on Striking",
+      "Indestructible",
+      "+60% Increased Attack Speed",
+      "+350-400% Enhanced Damage",
+      "7% Mana Stolen Per Hit",
+      "12-15% Life Stolen Per Hit",
+      "Prevent Monster Heal"
+    ]
+  },
+  {
+    "name": "Bramble",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Ral",
+      "Ohm",
+      "Sur",
+      "Eth"
+    ],
+    "sockets": 4,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 61,
+    "stats": [
+      "Level 15-21 Thorns Aura When Equipped",
+      "50% Faster Hit Recovery",
+      "+25-50% to Poison Skill Damage",
+      "-25% to Enemy Poison Resistance",
+      "Adds 100-400 Fire Damage"
+    ]
+  },
+  {
+    "name": "Brand",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Jah",
+      "Lo",
+      "Mal",
+      "Gul"
+    ],
+    "sockets": 4,
+    "base": [
+      "Missile Weapons"
+    ],
+    "rlvl": 65,
+    "stats": [
+      "35% Chance to Cast Level 14 Amplify Damage When Struck",
+      "Fires Explosive Arrows or Bolts (15)",
+      "+260-340% Enhanced Damage",
+      "Ignores Target's Defense",
+      "20% Deadly Strike",
+      "Prevent Monster Heal"
+    ]
+  },
+  {
+    "name": "Chaos",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Fal",
+      "Ohm",
+      "Um"
+    ],
+    "sockets": 3,
+    "base": [
+      "Claws"
+    ],
+    "rlvl": 57,
+    "stats": [
+      "9% Chance to Cast Level 11 Frozen Orb on Striking",
+      "11% Chance to Cast Level 9 Charged Bolt on Striking",
+      "+35% Increased Attack Speed",
+      "+290-340% Enhanced Damage",
+      "+1 to Whirlwind"
+    ]
+  },
+  {
+    "name": "Crescent Moon",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Shael",
+      "Um",
+      "Tir"
+    ],
+    "sockets": 3,
+    "base": [
+      "Axes",
+      "Polearms",
+      "Swords"
+    ],
+    "rlvl": 47,
+    "stats": [
+      "10% Chance to Cast Level 17 Chain Lightning on Striking",
+      "+20% Increased Attack Speed",
+      "+180-220% Enhanced Damage",
+      "Ignore Target's Defense",
+      "-35% to Enemy Lightning Resistance",
+      "25% Chance of Open Wounds"
+    ]
+  },
+  {
+    "name": "Death",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Hel",
+      "El",
+      "Vex",
+      "Ort",
+      "Gul"
+    ],
+    "sockets": 5,
+    "base": [
+      "Axes",
+      "Swords"
+    ],
+    "rlvl": 55,
+    "stats": [
+      "100% Chance to Cast Level 44 Chain Lightning on Striking",
+      "Level 16 Heart of Wolverine When Equipped",
+      "+350-400% Enhanced Damage",
+      "15% Chance of Crushing Blow"
+    ]
+  },
+  {
+    "name": "Delirium",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Lem",
+      "Ist",
+      "Io"
+    ],
+    "sockets": 3,
+    "base": [
+      "Helms"
+    ],
+    "rlvl": 51,
+    "stats": [
+      "1% Chance to Cast Level 50 Delirium When Struck",
+      "6% Chance to Cast Level 14 Mind Blast When Struck",
+      "+2 to All Skills",
+      "25% Better Chance of Getting Magic Items"
+    ]
+  },
+  {
+    "name": "Doom",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Hel",
+      "Ohm",
+      "Um",
+      "Lo",
+      "Cham"
+    ],
+    "sockets": 5,
+    "base": [
+      "Axes",
+      "Polearms",
+      "Hammers"
+    ],
+    "rlvl": 67,
+    "stats": [
+      "Level 12 Holy Freeze Aura When Equipped",
+      "+2 to All Skills",
+      "+45% Increased Attack Speed",
+      "+330-370% Enhanced Damage",
+      "20% Chance of Crushing Blow",
+      "Prevent Monster Heal",
+      "Freezes Target +3"
+    ]
+  },
+  {
+    "name": "Dragon",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Sur",
+      "Lo",
+      "Sol"
+    ],
+    "sockets": 3,
+    "base": [
+      "Body Armor",
+      "Shields"
+    ],
+    "rlvl": 61,
+    "stats": [
+      "Level 14 Holy Fire Aura When Equipped",
+      "+360 Defense",
+      "+3-5 to All Attributes",
+      "Increase Maximum Mana 5% (Armor Only)"
+    ]
+  },
+  {
+    "name": "Dream",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Io",
+      "Jah",
+      "Pul"
+    ],
+    "sockets": 3,
+    "base": [
+      "Helms",
+      "Shields"
+    ],
+    "rlvl": 65,
+    "stats": [
+      "Level 15 Holy Shock Aura When Equipped",
+      "+20-30% Faster Hit Recovery",
+      "+150-220 Defense",
+      "+10 to Vitality",
+      "All Resistances +5-20",
+      "12-25% Better Chance of Getting Magic Items"
+    ]
+  },
+  {
+    "name": "Duress",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Shael",
+      "Um",
+      "Thul"
+    ],
+    "sockets": 3,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 47,
+    "stats": [
+      "40% Faster Hit Recovery",
+      "+10-20% Enhanced Damage",
+      "Adds 37-133 Cold Damage",
+      "15% Chance of Crushing Blow",
+      "33% Chance of Open Wounds",
+      "Cold Resist +45%"
+    ]
+  },
+  {
+    "name": "Edge",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Tir",
+      "Tal",
+      "Amn"
+    ],
+    "sockets": 3,
+    "base": [
+      "Missile Weapons"
+    ],
+    "rlvl": 25,
+    "stats": [
+      "Level 15 Thorns Aura When Equipped",
+      "+35% Increased Attack Speed",
+      "+320-380% Damage To Demons",
+      "7% Life Stolen Per Hit",
+      "Prevent Monster Heal",
+      "Reduces All Vendor Prices 15%"
+    ]
+  },
+  {
+    "name": "Exile",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Vex",
+      "Ohm",
+      "Ist",
+      "Dol"
+    ],
+    "sockets": 4,
+    "base": [
+      "Paladin Shields"
+    ],
+    "rlvl": 57,
+    "stats": [
+      "Level 13-16 Defiance Aura When Equipped",
+      "+2 to Offensive Auras",
+      "30% Faster Block Rate",
+      "Freezes Target +3",
+      "+220-260% Enhanced Defense",
+      "Cold Resist +30%",
+      "Fire Resist +30%"
+    ]
+  },
+  {
+    "name": "Famine",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Fal",
+      "Ohm",
+      "Ort",
+      "Jah"
+    ],
+    "sockets": 4,
+    "base": [
+      "Axes",
+      "Hammers"
+    ],
+    "rlvl": 65,
+    "stats": [
+      "+30% Increased Attack Speed",
+      "+320-370% Enhanced Damage",
+      "Ignore Target's Defense",
+      "Adds 180-200 Magic Damage",
+      "12% Life Stolen Per Hit",
+      "Prevent Monster Heal"
+    ]
+  },
+  {
+    "name": "Flickering Flame",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Nef",
+      "Pul",
+      "Vex"
+    ],
+    "sockets": 3,
+    "base": [
+      "Helms"
+    ],
+    "rlvl": 55,
+    "stats": [
+      "Level 4-8 Resist Fire Aura When Equipped",
+      "+3 to Fire Skills",
+      "-10-15% to Enemy Fire Resistance",
+      "100% Poison Length Reduced"
+    ]
+  },
+  {
+    "name": "Gloom",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Fal",
+      "Um",
+      "Pul"
+    ],
+    "sockets": 3,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 47,
+    "stats": [
+      "15% Chance To Cast Level 3 Dim Vision When Struck",
+      "+10% Faster Hit Recovery",
+      "+200-260% Enhanced Defense",
+      "All Resistances +45",
+      "Half Freeze Duration"
+    ]
+  },
+  {
+    "name": "Hand of Justice",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Sur",
+      "Cham",
+      "Amn",
+      "Lo"
+    ],
+    "sockets": 4,
+    "base": [
+      "Weapons"
+    ],
+    "rlvl": 67,
+    "stats": [
+      "Level 16 Holy Fire Aura When Equipped",
+      "+33% Increased Attack Speed",
+      "+280-330% Enhanced Damage",
+      "Ignore Target's Defense",
+      "7% Life Stolen Per Hit",
+      "-20% to Enemy Fire Resistance",
+      "20% Deadly Strike"
+    ]
+  },
+  {
+    "name": "Harmony",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Tir",
+      "Ith",
+      "Sol",
+      "Ko"
+    ],
+    "sockets": 4,
+    "base": [
+      "Missile Weapons"
+    ],
+    "rlvl": 39,
+    "stats": [
+      "Level 10 Vigor Aura When Equipped",
+      "+200-275% Enhanced Damage",
+      "Adds 55-160 Fire Damage",
+      "Adds 55-160 Lightning Damage",
+      "Adds 55-160 Cold Damage",
+      "+2-6 to Valkyrie",
+      "+10 to Dexterity",
+      "Regenerate Mana 20%"
+    ]
+  },
+  {
+    "name": "Ice",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Amn",
+      "Shael",
+      "Jah",
+      "Lo"
+    ],
+    "sockets": 4,
+    "base": [
+      "Missile Weapons"
+    ],
+    "rlvl": 65,
+    "stats": [
+      "100% Chance to Cast Level 40 Blizzard When You Level-up",
+      "Level 18 Holy Freeze Aura When Equipped",
+      "+140-210% Enhanced Damage",
+      "Ignore Target's Defense",
+      "+25-30% to Cold Skill Damage",
+      "7% Life Stolen Per Hit",
+      "20% Deadly Strike"
+    ]
+  },
+  {
+    "name": "Lawbringer",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Amn",
+      "Lem",
+      "Ko"
+    ],
+    "sockets": 3,
+    "base": [
+      "Hammers",
+      "Scepters",
+      "Swords"
+    ],
+    "rlvl": 43,
+    "stats": [
+      "20% Chance to Cast Level 15 Decrepify on Striking",
+      "Level 16-18 Sanctuary Aura When Equipped",
+      "-50% Target Defense",
+      "Adds 150-210 Fire Damage",
+      "Adds 130-180 Cold Damage",
+      "7% Life Stolen Per Hit",
+      "Slain Monsters Rest in Peace"
+    ]
+  },
+  {
+    "name": "Obedience",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Hel",
+      "Ko",
+      "Thul",
+      "Eth",
+      "Fal"
+    ],
+    "sockets": 5,
+    "base": [
+      "Polearms"
+    ],
+    "rlvl": 41,
+    "stats": [
+      "30% Chance to Cast Level 21 Enchant When You Kill An Enemy",
+      "40% Faster Hit Recovery",
+      "+370% Enhanced Damage",
+      "-25% Target Defense",
+      "40% Chance of Crushing Blow",
+      "+200-300 Defense",
+      "All Resistances +20-30",
+      "Requirements -20%"
+    ]
+  },
+  {
+    "name": "Obsession",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Zod",
+      "Ist",
+      "Lem",
+      "Lum",
+      "Io",
+      "Nef"
+    ],
+    "sockets": 6,
+    "base": [
+      "Staves"
+    ],
+    "rlvl": 69,
+    "stats": [
+      "Indestructible",
+      "+4 to All Skills",
+      "+65% Faster Cast Rate",
+      "+60% Faster Hit Recovery",
+      "Increase Maximum Life 15-25%",
+      "All Resistances +60-70",
+      "30% Better Chance of Getting Magic Items"
+    ]
+  },
+  {
+    "name": "Passion",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Dol",
+      "Ort",
+      "Eld",
+      "Lem"
+    ],
+    "sockets": 4,
+    "base": [
+      "Weapons"
+    ],
+    "rlvl": 43,
+    "stats": [
+      "+25% Increased Attack Speed",
+      "+160-210% Enhanced Damage",
+      "50-80% Bonus to Attack Rating",
+      "+1 to Berserk",
+      "+1 to Zeal",
+      "Hit Blinds Target +10",
+      "Hit Causes Monster to Flee 25%"
+    ]
+  },
+  {
+    "name": "Pattern",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Tal",
+      "Ort",
+      "Tir"
+    ],
+    "sockets": 3,
+    "base": [
+      "Claws"
+    ],
+    "rlvl": 23,
+    "stats": [
+      "+30% Faster Block Rate",
+      "+40-80% Enhanced Damage",
+      "All Resistances +15"
+    ]
+  },
+  {
+    "name": "Plague",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Cham",
+      "Shael",
+      "Um"
+    ],
+    "sockets": 3,
+    "base": [
+      "Swords",
+      "Claws",
+      "Daggers"
+    ],
+    "rlvl": 67,
+    "stats": [
+      "25% Chance to Cast Level 15 Poison Nova on Striking",
+      "Level 13-17 Cleansing Aura When Equipped",
+      "+1-2 to All Skills",
+      "+20% Increased Attack Speed",
+      "+220-320% Enhanced Damage",
+      "-23% to Enemy Poison Resistance"
+    ]
+  },
+  {
+    "name": "Pride",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Cham",
+      "Sur",
+      "Io",
+      "Lo"
+    ],
+    "sockets": 4,
+    "base": [
+      "Polearms"
+    ],
+    "rlvl": 67,
+    "stats": [
+      "Level 16-20 Concentration Aura When Equipped",
+      "260-300% Bonus to Attack Rating",
+      "+1-99% Damage to Demons",
+      "Adds 50-280 Lightning Damage",
+      "20% Deadly Strike",
+      "Freezes Target +3"
+    ]
+  },
+  {
+    "name": "Rift",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Hel",
+      "Ko",
+      "Lem",
+      "Gul"
+    ],
+    "sockets": 4,
+    "base": [
+      "Polearms",
+      "Scepters"
+    ],
+    "rlvl": 53,
+    "stats": [
+      "20% Chance to Cast Level 16 Tornado on Striking",
+      "16% Chance to Cast Level 21 Frozen Orb on Attack",
+      "+160-250% Enhanced Damage",
+      "Adds 60-180 Magic Damage",
+      "Ignore Target's Defense",
+      "-33% to Enemy Cold Resistance"
+    ]
+  },
+  {
+    "name": "Sanctuary",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Ko",
+      "Ko",
+      "Mal"
+    ],
+    "sockets": 3,
+    "base": [
+      "Shields"
+    ],
+    "rlvl": 49,
+    "stats": [
+      "20% Faster Hit Recovery",
+      "20% Faster Block Rate",
+      "20% Increased Chance of Blocking",
+      "Adds 3-14 Cold Damage",
+      "All Resistances +50-70",
+      "+250 Defense vs. Missile"
+    ]
+  },
+  {
+    "name": "Stone",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Shael",
+      "Um",
+      "Pul",
+      "Lum"
+    ],
+    "sockets": 4,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 47,
+    "stats": [
+      "60% Faster Hit Recovery",
+      "+250-290% Enhanced Defense",
+      "+300 Defense vs. Missile",
+      "+16 to Strength",
+      "+16 to Vitality",
+      "All Resistances +15"
+    ]
+  },
+  {
+    "name": "Treachery",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Shael",
+      "Thul",
+      "Lem"
+    ],
+    "sockets": 3,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 43,
+    "stats": [
+      "5% Chance to Cast Level 15 Fade When Struck",
+      "25% Chance to Cast level 15 Venom on Striking",
+      "+2 to Assassin Skills",
+      "45% Increased Attack Speed",
+      "20% Faster Hit Recovery",
+      "Cold Resist +30%"
+    ]
+  },
+  {
+    "name": "Unbending Will",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Fal",
+      "Io",
+      "Ith",
+      "Eld",
+      "El",
+      "Hel"
+    ],
+    "sockets": 6,
+    "base": [
+      "Swords"
+    ],
+    "rlvl": 41,
+    "stats": [
+      "+3 to Combat Skills (Barbarian Only)",
+      "+20-30% Increased Attack Speed",
+      "+300-350% Enhanced Damage",
+      "50% Chance of Crushing Blow",
+      "Cold Resist +45%",
+      "Requirements -20%"
+    ]
+  },
+  {
+    "name": "Voice of Reason",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Lem",
+      "Ko",
+      "El",
+      "Eld"
+    ],
+    "sockets": 4,
+    "base": [
+      "Maces",
+      "Swords"
+    ],
+    "rlvl": 43,
+    "stats": [
+      "15% Chance To Cast Level 13 Frozen Orb On Striking",
+      "+220-350% Damage To Demons",
+      "+355-375% Damage To Undead",
+      "Adds 100-220 Cold Damage",
+      "-24% To Enemy Cold Resistance",
+      "Prevent Monster Heal"
+    ]
+  },
+  {
+    "name": "Wealth",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Lem",
+      "Ko",
+      "Tir"
+    ],
+    "sockets": 3,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 43,
+    "stats": [
+      "300% Extra Gold from Monsters",
+      "100% Better Chance of Getting Magic Items",
+      "+2 to Mana After Each Kill"
+    ]
+  },
+  {
+    "name": "White",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Dol",
+      "Io"
+    ],
+    "sockets": 2,
+    "base": [
+      "Wands"
+    ],
+    "rlvl": 35,
+    "stats": [
+      "+3 to Poison and Bone Skills (Necromancer Only)",
+      "+20% Faster Cast Rate",
+      "+2 to Bone Spear (Necromancer Only)",
+      "+4 to Skeleton Mastery (Necromancer Only)",
+      "+3 to Bone Armor (Necromancer Only)",
+      "Hit Causes Monster to Flee 25%"
+    ]
+  },
+  {
+    "name": "Wind",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Sur",
+      "El"
+    ],
+    "sockets": 2,
+    "base": [
+      "Melee Weapons"
+    ],
+    "rlvl": 61,
+    "stats": [
+      "10% Chance to Cast Level 9 Tornado on Striking",
+      "+20% Faster Run/Walk",
+      "+40% Increased Attack Speed",
+      "+55-65% Enhanced Damage",
+      "Prevent Monster Heal",
+      "Hit Blinds Target"
+    ]
+  },
+  {
+    "name": "Wisdom",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Pul",
+      "Ith",
+      "Eld"
+    ],
+    "sockets": 3,
+    "base": [
+      "Helms"
+    ],
+    "rlvl": 45,
+    "stats": [
+      "+33% Piercing Attack",
+      "4-8% Mana Stolen Per Hit",
+      "+30% Enhanced Defense",
+      "+10 Energy",
+      "Increase Maximum Mana 10%",
+      "Knockback"
+    ]
+  },
+  {
+    "name": "Wrath",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Pul",
+      "Lum",
+      "Ber",
+      "Mal"
+    ],
+    "sockets": 4,
+    "base": [
+      "Missile Weapons"
+    ],
+    "rlvl": 63,
+    "stats": [
+      "30% Chance to Cast Level 1 Decrepify on Strike",
+      "Adds 41-240 Lightning Damage",
+      "Adds 240-398 Magic Damage",
+      "+250-300% Damage to Demons",
+      "Prevent Monster Heal",
+      "Cannot Be Frozen"
+    ]
+  },
+  {
+    "name": "Mosaic",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Mal",
+      "Gul",
+      "Amn"
+    ],
+    "sockets": 3,
+    "base": [
+      "Claws"
+    ],
+    "rlvl": 53,
+    "stats": [
+      "50% Chance to Cast Level 6 Blizzard When You Level-Up",
+      "+50% Cold Skill Damage",
+      "+2 to Martial Arts (Assassin Only)",
+      "Adds 4-50 Cold Damage",
+      "+8% Life Stolen Per Hit",
+      "+8% Mana Stolen Per Hit"
+    ]
+  },
+  {
+    "name": "Mist",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Cham",
+      "Shael",
+      "Gul",
+      "Thul",
+      "Ith"
+    ],
+    "sockets": 5,
+    "base": [
+      "Missile Weapons"
+    ],
+    "rlvl": 67,
+    "stats": [
+      "Level 8-12 Concentration Aura When Equipped",
+      "+325% Enhanced Damage",
+      "All Resistances +40",
+      "Freezes Target +3"
+    ]
+  },
+  {
+    "name": "Metamorphosis",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Io",
+      "Cham",
+      "Fal"
+    ],
+    "sockets": 3,
+    "base": [
+      "Helms"
+    ],
+    "rlvl": 67,
+    "stats": [
+      "+2 to Shapeshifting Skills (Druid Only)",
+      "Cannot Be Frozen",
+      "+10 to Strength",
+      "+10 to Dexterity",
+      "10% Experience Gained"
+    ]
+  },
+  {
+    "name": "Authority",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Hel",
+      "Shael",
+      "Ral"
+    ],
+    "sockets": 3,
+    "base": [
+      "Body Armor"
+    ],
+    "rlvl": 45,
+    "stats": [
+      "+2 to All Skills",
+      "+20% Faster Hit Recovery",
+      "+45% Enhanced Defense",
+      "Fire Resist +15%",
+      "Requirements -15%"
+    ]
+  },
+  {
+    "name": "Coven",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Ist",
+      "Ral",
+      "Io"
+    ],
+    "sockets": 3,
+    "base": [
+      "Helms"
+    ],
+    "rlvl": 47,
+    "stats": [
+      "+1 to All Skills",
+      "+10% Faster Cast Rate",
+      "+10 to Vitality",
+      "Fire Resist +10%",
+      "40% Better Chance of Getting Magic Items"
+    ]
+  },
+  {
+    "name": "Ritual",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Amn",
+      "Shael",
+      "Ohm"
+    ],
+    "sockets": 3,
+    "base": [
+      "Daggers"
+    ],
+    "rlvl": 57,
+    "stats": [
+      "+40% Increased Attack Speed",
+      "+264% Enhanced Damage",
+      "7% Life stolen per hit",
+      "Slain Monsters Rest in Peace"
+    ]
+  },
+  {
+    "name": "Vigilance",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Sol",
+      "Dol"
+    ],
+    "sockets": 2,
+    "base": [
+      "Shields"
+    ],
+    "rlvl": 29,
+    "stats": [
+      "+10% Faster Run/Walk",
+      "+30% Faster Block Rate",
+      "+97% Enhanced Defense",
+      "+21 to Life",
+      "All Resistances +34"
+    ]
+  },
+  {
+    "name": "Void",
+    "cat": "Runeword",
+    "setname": "",
+    "runes": [
+      "Thul",
+      "Zod",
+      "Ist"
+    ],
+    "sockets": 3,
+    "base": [
+      "Daggers"
+    ],
+    "rlvl": 65,
+    "stats": [
+      "Indestructible",
+      "+2 to All Skills",
+      "+40% Faster Cast Rate",
+      "+(10-15)% to Magic Skill Damage",
+      "30% Better Chance of Getting Magic Items",
+      "Level 4 Decrepify (35/35 Charges)"
+    ]
   }
 ]

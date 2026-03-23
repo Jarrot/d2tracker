@@ -49,6 +49,8 @@
   .ac-item-name.set{color:var(--set);}
   .ac-item-name.unique{color:var(--unique);}
   .ac-item-name.socketed{color:var(--sock);}
+  .ac-item-name.runeword{color:#b89050;}
+  .rw-recipe{color:#b89050!important;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.03em;}
   .ac-item-sub{font-size:12px;color:var(--text3);font-style:italic;}
   .ac-item-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
   .ac-stash{font-size:12px;color:var(--gold);font-family:'Cinzel',serif;}
@@ -174,6 +176,7 @@
         <option value="Set">Set-delar</option>
         <option value="Unique">Unika items</option>
         <option value="Socketed">Socketed items</option>
+        <option value="Runeword">Runewords</option>
       </select>
       <select id="filter-char" onchange="renderItems()">
         <option value="">Alla karaktärer</option>
@@ -345,10 +348,18 @@ function handleUniSearch(){
   if(dbNew.length){
     html+=`<div class="ac-section">Lägg till från databas</div>`;
     dbNew.forEach(db=>{
-      const cls=db.cat==='Set'?'set':db.cat==='Unique'?'unique':'socketed';
+      const cls=db.cat==='Set'?'set':db.cat==='Unique'?'unique':db.cat==='Runeword'?'runeword':'socketed';
       const sub=db.setname?`<div class="ac-item-sub">${db.setname}</div>`:'';
+      let extra='';
+      if(db.cat==='Runeword'){
+        const runes=(db.runes||[]).join(' + ');
+        const bases=(db.base||[]).join(', ');
+        extra=`<div class="ac-item-sub rw-recipe">${runes} · ${db.sockets}os · ${bases} · Rlvl ${db.rlvl}</div>`;
+        const topStats=(db.stats||[]).slice(0,2).join(' · ');
+        if(topStats) extra+=`<div class="ac-item-sub" style="color:var(--text3);font-size:11px">${topStats}</div>`;
+      }
       html+=`<div class="ac-item" data-action="adddb" data-name="${encodeURIComponent(db.name)}">
-        <div><div class="ac-item-name ${cls}">${db.name}</div>${sub}</div>
+        <div><div class="ac-item-name ${cls}">${db.name}</div>${sub}${extra}</div>
         <div class="ac-item-right"><span class="ac-action-btn add">+ Lägg till</span></div>
       </div>`;
     });
@@ -401,7 +412,13 @@ function showFromDB(dbItem){
   const cls=dbItem.cat==='Set'?'set':dbItem.cat==='Unique'?'unique':'socketed';
   document.getElementById('modal-item-name-display').textContent=dbItem.name;
   document.getElementById('modal-item-name-display').className='modal-item-name '+cls;
-  document.getElementById('modal-item-set-display').textContent=dbItem.setname||'';
+  let subtext=dbItem.setname||'';
+  if(dbItem.cat==='Runeword'&&dbItem.runes){
+    subtext=(dbItem.runes.join(' + '))+' · '+(dbItem.sockets)+'os '+((dbItem.base||[]).join(', '))+' · Rlvl '+(dbItem.rlvl||'?');
+  }
+  document.getElementById('modal-item-set-display').textContent=subtext;
+  if(dbItem.cat==='Runeword') document.getElementById('modal-item-set-display').style.color='#b89050';
+  else document.getElementById('modal-item-set-display').style.color='';
   document.getElementById('modal-item-header').style.display='block';
   document.getElementById('f-name-row').style.display='none';
   document.getElementById('f-cat-row').style.display='none';
@@ -424,6 +441,10 @@ function openAddFromDB(dbItem){
   showFromDB(dbItem);
   document.getElementById('f-char').value=chars[0]?.name||'';
   document.getElementById('f-status').value='stored';
+  // Pre-fill stats from DB for runewords
+  if(dbItem.cat==='Runeword'&&dbItem.stats&&dbItem.stats.length){
+    dbItem.stats.slice(0,6).forEach(s=>addStatRow(s,''));
+  }
   document.getElementById('modal').classList.add('open');
   document.getElementById('unisearch').value='';
 }
@@ -514,7 +535,7 @@ async function cycleStatus(id){
 }
 
 function renderStats(){
-  const t=items.length,s=items.filter(i=>i.cat==='Set').length,u=items.filter(i=>i.cat==='Unique').length,k=items.filter(i=>i.cat==='Socketed').length;
+  const t=items.length,s=items.filter(i=>i.cat==='Set').length,u=items.filter(i=>i.cat==='Unique').length,k=items.filter(i=>i.cat==='Socketed'||i.cat==='Runeword').length;
   document.getElementById('stats').innerHTML=`
     <div class="stat-card"><div class="stat-label">Totalt</div><div class="stat-val">${t}</div></div>
     <div class="stat-card"><div class="stat-label">Set-delar</div><div class="stat-val">${s}</div></div>
@@ -535,8 +556,8 @@ function renderItems(){
   const list=document.getElementById('list');
   if(!filtered.length){list.innerHTML='<div class="empty">Inga items matchar filtret</div>';return;}
   list.innerHTML=filtered.map(i=>{
-    const cls=i.cat==='Set'?'set':i.cat==='Unique'?'unique':'socketed';
-    const tagLbl=i.cat==='Set'?'Set':i.cat==='Unique'?'Unikt':'Socketed';
+    const cls=i.cat==='Set'?'set':i.cat==='Unique'?'unique':i.cat==='Runeword'?'runeword':'socketed';
+    const tagLbl=i.cat==='Set'?'Set':i.cat==='Unique'?'Unikt':i.cat==='Runeword'?'Runeword':'Socketed';
     const sub=i.cat==='Set'&&i.setname?`<div class="item-sub">${i.setname}</div>`:'';
     const sp=i.stats&&i.stats.length?`<div class="item-stats-preview">${i.stats.slice(0,3).map(s=>`${s.name}: ${s.value}`).join(' · ')}</div>`:'';
     const notes=i.notes?`<div class="item-sub">${i.notes}</div>`:'';
