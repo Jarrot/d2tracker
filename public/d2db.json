@@ -442,12 +442,58 @@
   {
     "name": "Immortal King's Will",
     "cat": "Set",
-    "setname": "Immortal King"
+    "setname": "Immortal King",
+    "rlvl": 47,
+    "img": "immortal-kings-will",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 150,
+        "max": 180,
+        "variable": true
+      },
+      {
+        "name": "+%d to Attack Rating",
+        "min": 37,
+        "max": 37,
+        "variable": false
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Immortal King's Soul Cage",
     "cat": "Set",
-    "setname": "Immortal King"
+    "setname": "Immortal King",
+    "rlvl": 76,
+    "img": "immortal-kings-soul-cage",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 400,
+        "max": 400,
+        "variable": false
+      },
+      {
+        "name": "All Resistances +%d",
+        "min": 40,
+        "max": 40,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 2
+    }
   },
   {
     "name": "Immortal King's Detail",
@@ -467,7 +513,45 @@
   {
     "name": "Immortal King's Stone Crusher",
     "cat": "Set",
-    "setname": "Immortal King"
+    "setname": "Immortal King",
+    "rlvl": 76,
+    "img": "immortal-kings-stone-crusher",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Damage",
+        "min": 200,
+        "max": 250,
+        "variable": true
+      },
+      {
+        "name": "%d%% Increased Attack Speed",
+        "min": 40,
+        "max": 40,
+        "variable": false
+      },
+      {
+        "name": "%d%% Chance of Crushing Blow",
+        "min": 40,
+        "max": 40,
+        "variable": false
+      },
+      {
+        "name": "%d%% Deadly Strike",
+        "min": 35,
+        "max": 35,
+        "variable": false
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 50,
+        "max": 50,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 2
+    }
   },
   {
     "name": "M'avina's True Sight",
@@ -497,22 +581,137 @@
   {
     "name": "Natalya's Totem",
     "cat": "Set",
-    "setname": "Natalya's Odium"
+    "setname": "Natalya's Odium",
+    "rlvl": 59,
+    "img": "natalyas-totem",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 100,
+        "max": 150,
+        "variable": true
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 10,
+        "max": 10,
+        "variable": false
+      },
+      {
+        "name": "Cold Resist +%d%%",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      },
+      {
+        "name": "Lightning Resist +%d%%",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Natalya's Shadow",
     "cat": "Set",
-    "setname": "Natalya's Odium"
+    "setname": "Natalya's Odium",
+    "rlvl": 73,
+    "img": "natalyas-shadow",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 150,
+        "max": 225,
+        "variable": true
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      },
+      {
+        "name": "All Resistances +%d",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      },
+      {
+        "name": "+%d to Assassin Skill Levels",
+        "min": 3,
+        "max": 3,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 2
+    }
   },
   {
     "name": "Natalya's Mark",
     "cat": "Set",
-    "setname": "Natalya's Odium"
+    "setname": "Natalya's Odium",
+    "rlvl": 79,
+    "img": "natalyas-mark",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Damage",
+        "min": 150,
+        "max": 230,
+        "variable": true
+      },
+      {
+        "name": "Adds 180-250 Fire Damage",
+        "fixed": true
+      },
+      {
+        "name": "Adds 180-250 Cold Damage",
+        "fixed": true
+      },
+      {
+        "name": "%d%% Ignore Target's Defense",
+        "min": 40,
+        "max": 50,
+        "variable": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Natalya's Soul",
     "cat": "Set",
-    "setname": "Natalya's Odium"
+    "setname": "Natalya's Odium",
+    "rlvl": 25,
+    "img": "natalyas-soul",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 50,
+        "max": 75,
+        "variable": true
+      },
+      {
+        "name": "+%d%% Faster Run/Walk",
+        "min": 40,
+        "max": 40,
+        "variable": false
+      },
+      {
+        "name": "Cold Resist +%d%%",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      },
+      {
+        "name": "Lightning Resist +%d%%",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Naj's Circlet",
@@ -587,27 +786,194 @@
   {
     "name": "Tal Rasha's Fine-Spun Cloth",
     "cat": "Set",
-    "setname": "Tal Rasha's Wrappings"
+    "setname": "Tal Rasha's Wrappings",
+    "rlvl": 53,
+    "img": "tal-rashas-fine-spun-cloth",
+    "stats": [
+      {
+        "name": "%d%% Faster Cast Rate",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      },
+      {
+        "name": "+%d to Mana",
+        "min": 20,
+        "max": 30,
+        "variable": true
+      },
+      {
+        "name": "+%d to Dexterity",
+        "min": 10,
+        "max": 10,
+        "variable": false
+      },
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 84,
+        "max": 84,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Tal Rasha's Adjudication",
     "cat": "Set",
-    "setname": "Tal Rasha's Wrappings"
+    "setname": "Tal Rasha's Wrappings",
+    "rlvl": 67,
+    "img": "tal-rashas-adjudication",
+    "stats": [
+      {
+        "name": "+%d to All Skills",
+        "min": 2,
+        "max": 2,
+        "variable": false
+      },
+      {
+        "name": "Adds 3-32 Lightning Damage",
+        "fixed": true
+      },
+      {
+        "name": "+%d to Mana",
+        "min": 42,
+        "max": 42,
+        "variable": false
+      },
+      {
+        "name": "Lightning Resist +%d%%",
+        "min": 33,
+        "max": 33,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Tal Rasha's Lidless Eye",
     "cat": "Set",
-    "setname": "Tal Rasha's Wrappings"
+    "setname": "Tal Rasha's Wrappings",
+    "rlvl": 65,
+    "img": "tal-rashas-lidless-eye",
+    "stats": [
+      {
+        "name": "+%d to Sorceress Skill Levels",
+        "min": 1,
+        "max": 1,
+        "variable": false
+      },
+      {
+        "name": "%d%% Faster Cast Rate",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      },
+      {
+        "name": "+%d to Energy",
+        "min": 10,
+        "max": 10,
+        "variable": false
+      },
+      {
+        "name": "+%d to Mana",
+        "min": 70,
+        "max": 70,
+        "variable": false
+      },
+      {
+        "name": "Adds 1-70 Lightning Damage",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Tal Rasha's Guardianship",
     "cat": "Set",
-    "setname": "Tal Rasha's Wrappings"
+    "setname": "Tal Rasha's Wrappings",
+    "rlvl": 71,
+    "img": "tal-rashas-guardianship",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 400,
+        "max": 400,
+        "variable": false
+      },
+      {
+        "name": "Magic Damage Reduced by %d",
+        "min": 14,
+        "max": 14,
+        "variable": false
+      },
+      {
+        "name": "Cold Resist +%d%%",
+        "min": 40,
+        "max": 40,
+        "variable": false
+      },
+      {
+        "name": "Lightning Resist +%d%%",
+        "min": 40,
+        "max": 40,
+        "variable": false
+      },
+      {
+        "name": "Fire Resist +%d%%",
+        "min": 40,
+        "max": 40,
+        "variable": false
+      },
+      {
+        "name": "%d%% Better Chance of Getting Magic Items",
+        "min": 88,
+        "max": 88,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Tal Rasha's Horadric Crest",
     "cat": "Set",
-    "setname": "Tal Rasha's Wrappings"
+    "setname": "Tal Rasha's Wrappings",
+    "rlvl": 66,
+    "img": "tal-rashas-horadric-crest",
+    "stats": [
+      {
+        "name": "10% Mana Stolen Per Hit",
+        "fixed": true
+      },
+      {
+        "name": "10% Life Stolen Per Hit",
+        "fixed": true
+      },
+      {
+        "name": "+%d to All Resistances",
+        "min": 15,
+        "max": 15,
+        "variable": false
+      },
+      {
+        "name": "+%d to Life",
+        "min": 60,
+        "max": 60,
+        "variable": false
+      },
+      {
+        "name": "+%d to Mana",
+        "min": 30,
+        "max": 30,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Trang-Oul's Guise",
@@ -672,27 +1038,247 @@
   {
     "name": "Harlequin Crest",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 62,
+    "img": "harlequin-crest",
+    "stats": [
+      {
+        "name": "+2 to All Skills",
+        "fixed": true
+      },
+      {
+        "name": "+%d Life (Based on Char Level)",
+        "min": 2,
+        "max": 198,
+        "variable": true
+      },
+      {
+        "name": "+%d Mana (Based on Char Level)",
+        "min": 2,
+        "max": 198,
+        "variable": true
+      },
+      {
+        "name": "Damage Reduced by %d%%",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "Magic Damage Reduced by %d",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "%d%% Better Chance of Getting Magic Items",
+        "min": 50,
+        "max": 50,
+        "variable": false
+      },
+      {
+        "name": "+%d to All Attributes",
+        "min": 2,
+        "max": 2,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 2
+    }
   },
   {
     "name": "Vampire Gaze",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 41,
+    "img": "vampire-gaze",
+    "stats": [
+      {
+        "name": "Adds 6-22 Cold Damage",
+        "fixed": true
+      },
+      {
+        "name": "%d%% Mana Stolen Per Hit",
+        "min": 6,
+        "max": 8,
+        "variable": true
+      },
+      {
+        "name": "%d%% Life Stolen Per Hit",
+        "min": 6,
+        "max": 8,
+        "variable": true
+      },
+      {
+        "name": "Slows Target by %d%%",
+        "min": 15,
+        "max": 15,
+        "variable": false
+      },
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 100,
+        "max": 150,
+        "variable": true
+      },
+      {
+        "name": "Damage Reduced by %d%%",
+        "min": 15,
+        "max": 20,
+        "variable": true
+      },
+      {
+        "name": "Magic Damage Reduced by %d",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Crown of Ages",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 82,
+    "img": "crown-of-ages",
+    "stats": [
+      {
+        "name": "+%d to All Skills",
+        "min": 1,
+        "max": 2,
+        "variable": true
+      },
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 50,
+        "max": 50,
+        "variable": false
+      },
+      {
+        "name": "+%d Defense",
+        "min": 30,
+        "max": 30,
+        "variable": false
+      },
+      {
+        "name": "All Resistances +%d",
+        "min": 20,
+        "max": 30,
+        "variable": true
+      },
+      {
+        "name": "Damage Reduced by %d%%",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "+%d%% Faster Hit Recovery",
+        "min": 30,
+        "max": 30,
+        "variable": false
+      },
+      {
+        "name": "Cannot Be Frozen",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 2
+    }
   },
   {
     "name": "Andariel's Visage",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 83,
+    "img": "andariels-visage",
+    "stats": [
+      {
+        "name": "+%d to All Skills",
+        "min": 1,
+        "max": 2,
+        "variable": true
+      },
+      {
+        "name": "+%d%% Increased Attack Speed",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      },
+      {
+        "name": "%d%% Life Stolen Per Hit",
+        "min": 8,
+        "max": 10,
+        "variable": true
+      },
+      {
+        "name": "Adds 75-100 Poison Damage Over 10 Seconds",
+        "fixed": true
+      },
+      {
+        "name": "15% Chance to Cast Level 15 Poison Nova When Struck",
+        "fixed": true
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 10,
+        "max": 20,
+        "variable": true
+      },
+      {
+        "name": "Fire Resist -%d%%",
+        "min": 30,
+        "max": 30,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Griffon's Eye",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 76,
+    "img": "griffons-eye",
+    "stats": [
+      {
+        "name": "+1 to All Skills",
+        "fixed": true
+      },
+      {
+        "name": "+%d%% Faster Cast Rate",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      },
+      {
+        "name": "-%d%% to Enemy Lightning Resistance",
+        "min": 15,
+        "max": 25,
+        "variable": true
+      },
+      {
+        "name": "+%d%% to Lightning Skill Damage",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Delirium",
@@ -782,7 +1368,45 @@
   {
     "name": "Arkaine's Valor",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 85,
+    "img": "arkaines-valor",
+    "stats": [
+      {
+        "name": "+%d to All Skills",
+        "min": 1,
+        "max": 2,
+        "variable": true
+      },
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 150,
+        "max": 180,
+        "variable": true
+      },
+      {
+        "name": "+%d%% Faster Hit Recovery",
+        "min": 20,
+        "max": 30,
+        "variable": true
+      },
+      {
+        "name": "Damage Reduced by %d",
+        "min": 8,
+        "max": 12,
+        "variable": true
+      },
+      {
+        "name": "+%d to Vitality",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 2
+    }
   },
   {
     "name": "The Gladiator's Bane",
@@ -792,12 +1416,74 @@
   {
     "name": "Shaftstop",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 38,
+    "img": "shaftstop",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 190,
+        "max": 240,
+        "variable": true
+      },
+      {
+        "name": "Damage Reduced by %d%%",
+        "min": 30,
+        "max": 30,
+        "variable": false
+      },
+      {
+        "name": "+%d to Life",
+        "min": 30,
+        "max": 60,
+        "variable": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Skin of the Vipermagi",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 29,
+    "img": "skin-of-the-vipermagi",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 120,
+        "max": 150,
+        "variable": true
+      },
+      {
+        "name": "+1 to All Skills",
+        "fixed": true
+      },
+      {
+        "name": "%d%% Faster Cast Rate",
+        "min": 30,
+        "max": 30,
+        "variable": false
+      },
+      {
+        "name": "Magic Damage Reduced by %d",
+        "min": 9,
+        "max": 13,
+        "variable": true
+      },
+      {
+        "name": "All Resistances +%d",
+        "min": 20,
+        "max": 35,
+        "variable": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Skin of the Flayed One",
@@ -827,7 +1513,43 @@
   {
     "name": "Skullder's Ire",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 42,
+    "img": "skullders-ire",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 100,
+        "max": 135,
+        "variable": true
+      },
+      {
+        "name": "+1 to All Skills",
+        "fixed": true
+      },
+      {
+        "name": "Magic Find +%d%% (Based on Char Level)",
+        "min": 1,
+        "max": 99,
+        "variable": true
+      },
+      {
+        "name": "Replenish Life +%d",
+        "min": 5,
+        "max": 5,
+        "variable": false
+      },
+      {
+        "name": "Attacker Takes Damage of %d",
+        "min": 8,
+        "max": 8,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Guardian Angel",
@@ -837,7 +1559,55 @@
   {
     "name": "Duriel's Shell",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 41,
+    "img": "duriels-shell",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 200,
+        "max": 230,
+        "variable": true
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 15,
+        "max": 15,
+        "variable": false
+      },
+      {
+        "name": "Cannot Be Frozen",
+        "fixed": true
+      },
+      {
+        "name": "All Resistances +%d",
+        "min": 20,
+        "max": 30,
+        "variable": true
+      },
+      {
+        "name": "+%d to Life",
+        "min": 150,
+        "max": 150,
+        "variable": false
+      },
+      {
+        "name": "Replenish Life +%d",
+        "min": 8,
+        "max": 8,
+        "variable": false
+      },
+      {
+        "name": "Cold Resist +%d%%",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Smoke",
@@ -857,7 +1627,55 @@
   {
     "name": "Stormshield",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 73,
+    "img": "stormshield",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 89,
+        "max": 89,
+        "variable": false
+      },
+      {
+        "name": "Indestructible",
+        "fixed": true
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 30,
+        "max": 30,
+        "variable": false
+      },
+      {
+        "name": "Cold Resist +%d%%",
+        "min": 60,
+        "max": 60,
+        "variable": false
+      },
+      {
+        "name": "Lightning Resist +%d%%",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      },
+      {
+        "name": "Damage Reduced by %d%%",
+        "min": 35,
+        "max": 35,
+        "variable": false
+      },
+      {
+        "name": "Attacker Takes Lightning Damage of %d",
+        "min": 10,
+        "max": 10,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Exile",
@@ -872,7 +1690,57 @@
   {
     "name": "Herald of Zakarum",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 42,
+    "img": "herald-of-zakarum",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 150,
+        "max": 200,
+        "variable": true
+      },
+      {
+        "name": "+%d to All Skills",
+        "min": 1,
+        "max": 2,
+        "variable": true
+      },
+      {
+        "name": "+%d to Combat Skills (Paladin Only)",
+        "min": 2,
+        "max": 2,
+        "variable": false
+      },
+      {
+        "name": "%d%% Increased Chance of Blocking",
+        "min": 30,
+        "max": 30,
+        "variable": false
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      },
+      {
+        "name": "All Resistances +%d",
+        "min": 50,
+        "max": 50,
+        "variable": false
+      },
+      {
+        "name": "Fire Resist +%d%%",
+        "min": 50,
+        "max": 50,
+        "variable": false
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Homo",
@@ -897,7 +1765,45 @@
   {
     "name": "Lidless Wall",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 41,
+    "img": "lidless-wall",
+    "stats": [
+      {
+        "name": "+%d to All Skills",
+        "min": 1,
+        "max": 1,
+        "variable": false
+      },
+      {
+        "name": "+%d%% Faster Cast Rate",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      },
+      {
+        "name": "+%d to Mana",
+        "min": 80,
+        "max": 130,
+        "variable": true
+      },
+      {
+        "name": "Increase Maximum Mana %d%%",
+        "min": 10,
+        "max": 10,
+        "variable": false
+      },
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 80,
+        "max": 130,
+        "variable": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 1
+    }
   },
   {
     "name": "Whitstan's Guard",
@@ -932,7 +1838,44 @@
   {
     "name": "Windforce",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 73,
+    "img": "windforce",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Damage",
+        "min": 150,
+        "max": 200,
+        "variable": true
+      },
+      {
+        "name": "Adds 15-327 Lightning Damage",
+        "fixed": true
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 10,
+        "max": 10,
+        "variable": false
+      },
+      {
+        "name": "%d%% Mana Stolen Per Hit",
+        "min": 6,
+        "max": 6,
+        "variable": false
+      },
+      {
+        "name": "Knockback",
+        "fixed": true
+      },
+      {
+        "name": "+%d to Attack Rating",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Buriza-Do Kyanon",
@@ -1262,12 +2205,112 @@
   {
     "name": "Sandstorm Trek",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 64,
+    "img": "sandstorm-trek",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 140,
+        "max": 170,
+        "variable": true
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "+%d to Vitality",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "+%d%% Faster Run/Walk",
+        "min": 20,
+        "max": 25,
+        "variable": true
+      },
+      {
+        "name": "+%d%% Faster Hit Recovery",
+        "min": 20,
+        "max": 25,
+        "variable": true
+      },
+      {
+        "name": "Poison Resist +%d%%",
+        "min": 40,
+        "max": 70,
+        "variable": true
+      },
+      {
+        "name": "50% Slower Stamina Drain",
+        "fixed": true
+      },
+      {
+        "name": "Cannot Be Frozen",
+        "fixed": true
+      },
+      {
+        "name": "Repairs 1 Durability in %d Seconds",
+        "min": 8,
+        "max": 8,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Waterwalk",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 32,
+    "img": "waterwalk",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 180,
+        "max": 210,
+        "variable": true
+      },
+      {
+        "name": "+%d to Life",
+        "min": 45,
+        "max": 65,
+        "variable": true
+      },
+      {
+        "name": "+%d to Dexterity",
+        "min": 15,
+        "max": 15,
+        "variable": false
+      },
+      {
+        "name": "+%d Maximum Stamina",
+        "min": 40,
+        "max": 40,
+        "variable": false
+      },
+      {
+        "name": "Fire Resist +%d%%",
+        "min": 15,
+        "max": 15,
+        "variable": false
+      },
+      {
+        "name": "%d%% Better Chance of Getting Magic Items",
+        "min": 15,
+        "max": 15,
+        "variable": false
+      },
+      {
+        "name": "Heal Stamina Plus 50%",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Infernostride",
@@ -1277,12 +2320,98 @@
   {
     "name": "Gore Rider",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 47,
+    "img": "gore-rider",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 160,
+        "max": 190,
+        "variable": true
+      },
+      {
+        "name": "+%d%% Faster Run/Walk",
+        "min": 30,
+        "max": 30,
+        "variable": false
+      },
+      {
+        "name": "Requirements -%d%%",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      },
+      {
+        "name": "%d%% Chance of Crushing Blow",
+        "min": 15,
+        "max": 15,
+        "variable": false
+      },
+      {
+        "name": "%d%% Chance of Open Wounds",
+        "min": 15,
+        "max": 15,
+        "variable": false
+      },
+      {
+        "name": "%d%% Deadly Strike",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "War Traveler",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 42,
+    "img": "war-traveler",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 150,
+        "max": 190,
+        "variable": true
+      },
+      {
+        "name": "%d%% Faster Run/Walk",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      },
+      {
+        "name": "Adds 15-25 Damage",
+        "fixed": true
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 10,
+        "max": 10,
+        "variable": false
+      },
+      {
+        "name": "+%d to Vitality",
+        "min": 10,
+        "max": 10,
+        "variable": false
+      },
+      {
+        "name": "%d%% Better Chance of Getting Magic Items",
+        "min": 30,
+        "max": 50,
+        "variable": true
+      },
+      {
+        "name": "Attacker Takes Damage of %d",
+        "min": 5,
+        "max": 10,
+        "variable": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Aldur's Advance",
@@ -1307,17 +2436,120 @@
   {
     "name": "Laying of Hands",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 63,
+    "img": "laying-of-hands",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 150,
+        "max": 200,
+        "variable": true
+      },
+      {
+        "name": "+%d%% Increased Attack Speed",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      },
+      {
+        "name": "+350% Damage to Demons",
+        "fixed": true
+      },
+      {
+        "name": "Fire Resist +%d%%",
+        "min": 50,
+        "max": 50,
+        "variable": false
+      },
+      {
+        "name": "10% Chance to Cast Level 3 Holy Bolt on Striking",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Dracul's Grasp",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 76,
+    "img": "draculs-grasp",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 90,
+        "max": 120,
+        "variable": true
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 5,
+        "max": 10,
+        "variable": true
+      },
+      {
+        "name": "+%d to Life",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "%d%% Life Stolen Per Hit",
+        "min": 7,
+        "max": 10,
+        "variable": true
+      },
+      {
+        "name": "%d%% Chance of Open Wounds",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      },
+      {
+        "name": "5% Chance to Cast Level 10 Life Tap on Striking",
+        "fixed": true
+      },
+      {
+        "name": "Level 20 Life Tap (18 Charges)",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Steelrend",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 70,
+    "img": "steelrend",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 60,
+        "max": 100,
+        "variable": true
+      },
+      {
+        "name": "+%d to Strength",
+        "min": 20,
+        "max": 30,
+        "variable": true
+      },
+      {
+        "name": "%d%% Chance of Crushing Blow",
+        "min": 15,
+        "max": 25,
+        "variable": true
+      },
+      {
+        "name": "+%d Maximum Damage",
+        "min": 30,
+        "max": 30,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Soul Drainer",
@@ -1332,12 +2564,70 @@
   {
     "name": "Magefist",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 23,
+    "img": "magefist",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 20,
+        "max": 30,
+        "variable": true
+      },
+      {
+        "name": "+1 to Fire Skills",
+        "fixed": true
+      },
+      {
+        "name": "+%d%% Faster Cast Rate",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      },
+      {
+        "name": "Adds 1-6 Fire Damage",
+        "fixed": true
+      },
+      {
+        "name": "Regenerate Mana %d%%",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      },
+      {
+        "name": "+%d Defense",
+        "min": 10,
+        "max": 10,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Frostburn",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 29,
+    "img": "frostburn",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 40,
+        "max": 60,
+        "variable": true
+      },
+      {
+        "name": "Adds 1-6 Cold Damage",
+        "fixed": true
+      },
+      {
+        "name": "Increase Maximum Mana %d%%",
+        "min": 40,
+        "max": 40,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Chance Guards",
@@ -1357,17 +2647,130 @@
   {
     "name": "Arachnid Mesh",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 80,
+    "img": "arachnid-mesh",
+    "stats": [
+      {
+        "name": "+1 to All Skills",
+        "fixed": true
+      },
+      {
+        "name": "+%d%% Faster Cast Rate",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      },
+      {
+        "name": "Slows Target by %d%%",
+        "min": 10,
+        "max": 10,
+        "variable": false
+      },
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 90,
+        "max": 120,
+        "variable": true
+      },
+      {
+        "name": "Increase Maximum Mana %d%%",
+        "min": 5,
+        "max": 5,
+        "variable": false
+      },
+      {
+        "name": "Level 3 Venom (11 Charges)",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Thundergod's Vigor",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 65,
+    "img": "thundergods-vigor",
+    "stats": [
+      {
+        "name": "+%d to Strength",
+        "min": 15,
+        "max": 20,
+        "variable": true
+      },
+      {
+        "name": "+%d to Vitality",
+        "min": 15,
+        "max": 20,
+        "variable": true
+      },
+      {
+        "name": "Lightning Resist +%d%%",
+        "min": 25,
+        "max": 25,
+        "variable": false
+      },
+      {
+        "name": "Adds 1-50 Lightning Damage",
+        "fixed": true
+      },
+      {
+        "name": "+%d Maximum Lightning Damage",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "+20 to Lightning Absorb",
+        "fixed": true
+      },
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 160,
+        "max": 200,
+        "variable": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "String of Ears",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 29,
+    "img": "string-of-ears",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 150,
+        "max": 180,
+        "variable": true
+      },
+      {
+        "name": "%d%% Life Stolen Per Hit",
+        "min": 6,
+        "max": 8,
+        "variable": true
+      },
+      {
+        "name": "Damage Reduced by %d%%",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "Magic Damage Reduced by %d",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "+15 Defense",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Goldwrap",
@@ -1377,7 +2780,42 @@
   {
     "name": "Verdungo's Hearty Cord",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 53,
+    "img": "verdungos-hearty-cord",
+    "stats": [
+      {
+        "name": "+%d%% Enhanced Defense",
+        "min": 90,
+        "max": 140,
+        "variable": true
+      },
+      {
+        "name": "Replenish Life +%d",
+        "min": 10,
+        "max": 13,
+        "variable": true
+      },
+      {
+        "name": "Increase Maximum Life %d%%",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "Damage Reduced by %d%%",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "+%d to Vitality",
+        "min": 30,
+        "max": 40,
+        "variable": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Razortail",
@@ -1402,27 +2840,183 @@
   {
     "name": "Stone of Jordan",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 29,
+    "img": "stone-of-jordan",
+    "stats": [
+      {
+        "name": "+1 to All Skills",
+        "fixed": true
+      },
+      {
+        "name": "Increase Maximum Mana 25%",
+        "fixed": true
+      },
+      {
+        "name": "+20 to Mana",
+        "fixed": true
+      },
+      {
+        "name": "+1 to Light Radius",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Bul-Kathos' Wedding Band",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 58,
+    "img": "bul-kathos-wedding-band",
+    "stats": [
+      {
+        "name": "+1 to All Skills",
+        "fixed": true
+      },
+      {
+        "name": "+%d to Life (Based on Char Level)",
+        "min": 1,
+        "max": 99,
+        "variable": true
+      },
+      {
+        "name": "%d%% Life Stolen Per Hit",
+        "min": 3,
+        "max": 5,
+        "variable": true
+      },
+      {
+        "name": "+50 Maximum Stamina",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Raven Frost",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 45,
+    "img": "raven-frost",
+    "stats": [
+      {
+        "name": "+%d to Attack Rating",
+        "min": 150,
+        "max": 250,
+        "variable": true
+      },
+      {
+        "name": "Adds %d-%d Cold Damage",
+        "min1": 15,
+        "max1": 45,
+        "min2": 15,
+        "max2": 45,
+        "variable": true,
+        "range2": true
+      },
+      {
+        "name": "Cannot Be Frozen",
+        "fixed": true
+      },
+      {
+        "name": "+%d to Dexterity",
+        "min": 15,
+        "max": 20,
+        "variable": true
+      },
+      {
+        "name": "+40 to Mana",
+        "fixed": true
+      },
+      {
+        "name": "Cold Absorb %d%%",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Dwarf Star",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 45,
+    "img": "dwarf-star",
+    "stats": [
+      {
+        "name": "+%d to Life",
+        "min": 30,
+        "max": 40,
+        "variable": true
+      },
+      {
+        "name": "+%d to Mana",
+        "min": 0,
+        "max": 0,
+        "variable": false,
+        "fixed": true,
+        "display": "+40 to Mana"
+      },
+      {
+        "name": "Fire Absorb %d%%",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "Magic Damage Reduced by %d",
+        "min": 12,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "100% Extra Gold From Monsters",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Wisp Projector",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 76,
+    "img": "wisp-projector",
+    "stats": [
+      {
+        "name": "Lightning Absorb %d%%",
+        "min": 10,
+        "max": 20,
+        "variable": true
+      },
+      {
+        "name": "%d%% Better Chance of Getting Magic Items",
+        "min": 10,
+        "max": 20,
+        "variable": true
+      },
+      {
+        "name": "+%d to All Skills (Druid Only)",
+        "min": 1,
+        "max": 3,
+        "variable": true
+      },
+      {
+        "name": "Level 7-13 Oak Sage (when Equipped)",
+        "fixed": true
+      },
+      {
+        "name": "Level 5 Heart of Wolverine (when Equipped)",
+        "fixed": true
+      },
+      {
+        "name": "Level 2 Spirit of Barbs (when Equipped)",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Nagelring",
@@ -1442,12 +3036,60 @@
   {
     "name": "Nature's Peace",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 69,
+    "img": "natures-peace",
+    "stats": [
+      {
+        "name": "Slain Monsters Rest in Peace",
+        "fixed": true
+      },
+      {
+        "name": "Prevent Monster Heal",
+        "fixed": true
+      },
+      {
+        "name": "Poison Resist +%d%%",
+        "min": 20,
+        "max": 30,
+        "variable": true
+      },
+      {
+        "name": "Damage Reduced by %d%%",
+        "min": 7,
+        "max": 11,
+        "variable": true
+      },
+      {
+        "name": "Level 5 Oak Sage (27 Charges)",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Mara's Kaleidoscope",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 67,
+    "img": "maras-kaleidoscope",
+    "stats": [
+      {
+        "name": "+2 to All Skills",
+        "fixed": true
+      },
+      {
+        "name": "All Resistances +%d",
+        "min": 20,
+        "max": 30,
+        "variable": true
+      },
+      {
+        "name": "+5 to All Attributes",
+        "fixed": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "The Cat's Eye",
@@ -1462,7 +3104,44 @@
   {
     "name": "Highlord's Wrath",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 65,
+    "img": "highlords-wrath",
+    "stats": [
+      {
+        "name": "+1 to All Skills",
+        "fixed": true
+      },
+      {
+        "name": "+%d%% Increased Attack Speed",
+        "min": 20,
+        "max": 20,
+        "variable": false
+      },
+      {
+        "name": "Adds 1-30 Lightning Damage",
+        "fixed": true
+      },
+      {
+        "name": "%d%% Deadly Strike (Based on Char Level)",
+        "min": 1,
+        "max": 37,
+        "variable": true
+      },
+      {
+        "name": "Lightning Resist +%d%%",
+        "min": 35,
+        "max": 35,
+        "variable": false
+      },
+      {
+        "name": "Attacker Takes Lightning Damage of %d",
+        "min": 15,
+        "max": 15,
+        "variable": false
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Saracen's Chance",
@@ -1517,7 +3196,30 @@
   {
     "name": "Gheed's Fortune",
     "cat": "Unique",
-    "setname": ""
+    "setname": "",
+    "rlvl": 62,
+    "img": "gheeds-fortune",
+    "stats": [
+      {
+        "name": "%d%% Extra Gold From Monsters",
+        "min": 80,
+        "max": 160,
+        "variable": true
+      },
+      {
+        "name": "Reduces All Vendor Prices %d%%",
+        "min": 10,
+        "max": 15,
+        "variable": true
+      },
+      {
+        "name": "%d%% Better Chance of Getting Magic Items",
+        "min": 20,
+        "max": 40,
+        "variable": true
+      }
+    ],
+    "sockets": null
   },
   {
     "name": "Small Charm",
@@ -1537,7 +3239,27 @@
   {
     "name": "Crystal Sword",
     "cat": "Socketed",
-    "setname": ""
+    "setname": "",
+    "rlvl": 28,
+    "img": "crystal-sword",
+    "stats": [
+      {
+        "name": "One-Hand Damage (5-15 to 15-35)",
+        "fixed": true
+      },
+      {
+        "name": "Durability (20)",
+        "fixed": true
+      },
+      {
+        "name": "Required Strength (43)",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 4,
+      "max": 6
+    }
   },
   {
     "name": "Broad Sword",
@@ -1562,7 +3284,31 @@
   {
     "name": "Colossus Sword",
     "cat": "Socketed",
-    "setname": ""
+    "setname": "",
+    "rlvl": 65,
+    "img": "colossus-sword",
+    "stats": [
+      {
+        "name": "Two-Hand Damage (50-127)",
+        "fixed": true
+      },
+      {
+        "name": "Durability (50)",
+        "fixed": true
+      },
+      {
+        "name": "Required Strength (140)",
+        "fixed": true
+      },
+      {
+        "name": "Required Dexterity (40)",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 6
+    }
   },
   {
     "name": "Colossus Blade",
@@ -1572,12 +3318,60 @@
   {
     "name": "Phase Blade",
     "cat": "Socketed",
-    "setname": ""
+    "setname": "",
+    "rlvl": 54,
+    "img": "phase-blade",
+    "stats": [
+      {
+        "name": "Damage (31-35 to 59-65)",
+        "fixed": true
+      },
+      {
+        "name": "Indestructible",
+        "fixed": true
+      },
+      {
+        "name": "Required Strength (25)",
+        "fixed": true
+      },
+      {
+        "name": "Required Dexterity (136)",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 5,
+      "max": 6
+    }
   },
   {
     "name": "Monarch",
     "cat": "Socketed",
-    "setname": ""
+    "setname": "",
+    "rlvl": 54,
+    "img": "monarch",
+    "stats": [
+      {
+        "name": "Defense (133-148)",
+        "fixed": true
+      },
+      {
+        "name": "Chance to Block (54%)",
+        "fixed": true
+      },
+      {
+        "name": "Durability (86)",
+        "fixed": true
+      },
+      {
+        "name": "Required Strength (156)",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 4,
+      "max": 4
+    }
   },
   {
     "name": "Berserker Axe",
@@ -1607,7 +3401,31 @@
   {
     "name": "Thresher",
     "cat": "Socketed",
-    "setname": ""
+    "setname": "",
+    "rlvl": 53,
+    "img": "thresher",
+    "stats": [
+      {
+        "name": "Two-Hand Damage (12-26 to 112-141)",
+        "fixed": true
+      },
+      {
+        "name": "Durability (65)",
+        "fixed": true
+      },
+      {
+        "name": "Required Strength (152)",
+        "fixed": true
+      },
+      {
+        "name": "Required Dexterity (37)",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 6
+    }
   },
   {
     "name": "Great Poleaxe",
@@ -1617,7 +3435,31 @@
   {
     "name": "Giant Thresher",
     "cat": "Socketed",
-    "setname": ""
+    "setname": "",
+    "rlvl": 66,
+    "img": "giant-thresher",
+    "stats": [
+      {
+        "name": "Two-Hand Damage (40-60 to 114-160)",
+        "fixed": true
+      },
+      {
+        "name": "Durability (55)",
+        "fixed": true
+      },
+      {
+        "name": "Required Strength (188)",
+        "fixed": true
+      },
+      {
+        "name": "Required Dexterity (56)",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 6
+    }
   },
   {
     "name": "Colossus Voulge",
@@ -1697,17 +3539,83 @@
   {
     "name": "Archon Plate",
     "cat": "Socketed",
-    "setname": ""
+    "setname": "",
+    "rlvl": 63,
+    "img": "archon-plate",
+    "stats": [
+      {
+        "name": "Defense (%d-%d)",
+        "min": 410,
+        "max": 524,
+        "variable": true
+      },
+      {
+        "name": "Durability (60)",
+        "fixed": true
+      },
+      {
+        "name": "Required Strength (103)",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 4
+    }
   },
   {
     "name": "Dusk Shroud",
     "cat": "Socketed",
-    "setname": ""
+    "setname": "",
+    "rlvl": 49,
+    "img": "dusk-shroud",
+    "stats": [
+      {
+        "name": "Defense (%d-%d)",
+        "min": 361,
+        "max": 467,
+        "variable": true
+      },
+      {
+        "name": "Durability (20)",
+        "fixed": true
+      },
+      {
+        "name": "Required Strength (77)",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 4
+    }
   },
   {
     "name": "Mage Plate",
     "cat": "Socketed",
-    "setname": ""
+    "setname": "",
+    "rlvl": 55,
+    "img": "mage-plate",
+    "stats": [
+      {
+        "name": "Defense (%d-%d)",
+        "min": 225,
+        "max": 262,
+        "variable": true
+      },
+      {
+        "name": "Durability (60)",
+        "fixed": true
+      },
+      {
+        "name": "Required Strength (55)",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 1,
+      "max": 4
+    }
   },
   {
     "name": "Wyrmhide",
@@ -1807,7 +3715,31 @@
   {
     "name": "Monarch",
     "cat": "Socketed",
-    "setname": ""
+    "setname": "",
+    "rlvl": 54,
+    "img": "monarch",
+    "stats": [
+      {
+        "name": "Defense (133-148)",
+        "fixed": true
+      },
+      {
+        "name": "Chance to Block (54%)",
+        "fixed": true
+      },
+      {
+        "name": "Durability (86)",
+        "fixed": true
+      },
+      {
+        "name": "Required Strength (156)",
+        "fixed": true
+      }
+    ],
+    "sockets": {
+      "min": 4,
+      "max": 4
+    }
   },
   {
     "name": "Hyperion",

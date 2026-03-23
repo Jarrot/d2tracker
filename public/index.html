@@ -122,14 +122,20 @@
 
   .stats-editor{border:0.5px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:14px;}
   .stats-editor-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;}
-  .stat-row{display:grid;grid-template-columns:1fr 130px auto;gap:6px;align-items:center;margin-bottom:6px;}
-  .stat-row:last-child{margin-bottom:0;}
-  .stat-name-input{font-size:13px;padding:5px 8px;height:30px;}
-  .stat-val-input{font-size:13px;padding:5px 8px;height:30px;}
+  .stat-line{display:flex;align-items:baseline;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
+  .stat-fixed{font-size:13px;color:var(--text3);font-style:italic;}
+  .stat-label{font-size:13px;color:var(--text);}
+  .stat-range{font-size:12px;color:var(--text3);}
+  .stat-input{font-size:13px;padding:3px 7px;height:26px;width:64px;text-align:center;}
+  .stat-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+  .stat-name-input{font-size:13px;padding:5px 8px;height:30px;flex:1;}
+  .stat-val-input{font-size:13px;padding:5px 8px;height:30px;width:90px;}
   .stat-remove{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:0;line-height:1;}
   .stat-remove:hover{color:var(--danger);}
   .add-stat-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:5px 12px;border:0.5px dashed var(--border2);color:var(--text2);background:transparent;border-radius:2px;cursor:pointer;margin-top:8px;width:100%;}
   .add-stat-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .sockets-line{display:flex;align-items:baseline;gap:6px;margin-bottom:6px;padding-top:6px;border-top:0.5px solid var(--border);}
+  .sockets-label{font-size:13px;color:var(--gold);}
 
   .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem;padding-top:1rem;border-top:0.5px solid var(--border);}
 
@@ -264,10 +270,11 @@
       </select>
     </div>
 
-    <div class="stats-editor">
-      <div class="stats-editor-title">Dina rolls / stats</div>
+    <div class="stats-editor" id="stats-editor">
+      <div class="stats-editor-title">Stats &amp; rolls</div>
       <div id="stats-rows"></div>
-      <button class="add-stat-btn" onclick="addStatRow()">+ Lägg till stat</button>
+      <div id="stats-custom"></div>
+      <button class="add-stat-btn" onclick="addCustomStatRow()">+ Lägg till eget</button>
     </div>
 
     <div class="form-row">
@@ -441,10 +448,7 @@ function openAddFromDB(dbItem){
   showFromDB(dbItem);
   document.getElementById('f-char').value=chars[0]?.name||'';
   document.getElementById('f-status').value='stored';
-  // Pre-fill stats from DB for runewords
-  if(dbItem.cat==='Runeword'&&dbItem.stats&&dbItem.stats.length){
-    dbItem.stats.slice(0,6).forEach(s=>addStatRow(s,''));
-  }
+  renderStructuredStats(dbItem);
   document.getElementById('modal').classList.add('open');
   document.getElementById('unisearch').value='';
 }
@@ -470,29 +474,97 @@ function openEdit(id){
   document.getElementById('f-char').value=item.char;
   document.getElementById('f-status').value=item.status;
   document.getElementById('f-notes').value=item.notes||'';
-  if(item.stats&&item.stats.length)item.stats.forEach(s=>addStatRow(s.name,s.value));
+  // Find DB item for structured display
+  const dbRef=d2db.find(d=>d.name===item.name&&d.cat===item.cat);
+  renderStructuredStats(dbRef||null);
+  // Restore saved values
+  if(item.stats&&item.stats.length){
+    item.stats.forEach(sv=>{
+      if(sv.name==='Sockets'){
+        const si=document.querySelector('[data-stat="sockets"]');
+        if(si) si.value=sv.value;
+        return;
+      }
+      const inp=document.querySelector(`#stats-rows input[data-statname="${sv.name.replace(/"/g,'')}"]`);
+      if(inp){inp.value=sv.value;}
+      else{addCustomStatRow(sv.name,sv.value);}
+    });
+  }
   document.getElementById('modal').classList.add('open');
 }
 
 function closeModal(){document.getElementById('modal').classList.remove('open');}
-function clearModal(){document.getElementById('stats-rows').innerHTML='';document.getElementById('f-notes').value='';}
+function clearModal(){document.getElementById('stats-rows').innerHTML='';document.getElementById('stats-custom').innerHTML='';document.getElementById('f-notes').value='';}
 function toggleSetName(){
   document.getElementById('f-setname-row').style.display=document.getElementById('f-cat').value==='Set'?'block':'none';
 }
 
-function addStatRow(name='',value=''){
-  const row=document.createElement('div');row.className='stat-row';
-  row.innerHTML=`<input type="text" class="stat-name-input" placeholder="Stat (FCR, Res All...)" value="${name}">
-    <input type="text" class="stat-val-input" placeholder="Värde (t.ex. 30)" value="${value}">
-    <button class="stat-remove" onclick="this.parentElement.remove()">×</button>`;
-  document.getElementById('stats-rows').appendChild(row);
+function renderStructuredStats(dbItem){
+  const container=document.getElementById('stats-rows');
+  container.innerHTML='';
+  if(!dbItem||!dbItem.stats) return;
+
+  // Sockets line
+  if(dbItem.sockets){
+    const {min,max}=dbItem.sockets;
+    const range=min===max?`${min}os`:`${min}-${max}os`;
+    const line=document.createElement('div');
+    line.className='sockets-line';
+    line.innerHTML=`<span class="sockets-label">Sockets</span><span class="stat-range">(${range})</span><input type="number" class="stat-input" min="${min}" max="${max}" placeholder="" data-stat="sockets" style="width:52px">`;
+    container.appendChild(line);
+  }
+
+  dbItem.stats.forEach((s,i)=>{
+    const line=document.createElement('div');
+    line.className='stat-line';
+    if(s.fixed||(!s.variable&&s.min===undefined)){
+      // Fixed stat — just text
+      line.innerHTML=`<span class="stat-fixed">${s.name||s.display||''}</span>`;
+    } else if(s.variable===false){
+      // Fixed value but shown for info
+      const val=s.min!==undefined?s.min:'';
+      const label=(s.name||'').replace('%d',val).replace('%d%%',val+'%');
+      line.innerHTML=`<span class="stat-fixed">${label}</span>`;
+    } else {
+      // Variable — show label + range + input
+      const label=(s.name||'').replace('%d','').replace('%d%%','').trim().replace(/\s+/,' ');
+      const range=s.min!==undefined&&s.max!==undefined&&s.min!==s.max?`(${s.min}-${s.max})`:`(${s.min||s.max})`;
+      line.innerHTML=`<span class="stat-label">${label}</span><span class="stat-range">${range}</span><input type="text" class="stat-input" placeholder="" data-stat="${i}" data-statname="${(s.name||'').replace(/"/g,'')}" data-min="${s.min||''}" data-max="${s.max||''}">`;
+    }
+    container.appendChild(line);
+  });
 }
 
+function addCustomStatRow(name='',value=''){
+  const container=document.getElementById('stats-custom');
+  const row=document.createElement('div');row.className='stat-row';
+  row.innerHTML=`<input type="text" class="stat-name-input" placeholder="Stat..." value="${name}">
+    <input type="text" class="stat-val-input" placeholder="Värde" value="${value}">
+    <button class="stat-remove" onclick="this.parentElement.remove()">×</button>`;
+  container.appendChild(row);
+}
+
+function addStatRow(name='',value=''){addCustomStatRow(name,value);}
+
 function getStats(){
-  return Array.from(document.querySelectorAll('#stats-rows .stat-row')).map(row=>({
-    name:row.querySelector('.stat-name-input').value.trim(),
-    value:row.querySelector('.stat-val-input').value.trim()
-  })).filter(s=>s.name);
+  const stats=[];
+  // Sockets
+  const sockInput=document.querySelector('[data-stat="sockets"]');
+  if(sockInput&&sockInput.value) stats.push({name:'Sockets',value:sockInput.value});
+  // Structured variable stats
+  document.querySelectorAll('#stats-rows input[data-stat]:not([data-stat="sockets"])').forEach(inp=>{
+    if(inp.value.trim()){
+      const label=inp.dataset.statname||inp.dataset.stat;
+      stats.push({name:label,value:inp.value.trim(),min:inp.dataset.min,max:inp.dataset.max});
+    }
+  });
+  // Custom stats
+  document.querySelectorAll('#stats-custom .stat-row').forEach(row=>{
+    const n=row.querySelector('.stat-name-input').value.trim();
+    const v=row.querySelector('.stat-val-input').value.trim();
+    if(n) stats.push({name:n,value:v});
+  });
+  return stats;
 }
 
 async function saveItem(){
