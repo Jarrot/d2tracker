@@ -1176,7 +1176,7 @@ function renderItems(){
     return `<tr data-id="${i.id}">
       <td class="td-name">
         <div class="item-name-wrap">
-          <div class="item-icon-placeholder ${cls}">${lbl}</div>
+          ${(()=>{const db=d2db.find(d=>d.name===i.name&&d.cat===i.cat);return db&&db.imgUrl?`<img src="${db.imgUrl}" style="width:36px;height:36px;object-fit:contain;image-rendering:pixelated;flex-shrink:0" onerror="this.outerHTML='<div class=\"item-icon-placeholder ${cls}\">${lbl}</div>'" loading="lazy">`: `<div class="item-icon-placeholder ${cls}">${lbl}</div>`;})()}
           <div class="item-name-info">
             <span class="item-name-main ${cls}"
               onclick="openEdit('${i.id}')"
@@ -1214,6 +1214,11 @@ function showTooltip(e,id){
   const tt=document.getElementById('item-tooltip');
 
   let html='<div class="tt-inner">';
+
+  // Item image if available
+  if(dbRef&&dbRef.imgUrl){
+    html+=`<div style="text-align:center;margin-bottom:8px"><img src="${dbRef.imgUrl}" style="width:56px;height:56px;object-fit:contain;image-rendering:pixelated" onerror="this.style.display='none'"></div>`;
+  }
 
   // Item name — colored by type
   html+=`<div class="tt-name ${cls}">${item.name}</div>`;
