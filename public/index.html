@@ -295,6 +295,10 @@ main {
 .td-act { padding: 10px 14px 10px 4px; text-align: right; width: 36px; }
 
 .item-name-wrap { display: flex; align-items: center; gap: 10px; }
+.item-img-icon {
+  width: 36px; height: 36px; object-fit: contain;
+  image-rendering: pixelated; flex-shrink: 0;
+}
 .item-icon-placeholder {
   width: 36px; height: 36px; flex-shrink: 0;
   background: var(--bg3); border-radius: 4px;
@@ -1013,6 +1017,32 @@ function itemSlug(name){
   return name.toLowerCase().replace(/'/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 }
 
+function itemIcon(item, cls, lbl){
+  const db=d2db.find(d=>d.name===item.name&&d.cat===item.cat);
+  if(db&&db.imgUrl){
+    const img=document.createElement('img');
+    img.src=db.imgUrl;
+    img.className='item-img-icon';
+    img.loading='lazy';
+    img.onerror=function(){this.style.display='none';};
+    return img.outerHTML;
+  }
+  return '<div class="item-icon-placeholder '+cls+'">'+lbl+'</div>';
+}
+
+function dbStats(item){
+  // Returns stats to display — own rolls if present, else db ranges
+  const db=d2db.find(d=>d.name===item.name&&d.cat===item.cat);
+  const owned=item.stats&&item.stats.length>0;
+  if(owned){
+    return {stats:item.stats, owned:true};
+  }
+  if(db&&db.stats){
+    return {stats:db.stats, owned:false, db:true};
+  }
+  return {stats:[], owned:false};
+}
+
 // ── State ────────────────────────────────────────────────────────────────────
 let items=[],chars=[],d2db=[];
 let editId=null,acFocusIdx=-1;
@@ -1157,17 +1187,32 @@ function renderItems(){
     if(i.cat==='Set'&&i.setname) sublabel=i.setname;
     else if(i.cat==='Runeword'&&dbRef&&dbRef.runes) sublabel=(dbRef.runes||[]).join(' + ');
 
-    // Stats to show
+    // Stats — always show full list, rolls if owned else db ranges
     const statLines=[];
-    if(i.stats&&i.stats.length){
-      i.stats.filter(s=>s.value&&s.name!=='Sockets').slice(0,5).forEach(s=>{
-        const label=(s.name||'').replace('%d',s.value).replace('%d%%',s.value+'%')||`${s.name}: ${s.value}`;
-        statLines.push(`<div class="stat-line">${label}</div>`);
+    const hasSavedStats=i.stats&&i.stats.filter(s=>s.name!=='Sockets'&&s.value).length>0;
+    if(hasSavedStats){
+      // Show actual rolls in gold
+      i.stats.filter(s=>s.value&&s.name!=='Sockets').slice(0,6).forEach(s=>{
+        const label=(s.name||'').replace('%d',s.value).replace('%d%%',s.value+'%');
+        statLines.push(`<div class="stat-line roll">${label}</div>`);
       });
     } else if(dbRef&&dbRef.stats){
-      dbRef.stats.filter(s=>s.fixed||(s.variable===false&&s.min)).slice(0,4).forEach(s=>{
-        const label=s.fixed?s.name:(s.name||'').replace('%d',s.min||'').replace('%d%%',(s.min||'')+'%');
-        statLines.push(`<div class="stat-line fixed">${label}</div>`);
+      // Show db stats with ranges
+      dbRef.stats.slice(0,6).forEach(s=>{
+        if(s.fixed){
+          statLines.push(`<div class="stat-line fixed">${s.name}</div>`);
+        } else if(s.variable===false){
+          const label=(s.name||'').replace('%d',s.min||'').replace('%d%%',(s.min||'')+'%');
+          statLines.push(`<div class="stat-line">${label}</div>`);
+        } else {
+          const base=(s.name||'').replace(/%d%?%?/g,'').trim();
+          const range=s.min!==undefined&&s.max!==undefined&&s.min!==s.max?`${s.min}–${s.max}`:(s.min||s.max||'?');
+          statLines.push(`<div class="stat-line">${base} <span class="stat-range">(${range})</span></div>`);
+        }
+      });
+    } else if(i.cat==='Runeword'&&dbRef&&dbRef.stats){
+      dbRef.stats.slice(0,5).forEach(s=>{
+        statLines.push(`<div class="stat-line">${Array.isArray(s)?s.join(' + '):s}</div>`);
       });
     }
 
@@ -1176,7 +1221,7 @@ function renderItems(){
     return `<tr data-id="${i.id}">
       <td class="td-name">
         <div class="item-name-wrap">
-          ${(()=>{const db=d2db.find(d=>d.name===i.name&&d.cat===i.cat);return db&&db.imgUrl?`<img src="${db.imgUrl}" style="width:36px;height:36px;object-fit:contain;image-rendering:pixelated;flex-shrink:0" onerror="this.outerHTML='<div class=\"item-icon-placeholder ${cls}\">${lbl}</div>'" loading="lazy">`: `<div class="item-icon-placeholder ${cls}">${lbl}</div>`;})()}
+          ${itemIcon(i,cls,lbl)}
           <div class="item-name-info">
             <span class="item-name-main ${cls}"
               onclick="openEdit('${i.id}')"
