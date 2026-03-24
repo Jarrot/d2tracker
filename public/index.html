@@ -212,6 +212,43 @@ main {
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border);
 }
+.view-toggle {
+  display: flex; gap: 4px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 3px;
+}
+.vtbtn {
+  font-family: 'Cinzel', serif; font-size: 10px;
+  letter-spacing: .05em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 4px; border: none;
+  background: transparent; color: var(--text3);
+  cursor: pointer; transition: all .15s; white-space: nowrap;
+}
+.vtbtn:hover { color: var(--text2); }
+.vtbtn.active { background: var(--bg4); color: var(--text); }
+.vtbtn.active.vt-missing { color: #f08080; }
+.vtbtn.active.vt-mine { color: var(--set2); }
+/* Roll quality colors */
+.roll-low { color: #e05555; font-size: 12px; margin-left: 4px; }
+.roll-mid { color: #e0c040; font-size: 12px; margin-left: 4px; }
+.roll-high { color: #50c050; font-size: 12px; margin-left: 4px; }
+.roll-fixed { color: #6090d0; font-size: 12px; margin-left: 4px; }
+/* Grayed out unowned items */
+tr.unowned td { opacity: .38; }
+tr.unowned:hover td { opacity: .65; }
+tr.owned-highlight { background: rgba(77,184,98,.03); }
+tr.missing-highlight td { opacity: 1 !important; }
+tr.missing-dim td { opacity: .3; }
+/* Owned badge */
+.owned-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; color: var(--set2);
+  background: rgba(77,184,98,.08); border: 1px solid rgba(77,184,98,.2);
+  border-radius: 3px; padding: 2px 7px; white-space: nowrap;
+}
+.unowned-badge {
+  font-size: 11px; color: var(--text3); font-style: italic;
+}
 .page-title {
   font-family: 'Cinzel', serif;
   font-size: 18px; font-weight: 600;
@@ -849,7 +886,12 @@ textarea { resize: vertical; height: 70px; }
     <div class="page active" id="page-stash">
       <div class="page-header">
         <div class="page-title" id="page-title-text">Alla Items</div>
-        <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <div style="margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <div class="view-toggle">
+            <button class="vtbtn active" id="vt-all" onclick="setViewMode('all',this)">Alla</button>
+            <button class="vtbtn vt-mine" id="vt-mine" onclick="setViewMode('mine',this)">Mina</button>
+            <button class="vtbtn vt-missing" id="vt-missing" onclick="setViewMode('missing',this)">Saknas</button>
+          </div>
           <select id="filter-char" onchange="renderItems()" style="width:auto;font-size:13px;height:32px;padding:4px 10px">
             <option value="">Alla karaktärer</option>
           </select>
@@ -1046,7 +1088,7 @@ function dbStats(item){
 // ── State ────────────────────────────────────────────────────────────────────
 let items=[],chars=[],d2db=[];
 let editId=null,acFocusIdx=-1;
-let activeCat='', activeStatus='';
+let activeCat='', activeStatus='', viewMode='all';
 
 const STATUS_LABEL={stored:'Sparad',equipped:'Utrustad',seeking:'Sökes',complete:'Komplett'};
 const STATUS_ORDER=['stored','equipped','seeking','complete'];
@@ -1124,6 +1166,14 @@ function updateSidebarCounts(){
   `;
 }
 
+// ── View mode ────────────────────────────────────────────────────────────────
+function setViewMode(mode, btn){
+  viewMode=mode;
+  document.querySelectorAll('.vtbtn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderItems();
+}
+
 // ── Char selects ─────────────────────────────────────────────────────────────
 function populateCharSelects(){
   const fs=document.getElementById('filter-char'),fc=document.getElementById('f-char');
@@ -1161,100 +1211,186 @@ function charClsTag(charName){
   return `<span class="cls-tag ${cn}">${c.cls}</span>`;
 }
 
+// Roll quality helper: returns css class based on where val falls in min-max range
+function rollQuality(val, min, max){
+  if(min===undefined||max===undefined||min===max)return 'roll-fixed';
+  const v=parseFloat(val), lo=parseFloat(min), hi=parseFloat(max);
+  if(isNaN(v)||isNaN(lo)||isNaN(hi))return 'roll-fixed';
+  const pct=(v-lo)/(hi-lo);
+  if(pct>=0.8)return 'roll-high';
+  if(pct>=0.4)return 'roll-mid';
+  return 'roll-low';
+}
+
+function renderStatLines(dbRef, ownedStats){
+  const lines=[];
+  if(!dbRef||!dbRef.stats) return lines;
+  const savedMap={};
+  if(ownedStats) ownedStats.filter(s=>s.name&&s.value&&s.name!=='Sockets').forEach(s=>savedMap[s.name]=s);
+
+  dbRef.stats.slice(0,6).forEach((s,idx)=>{
+    if(s.fixed){
+      // Fixed stat — white, no roll
+      const myRoll=savedMap[s.name];
+      lines.push(`<div class="stat-line fixed">${s.name}${myRoll?`<span class="roll-fixed"> ✓</span>`:''}</div>`);
+    } else if(s.variable===false){
+      const label=(s.name||'').replace('%d',s.min||'').replace('%d%%',(s.min||'')+'%');
+      const myRoll=Object.values(savedMap).find(r=>(s.name||'').includes(r.name.split(' ')[0]));
+      lines.push(`<div class="stat-line">${label}${myRoll?`<span class="roll-fixed"> ${myRoll.value}</span>`:''}</div>`);
+    } else {
+      // Variable stat — show range, then roll quality if owned
+      const base=(s.name||'').replace(/%d%?%?/g,'').trim();
+      const range=s.min!==undefined&&s.max!==undefined&&s.min!==s.max?`${s.min}–${s.max}`:(s.min??s.max??'?');
+      // Find matching saved roll by partial name match
+      const rollKey=Object.keys(savedMap).find(k=>k.includes(base.slice(0,8))||base.includes(k.slice(0,8)));
+      const myRoll=rollKey?savedMap[rollKey]:null;
+      let rollHtml='';
+      if(myRoll&&myRoll.value){
+        const qcls=rollQuality(myRoll.value,s.min,s.max);
+        rollHtml=`<span class="${qcls}">${myRoll.value}</span>`;
+      }
+      lines.push(`<div class="stat-line">${base} <span class="stat-range">(${range})</span>${rollHtml}</div>`);
+    }
+  });
+  return lines;
+}
+
 function renderItems(){
   const charFilter=document.getElementById('filter-char')?.value||'';
-  const filtered=items.filter(i=>{
-    if(activeCat&&i.cat!==activeCat)return false;
-    if(activeStatus&&i.status!==activeStatus)return false;
-    if(charFilter&&i.char!==charFilter)return false;
+
+  // Build db item list — unique by name+cat from d2db, filtered by active cat
+  let dbItems=d2db.filter(d=>{
+    if(activeCat&&d.cat!==activeCat)return false;
+    if(activeStatus)return false; // status filter only applies to owned
     return true;
   });
+
+  // Deduplicate db items by name+cat (some items appear multiple times)
+  const seen=new Set();
+  dbItems=dbItems.filter(d=>{
+    const key=d.name+'|'+d.cat;
+    if(seen.has(key))return false;
+    seen.add(key);return true;
+  });
+
+  // For each db item, find owned instances
+  const getOwned=(name,cat)=>items.filter(i=>i.name===name&&i.cat===cat&&(!charFilter||i.char===charFilter));
+
+  // Apply view mode filter
+  let displayItems=dbItems;
+  if(viewMode==='mine'){
+    displayItems=dbItems.filter(d=>getOwned(d.name,d.cat).length>0);
+  } else if(viewMode==='missing'){
+    displayItems=dbItems.filter(d=>getOwned(d.name,d.cat).length===0);
+  }
+
+  // Also apply activeStatus filter (on owned items)
+  if(activeStatus){
+    displayItems=items.filter(i=>{
+      if(activeCat&&i.cat!==activeCat)return false;
+      if(i.status!==activeStatus)return false;
+      if(charFilter&&i.char!==charFilter)return false;
+      return true;
+    });
+  }
 
   updateSidebarCounts();
 
   const list=document.getElementById('item-list');
-  if(!filtered.length){
+  if(!displayItems.length){
     list.innerHTML=`<tr><td colspan="6"><div class="empty-state">Inga items matchar filtret</div></td></tr>`;
     return;
   }
 
-  list.innerHTML=filtered.map(i=>{
-    const cls=clsCode(i.cat);
-    const lbl=clsLabel(i.cat);
-    const dbRef=d2db.find(d=>d.name===i.name&&d.cat===i.cat);
-    const rlvl=dbRef&&dbRef.rlvl?dbRef.rlvl:'—';
-    let sublabel='';
-    if(i.cat==='Set'&&i.setname) sublabel=i.setname;
-    else if(i.cat==='Runeword'&&dbRef&&dbRef.runes) sublabel=(dbRef.runes||[]).join(' + ');
+  list.innerHTML=displayItems.map(dbItem=>{
+    // Use dbItem for display, owned instances for char/status info
+    const isOwnedItem='id' in dbItem; // came from items[] via status filter
+    const d=isOwnedItem?d2db.find(x=>x.name===dbItem.name&&x.cat===dbItem.cat)||dbItem:dbItem;
+    const ownedList=isOwnedItem?[dbItem]:getOwned(d.name,d.cat);
+    const isOwned=ownedList.length>0;
 
-    // Stats — always show full list, rolls if owned else db ranges
-    const statLines=[];
-    const hasSavedStats=i.stats&&i.stats.filter(s=>s.name!=='Sockets'&&s.value).length>0;
-    if(hasSavedStats){
-      // Show actual rolls in gold
-      i.stats.filter(s=>s.value&&s.name!=='Sockets').slice(0,6).forEach(s=>{
-        const label=(s.name||'').replace('%d',s.value).replace('%d%%',s.value+'%');
-        statLines.push(`<div class="stat-line roll">${label}</div>`);
-      });
-    } else if(dbRef&&dbRef.stats){
-      // Show db stats with ranges
-      dbRef.stats.slice(0,6).forEach(s=>{
-        if(s.fixed){
-          statLines.push(`<div class="stat-line fixed">${s.name}</div>`);
-        } else if(s.variable===false){
-          const label=(s.name||'').replace('%d',s.min||'').replace('%d%%',(s.min||'')+'%');
-          statLines.push(`<div class="stat-line">${label}</div>`);
-        } else {
-          const base=(s.name||'').replace(/%d%?%?/g,'').trim();
-          const range=s.min!==undefined&&s.max!==undefined&&s.min!==s.max?`${s.min}–${s.max}`:(s.min||s.max||'?');
-          statLines.push(`<div class="stat-line">${base} <span class="stat-range">(${range})</span></div>`);
-        }
-      });
-    } else if(i.cat==='Runeword'&&dbRef&&dbRef.stats){
-      dbRef.stats.slice(0,5).forEach(s=>{
-        statLines.push(`<div class="stat-line">${Array.isArray(s)?s.join(' + '):s}</div>`);
-      });
+    const cls=clsCode(d.cat);
+    const lbl=clsLabel(d.cat);
+    const rlvl=d.rlvl||'—';
+
+    let sublabel='';
+    if(d.cat==='Set'&&d.setname) sublabel=d.setname;
+    else if(d.cat==='Runeword'&&d.runes) sublabel=(d.runes||[]).join(' + ');
+
+    // Stats with roll quality
+    const firstOwned=ownedList[0];
+    const ownedStats=firstOwned?.stats||[];
+    const statLines=renderStatLines(d, isOwned?ownedStats:[]);
+
+    // Sockets
+    const sockStat=firstOwned?.stats?.find(s=>s.name==='Sockets'&&s.value);
+
+    // Char/owner display
+    let charCell='<span class="unowned-badge">—</span>';
+    if(isOwned){
+      charCell=ownedList.map(oi=>{
+        const c=chars.find(x=>x.name===oi.char);
+        const clsTag=c&&c.cls?`<span class="char-badge-cls">${c.cls}</span>`:'';
+        return `<div class="owned-badge">📍 ${oi.char||'?'}${clsTag}</div>`;
+      }).join('<br>');
     }
 
-    const sockStat=i.stats&&i.stats.find(s=>s.name==='Sockets'&&s.value);
+    // Row class based on view mode
+    let rowCls='';
+    if(viewMode==='all'){
+      rowCls=isOwned?'owned-highlight':'unowned';
+    } else if(viewMode==='missing'){
+      rowCls='missing-highlight';
+    }
 
-    return `<tr data-id="${i.id}">
+    // For status pill — use first owned item if exists
+    const statusCell=isOwned&&firstOwned?
+      `<button class="status-pill ${firstOwned.status}" onclick="cycleStatus('${firstOwned.id}')">${STATUS_LABEL[firstOwned.status]||firstOwned.status}</button>`:
+      `<span class="unowned-badge">Ej i stash</span>`;
+
+    // Click — edit if owned, add if not
+    const nameClick=isOwned?`openEdit('${firstOwned.id}')`:`openAddFromDB(d2db.find(x=>x.name==='${d.name.replace(/'/g,"\'")}'))`;
+    const delCell=isOwned&&firstOwned?`<button class="del-btn" onclick="deleteItem('${firstOwned.id}')">×</button>`:'';
+
+    return `<tr class="${rowCls}" ${isOwned?`data-id="${firstOwned.id}"`:''}>
       <td class="td-name">
         <div class="item-name-wrap">
-          ${itemIcon(i,cls,lbl)}
+          ${itemIcon(d,cls,lbl)}
           <div class="item-name-info">
             <span class="item-name-main ${cls}"
-              onclick="openEdit('${i.id}')"
-              onmouseenter="showTooltip(event,'${i.id}')"
-              onmouseleave="hideTooltip()">${i.name}</span>
+              onclick="${nameClick}"
+              onmouseenter="showTooltipDB(event,'${d.name.replace(/'/g,"\'")}','${d.cat}')"
+              onmouseleave="hideTooltip()">${d.name}</span>
             ${sublabel?`<div class="item-name-sub">${sublabel}</div>`:''}
-            ${sockStat?`<div class="item-name-sub">🔷 ${sockStat.value} sockets</div>`:''}
+            ${sockStat?`<div class="item-name-sub">⬡ ${sockStat.value} sockets</div>`:''}
           </div>
         </div>
       </td>
       <td class="td-lvl"><span class="rlvl-val">${rlvl}</span></td>
       <td class="td-stats">${statLines.join('')||'<span style="color:var(--text3);font-size:12px">—</span>'}</td>
-      <td class="td-char">
-        <div class="char-badge">
-          <span class="char-badge-name">${i.char||'—'}</span>
-          ${(()=>{const c=chars.find(x=>x.name===i.char);return c&&c.cls?`<span class="char-badge-cls">${c.cls}</span>`:''})()}
-        </div>
-      </td>
-      <td class="td-status">
-        <button class="status-pill ${i.status}" onclick="cycleStatus('${i.id}')">${STATUS_LABEL[i.status]||i.status}</button>
-      </td>
-      <td class="td-act">
-        <button class="del-btn" onclick="deleteItem('${i.id}')">×</button>
-      </td>
+      <td class="td-char">${charCell}</td>
+      <td class="td-status">${statusCell}</td>
+      <td class="td-act">${delCell}</td>
     </tr>`;
   }).join('');
 }
 
 // ── Tooltip ──────────────────────────────────────────────────────────────────
+function showTooltipDB(e, name, cat){
+  const dbRef=d2db.find(d=>d.name===name&&d.cat===cat);
+  const ownedList=items.filter(i=>i.name===name&&i.cat===cat);
+  const item=ownedList[0]||{name,cat,stats:[],char:null};
+  _renderTooltip(e, item, dbRef, ownedList);
+}
+
 function showTooltip(e,id){
   const item=items.find(i=>i.id===id);
   if(!item)return;
   const dbRef=d2db.find(d=>d.name===item.name&&d.cat===item.cat);
+  _renderTooltip(e, item, dbRef, [item]);
+}
+
+function _renderTooltip(e, item, dbRef, ownedList){
   const cls=clsCode(item.cat);
   const tt=document.getElementById('item-tooltip');
 
@@ -1318,13 +1454,6 @@ function showTooltip(e,id){
   if(item.notes){
     html+=`<div class="tt-divider"></div><div class="tt-prop gray">${item.notes}</div>`;
   }
-
-  html+=`</div><div class="tt-location">📍 ${item.char||'Ingen karaktär'}</div>`;
-
-  tt.innerHTML=html;
-  positionTooltip(e,tt);
-  tt.classList.add('visible');
-}
 
 function positionTooltip(e,tt){
   tt.style.display='block';
@@ -1805,6 +1934,7 @@ document.getElementById('set-modal').addEventListener('click',e=>{if(e.target===
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeSetModal();closeAC();hideTooltip();}});
 
 loadAll();
-</script>
+
+}</script>
 </body>
 </html>
